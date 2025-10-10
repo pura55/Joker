@@ -1,4 +1,8 @@
 #include "PlayScene.h"
+#include "Player.h"
+#include "MainMap.h"
+
+
 
 PlayScene::PlayScene()
 {
