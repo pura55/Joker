@@ -6,6 +6,7 @@
 
 PlayScene::PlayScene()
 {
+	new MainMap;
 }
 
 PlayScene::~PlayScene()

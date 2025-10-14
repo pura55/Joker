@@ -1,7 +1,8 @@
 #pragma once
 #include "../Library/GameObject.h"
 
-class MainMap : public GameObject {
+class MainMap : public GameObject 
+{
 public:
 	MainMap();
 	~MainMap();

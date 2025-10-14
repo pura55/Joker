@@ -1,19 +1,20 @@
 #pragma once
 #include "../Library/GameObject.h"
 
-class Player : public GameObject 
+
+class Enemy :public GameObject 
 {
 public:
-	Player();
-	~Player();
+	Enemy();
+	~Enemy();
 	void Update()override;
 	void Draw()override;
-	
 private:
-	int CharacterImage;//キャラクターの描画変数
-	float PlayerX; //プレイヤーのX座標
-	float PlayerY; //プレイヤーのY座標
+	int CharacterImage ;
+    float EnemyX; //敵のX座標
+	float EnemyY; //敵のY座標
 	int MovementsPattern; //動作のパターン
 	int MovementsCount; //動作のカウント
 	
 };
+
