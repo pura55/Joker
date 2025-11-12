@@ -4,7 +4,7 @@
 class Player : public GameObject 
 {
 public:
-	Player();
+	Player(int PX, int PY);
 	~Player();
 	void Update()override;
 	void Draw()override;
@@ -13,7 +13,5 @@ private:
 	int CharacterImage;//キャラクターの描画変数
 	float PlayerX; //プレイヤーのX座標
 	float PlayerY; //プレイヤーのY座標
-	int MovementsPattern; //動作のパターン
-	int MovementsCount; //動作のカウント
 	
 };

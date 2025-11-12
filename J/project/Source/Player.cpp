@@ -1,8 +1,11 @@
 #include "Player.h"
+#include "MainMap.h"
 
-;Player::Player()
+;Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 {
-	CharacterImage = LoadGraph("");
+	CharacterImage = LoadGraph("data/image/aoi.png");
+	PlayerX = PX;
+	PlayerY = PY;
 }
 
 Player::~Player() 
@@ -12,35 +15,45 @@ Player::~Player()
 
 void Player::Update()
 {
-	float speed = 0;
+	float speed = 2.8;
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
 		PlayerX += speed; //座標を変数分ずらして移動する
 
-		/*MovementsCount += 1;　　　//キャラの動きの処理（変更したい場合は後々変更可）
-		if (MovementsCount >= 16) 
-		{
-
-			MovementsPattern = (MovementsPattern + 1) % 4 + 0;
-
-			MovementsCount = 0;
-		}*/                                    
+		MainMap* ObjectHit = FindGameObject<MainMap>();
+		int push1 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 51);
+		int push2 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 63);
+		PlayerX -= max(push1, push2);
 	}
 
 	if (CheckHitKey(KEY_INPUT_A)) //Aキーを押したときの判定
 	{
 		PlayerX -= speed;
 
+		MainMap* ObjectHit = FindGameObject<MainMap>();
+		int push1 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 51);
+		int push2 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 63);
+		PlayerX += max(push1, push2);
 	}
 
 	if (CheckHitKey(KEY_INPUT_W)) //Wキーを押したときの判定
 	{
 		PlayerY -= speed;
+
+		MainMap* ObjectHit = FindGameObject<MainMap>();
+		int push1 = ObjectHit->HitCheckUp(PlayerX + 14, PlayerY + 51);
+		int push2 = ObjectHit->HitCheckUp(PlayerX + 50, PlayerY + 51);
+		PlayerY += max(push1, push2);
 	} 
 
 	if (CheckHitKey(KEY_INPUT_S)) //Sキーを押したときの判定
 	{
 		PlayerY += speed;
+
+		MainMap* ObjectHit = FindGameObject<MainMap>();
+		int push1 = ObjectHit->HitCheckDown(PlayerX + 14, PlayerY + 63);
+		int push2 = ObjectHit->HitCheckDown(PlayerX + 50, PlayerY + 63);
+		PlayerY -= max(push1, push2);
 	}
 
 
@@ -48,5 +61,5 @@ void Player::Update()
 
 void Player::Draw() 
 {
-	DrawRectGraph(PlayerX, PlayerY, 0, 0, 0, 0, CharacterImage, TRUE); //プレイヤーの描画
+	DrawRectGraph(PlayerX, PlayerY, 0, 0, 64, 64, CharacterImage, TRUE); //プレイヤーの描画
 }
