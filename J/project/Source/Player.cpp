@@ -3,7 +3,7 @@
 
 ;Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 {
-	CharacterImage = LoadGraph("data/image/aoi.png");
+	CharacterImage = LoadGraph("data/image/playerAt.png");
 	PlayerX = PX;
 	PlayerY = PY;
 }
@@ -61,5 +61,5 @@ void Player::Update()
 
 void Player::Draw() 
 {
-	DrawRectGraph(PlayerX, PlayerY, 0, 0, 64, 64, CharacterImage, TRUE); //プレイヤーの描画
+	DrawRectGraph(PlayerX, PlayerY, 0, 0, 64, 96, CharacterImage, TRUE); //プレイヤーの描画
 }
