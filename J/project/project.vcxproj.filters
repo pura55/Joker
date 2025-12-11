@@ -62,6 +62,8 @@
     <ClCompile Include="Source\csvReader.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Fader.cpp" />
+    <ClCompile Include="Source\TextBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -138,6 +140,8 @@
     <ClInclude Include="Source\CsvReader.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Fader.h" />
+    <ClInclude Include="Source\TextBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">

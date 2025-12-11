@@ -9,6 +9,9 @@ public:
 	~Enemy();
 	void Update()override;
 	void Draw()override;
+
+	bool Ishit(float px, float py);
+
 private:
 	int CharacterImage ;
     float EnemyX; //“G‚ÌXÀ•W
