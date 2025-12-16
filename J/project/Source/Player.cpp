@@ -1,8 +1,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "MainMap.h"
+#include "Warp.h"
+#include "FloorMap.h"
 
-;Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
+Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 {
 	CharacterImage = LoadGraph("data/image/playerAt.png");
 	PlayerX = PX;
@@ -23,7 +25,7 @@ void Player::Update()
 	{
 		return;
 	}
-	float speed = 2.2f;
+	float speed = 8.2f;
 
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
@@ -40,7 +42,7 @@ void Player::Update()
 		}
 
 		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 51);
+		int push1 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 91);
 		int push2 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 63);
 		PlayerX -= max(push1, push2);
 	}
@@ -59,7 +61,7 @@ void Player::Update()
 		}
 
 		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 51);
+		int push1 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 91);
 		int push2 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 63);
 		PlayerX += max(push1, push2);
 	}
@@ -77,8 +79,8 @@ void Player::Update()
 		}
 
 		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckDown(PlayerX + 14, PlayerY + 63);
-		int push2 = ObjectHit->HitCheckDown(PlayerX + 50, PlayerY + 63);
+		int push1 = ObjectHit->HitCheckDown(PlayerX + 14, PlayerY + 92);
+		int push2 = ObjectHit->HitCheckDown(PlayerX + 50, PlayerY + 92);
 		PlayerY -= max(push1, push2);
 	}
 	else if (CheckHitKey(KEY_INPUT_W)) //Wキーを押したときの判定
@@ -99,10 +101,58 @@ void Player::Update()
 		int push2 = ObjectHit->HitCheckUp(PlayerX + 50, PlayerY + 51);
 		PlayerY += max(push1, push2);
 	}
+	// スクロール
+	MainMap* mainmap = FindGameObject<MainMap>();
+	if (mainmap)
+	{
+		int scX = mainmap->GetScrollX();
+		if (PlayerX - scX >= 700) mainmap->SetScrollX(PlayerX - 700);
+		if (PlayerX - scX <= 500) mainmap->SetScrollX(PlayerX - 500);
+		int scY = mainmap->GetScrollY();
+		if (PlayerY - scY >= 350) mainmap->SetScrollY(PlayerY - 350);
+		if (PlayerY - scY <= 200) mainmap->SetScrollY(PlayerY - 200);
+	}
+	FloorMap* floormap = FindGameObject<FloorMap>();
+	if (floormap)
+	{
+		int scX = floormap->GetScrollX();
+		if (PlayerX - scX >= 700) floormap->SetScrollX(PlayerX - 700);
+		if (PlayerX - scX <= 500) floormap->SetScrollX(PlayerX - 500);
+		int scY = floormap->GetScrollY();
+		if (PlayerY - scY >= 350) floormap->SetScrollY(PlayerY - 350);
+		if (PlayerY - scY <= 200) floormap->SetScrollY(PlayerY - 200);
+	}
 
+	// ワープチェック
+	if (mainmap && mainmap->Warp(PlayerX, PlayerY))
+	{
+		int prevX = PlayerX;
+		int prevY = PlayerY;
+		int outX = mainmap->GetWarpOutX();
+		int outY = mainmap->GetWarpOutY();
+		PlayerX = outX;
+		PlayerY = outY;
+		int targetFloor = 0;
+		if (floormap)
+		{
+			targetFloor = floormap->GetTargetWarpFloor();
+		}
+		new Warp(mainmap->GetTargetWarpStage(),targetFloor, outX, outY);
+		DestroyMe();
+	}
 }
 
-void Player::Draw() 
+void Player::Draw()
 {
-	DrawRectGraph(PlayerX , PlayerY, 64 * MovementsPattern, 96 * DirChara, 64, 96, CharacterImage, TRUE); //プレイヤーの描画
+	//プレイヤー描写
+	MainMap* mainmap = FindGameObject<MainMap>();
+	int scX = 0;
+	int scY = 0;
+	if (mainmap)
+	{
+		scX = mainmap->GetScrollX();
+		scY = mainmap->GetScrollY();
+	}
+
+	DrawRectGraph(PlayerX - scX,PlayerY - scY, 64 * MovementsPattern, 96 * DirChara, 64, 96, CharacterImage, TRUE);
 }

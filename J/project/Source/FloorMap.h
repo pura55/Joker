@@ -4,22 +4,22 @@
 
 using namespace std;
 
-class MainMap : public GameObject 
+class FloorMap : public GameObject
 {
 public:
-	MainMap(int stage);
-	~MainMap();
+	FloorMap(int floor);
+	~FloorMap();
 	void Update()override;
 	void Draw()override;
 
 	int HitCheckRight(int Px, int Py); //マップの当たり判定
-	int HitCheckLeft(int Px, int Py);  
-	int HitCheckUp(int Px, int Py);    
-	int HitCheckDown(int Px, int Py); 
+	int HitCheckLeft(int Px, int Py);
+	int HitCheckUp(int Px, int Py);
+	int HitCheckDown(int Px, int Py);
 	int GetScrollX() { return scrollX; }
 	int GetScrollY() { return scrollY; }
-	int GetTargetWarpStage() const { return targetWarpStage; }
 	int GetTargetWarpFloor() const { return targetWarpFloor; }
+	void SetTargerWarpFloor(int floor) { targetWarpFloor = floor; }
 	void SetScrollX(int sx) { scrollX = sx; }
 	void SetScrollY(int sy) { scrollY = sy; }
 	void SetStageNum(int stage) { StageNum = stage; } //ステージの番号をセットする関数
@@ -30,28 +30,6 @@ public:
 
 private:
 	int FloorImage;//mapの描画変数
-	int ArtImage;
-	int BodyModelImage;
-	int ChoiceImage;
-	int MusicImage;
-	int PianoImage;
-	int Pierrot2;
-	int ChairImage;
-	int SofaImage;
-	int STImage1;
-	int STImage2;
-	int STImage3;
-	int STImage4;
-	int STImage5;
-	int STImage6;
-	int STImage7;
-	int STImage8;
-	int ScienceChairImage;
-	int LockerImage;
-	int ScienceTableImage;
-	int STChairImage;
-	int StaffChairImage;
-	int TextBoxImage;
 	int StageNum;
 	int BgSize;
 	int scrollX;
@@ -60,6 +38,5 @@ private:
 	int targetWarpFloor;
 	int warpOutX = 0;
 	int warpOutY = 0;
-	
 
 };
