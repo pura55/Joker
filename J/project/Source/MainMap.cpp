@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "CsvReader.h"
 #include "FloorMap.h"
+#include "Fader.h"
 #include <vector>
 #include <iostream>
 
@@ -30,7 +31,8 @@ MainMap::MainMap(int stage)
 	}
 	delete csv;
 
-	FloorImage = LoadGraph("data/image/artboad.png");//相沢お手製の床壁諸々
+
+	FloorImage = LoadGraph("data/image/artboad.png");//相沢お手製の床壁諸
 	ArtImage = LoadGraph("data/image/Artrooms.png");//アート系
 	BodyModelImage = LoadGraph("data/image/Bodymodel.png");//人体模型
 	ChoiceImage = LoadGraph("data/image/choice.png");//文字出るところ
@@ -52,10 +54,6 @@ MainMap::MainMap(int stage)
 	ScienceTableImage = LoadGraph("data/image/ST-Schl-I02.png");
 	STChairImage = LoadGraph("data/image/student.png");//机椅子
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
-	TextBoxImage = LoadGraph("data/image/TextBox.png");//テキストボックス
-	BgSize = 64;
-	
-	
 
 }
 
@@ -66,7 +64,6 @@ MainMap::~MainMap()
 
 void MainMap::Update()
 {
-
 }
 
 void MainMap::Draw()
@@ -78,7 +75,7 @@ void MainMap::Draw()
 			// ==================================================
 			// まだ読み込みの設定をしていないものは×してます
 			// ==================================================
-			
+
 			// ==================================================
 			// 共通
 			// ==================================================
@@ -108,11 +105,11 @@ void MainMap::Draw()
 			}
 			if (maps[y][x] == 3)//おそらく花瓶　×
 			{
-				
+
 			}
 			//画面下部扉用床
-			if (maps[y][x] == 1011 || maps[y][x] == 1012 || maps[y][x] == 1013 || maps[y][x] == 1014 || 
-				maps[y][x] == 1015 || maps[y][x] == 1016 || maps[y][x] == 1017 || maps[y][x] == 1018 || 
+			if (maps[y][x] == 1011 || maps[y][x] == 1012 || maps[y][x] == 1013 || maps[y][x] == 1014 ||
+				maps[y][x] == 1015 || maps[y][x] == 1016 || maps[y][x] == 1017 || maps[y][x] == 1018 ||
 				maps[y][x] == 1019 || maps[y][x] == 1020 || maps[y][x] == 2011 || maps[y][x] == 2012 ||
 				maps[y][x] == 2013 || maps[y][x] == 2014 || maps[y][x] == 2015 || maps[y][x] == 2016 ||
 				maps[y][x] == 2017 || maps[y][x] == 2018 || maps[y][x] == 2019 || maps[y][x] == 2020 ||
@@ -381,7 +378,7 @@ void MainMap::Draw()
 			}
 			if (maps[y][x] == 98)//ムキムキ校長像　×
 			{
-				
+
 			}
 			if (maps[y][x] == 99)//美術室椅子
 			{
@@ -450,7 +447,7 @@ int MainMap::HitCheckRight(int Px, int Py) //右の当たり判定
 	if (x >= maps[y].size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41|| maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 || maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
@@ -579,19 +576,15 @@ int MainMap::HitCheckDown(int Px, int Py) //下の当たり判定
 	return 0;
 }
 
-void MainMap::DrawMapArts(int MapsNum, int MapsX, int MapsY)
-{
-	
-}
-
 bool MainMap::Warp(int Px, int Py)
 {
+
 	if (Py < 0)
 	{
 		return 0;
 	}
-	int x = Px / 64;
-	int y = Py / 64;
+	int x = (Px + BgSize / 2) / 64;
+	int y = (Py + (BgSize + 32) / 2) / 64;
 
 	if (y < 0 || y >= maps.size()) return 0;
 	if (x < 0 || x >= maps[y].size()) return 0;
@@ -606,16 +599,20 @@ bool MainMap::Warp(int Px, int Py)
 
 		return true;
 	}
+
+	Fader* fader = FindGameObject<Fader>();
+
 	//maps[y][x]においてxは+をすると左側に寄り、-をすると右側による。yは+をすると上に寄り、-をすると下に寄る
 	// ==================================================
 	// １階から２階への階段
 	// ==================================================
 	//左
-	if (maps[y][x + 1] == 100001 || maps[y - 1][x + 1] == 100001 || maps[y][x] == 100001 || maps[y - 1][x] == 100001)
+	if (maps[y][x] == 100001)
 	{
 		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -625,11 +622,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//中央
-	if (maps[y][x - 1] == 100001 || maps[y - 1][x - 1] == 100001)
+	if (maps[y][x - 1] == 100001)
 	{
 		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -639,11 +637,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右
-	if (maps[y][x - 2] == 100001 ||  maps[y - 1][x - 2] == 100001)
+	if (maps[y][x - 2] == 100001)
 	{
 		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -653,14 +652,15 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	// ==================================================
-	// ２階から１階への階段
+	// 2階から１階への階段
 	// ==================================================
 	//左
-	if (maps[y][x + 1] == 200001 || maps[y - 1][x + 1] == 200001 || maps[y][x] == 200001 || maps[y - 1][x] == 200001)
+	if (maps[y][x] == 200001)
 	{
 		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -670,11 +670,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//中央
-	if (maps[y][x - 1] == 200001 || maps[y - 1][x - 1] == 200001)
+	if (maps[y][x - 1] == 200001)
 	{
 		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -684,11 +685,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右
-	if (maps[y][x - 2] == 200001 || maps[y - 1][x - 2] == 200001)
+	if (maps[y][x - 2] == 200001)
 	{
 		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -701,11 +703,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から職員室
 	// ==================================================
 	//左扉
-	if (maps[y + 1][x + 1] == 1011 || maps[y + 1][x] == 1011)
+	if (maps[y][x] == 1011)
 	{
 		DrawString(600, 700, "Fで職員室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1);//行先
@@ -715,11 +718,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右扉
-	if (maps[y + 1][x] == 1012)
+	if (maps[y][x] == 1012)
 	{
 		DrawString(600, 700, "Fで職員室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1);//行先
@@ -732,11 +736,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 職員室から廊下
 	// ==================================================
 	//左扉
-	if (maps[y][x + 1] == 11011 || maps[y][x] == 11011)
+	if (maps[y][x] == 11011)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -751,6 +756,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -763,11 +769,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から理科室
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 10001 || maps[y][x] == 10001)
+	if (maps[y][x] == 10001)
 	{
 		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2);//行先
@@ -782,6 +789,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2);//行先
@@ -791,11 +799,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 10003 || maps[y][x] == 10003)
+	if (maps[y][x] == 10003)
 	{
 		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2);//行先
@@ -810,6 +819,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2);//行先
@@ -822,11 +832,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 理科室から廊下
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 1101 || maps[y + 1][x] == 1101)
+	if (maps[y][x] == 1101)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -836,11 +847,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 1102)
+	if (maps[y][x] == 1102)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -850,11 +862,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 1103|| maps[y + 1][x] == 1103)
+	if (maps[y][x] == 1103)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -864,11 +877,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 1104)
+	if (maps[y][x] == 1104)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -881,11 +895,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から図書室
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 10005 || maps[y][x] == 10005)
+	if (maps[y][x] == 10005)
 	{
 		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 3;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(3);//行先
@@ -900,6 +915,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 3;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(3);//行先
@@ -909,11 +925,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 10007 || maps[y][x] == 10007)
+	if (maps[y][x] == 10007)
 	{
 		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 3;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(3);//行先
@@ -928,6 +945,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 3;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(3);//行先
@@ -940,11 +958,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 図書室から廊下
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 1105 || maps[y + 1][x] == 1105)
+	if (maps[y][x] == 1105)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -954,11 +973,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 1106)
+	if (maps[y][x] == 1106)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -968,11 +988,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 1107 || maps[y + 1][x] == 1107)
+	if (maps[y][x] == 1107)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -982,11 +1003,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 1108)
+	if (maps[y][x] == 1108)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -999,11 +1021,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から校長室
 	// ==================================================
 	//左扉
-	if (maps[y + 1][x + 1] == 2011 || maps[y + 1][x] == 2011)
+	if (maps[y][x] == 2011)
 	{
 		DrawString(600, 700, "Fで校長室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 4;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(4);//行先
@@ -1013,11 +1036,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右扉
-	if (maps[y + 1][x] == 2012)
+	if (maps[y][x] == 2012)
 	{
 		DrawString(600, 700, "Fで校長室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 4;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(4);//行先
@@ -1030,11 +1054,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 校長室から廊下
 	// ==================================================
 	//左扉
-	if (maps[y][x + 1] == 21011 || maps[y][x] == 21011)
+	if (maps[y][x] == 21011)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1049,6 +1074,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1061,11 +1087,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から音楽室
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 20001 || maps[y][x] == 20001)
+	if (maps[y][x] == 20001)
 	{
 		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 5;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(5);//行先
@@ -1080,6 +1107,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 5;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(5);//行先
@@ -1089,11 +1117,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 20003 || maps[y][x] == 20003)
+	if (maps[y][x] == 20003)
 	{
 		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 5;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(5);//行先
@@ -1108,6 +1137,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 5;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(5);//行先
@@ -1119,12 +1149,17 @@ bool MainMap::Warp(int Px, int Py)
 	// ==================================================
 	// 音楽室から廊下
 	// ==================================================
+	/*if (CheckHitKey(KEY_INPUT_E))
+	{
+		switch()
+	}*/
 	//左　左扉
-	if (maps[y + 1][x + 1] == 2101 || maps[y + 1][x] == 2101)
+	if (maps[y][x] == 2101)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1134,11 +1169,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 2102)
+	if (maps[y][x] == 2102)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1148,11 +1184,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 2103 || maps[y + 1][x] == 2103)
+	if (maps[y][x] == 2103)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1162,11 +1199,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 2104)
+	if (maps[y][x] == 2104)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1179,11 +1217,14 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から美術室
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 20005 || maps[y][x] == 20005)
+	if (maps[y][x] == 20005)
 	{
 		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
+
+
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 6;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(6);	//行先
@@ -1191,6 +1232,7 @@ bool MainMap::Warp(int Px, int Py)
 			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 			return true;
 		}
+
 	}
 	//左　右扉
 	if (maps[y][x] == 20006)
@@ -1198,6 +1240,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 6;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(6);	//行先
@@ -1207,11 +1250,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 20007 || maps[y][x] == 20007)
+	if (maps[y][x] == 20007)
 	{
 		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 6;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(6);	//行先
@@ -1226,6 +1270,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 6;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(6);	//行先
@@ -1238,11 +1283,14 @@ bool MainMap::Warp(int Px, int Py)
 	// 美術室から廊下
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 2105 || maps[y + 1][x] == 2105)
+	if (maps[y][x] == 2105)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
+
+
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1252,11 +1300,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 2106)
+	if (maps[y][x] == 2106)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1266,11 +1315,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 2107 || maps[y + 1][x] == 2107)
+	if (maps[y][x] == 2107)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1280,11 +1330,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 2108)
+	if (maps[y][x] == 2108)
 	{
 		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1297,11 +1348,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から教室　１ー１
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 1013 || maps[y + 1][x] == 1013)
+	if (maps[y][x] == 1013)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 101;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(101);//行先
@@ -1311,11 +1363,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 1014)
+	if (maps[y][x] == 1014)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 101;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(101);//行先
@@ -1325,11 +1378,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 1015 || maps[y + 1][x] == 1015)
+	if (maps[y][x] == 1015)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 101;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(101);//行先
@@ -1339,11 +1393,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 1016)
+	if (maps[y][x] == 1016)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 101;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(101);//行先
@@ -1356,11 +1411,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 教室から廊下　１－１
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 11013 || maps[y][x] == 11013)
+	if (maps[y][x] == 11013)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1375,6 +1431,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1384,11 +1441,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 11015 || maps[y][x] == 11015)
+	if (maps[y][x] == 11015)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1403,6 +1461,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1415,11 +1474,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から教室　１ー２
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 1017 || maps[y + 1][x] == 1017)
+	if (maps[y][x] == 1017)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 102;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(102);//行先
@@ -1429,11 +1489,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 1018)
+	if (maps[y][x] == 1018)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 102;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(102);//行先
@@ -1443,11 +1504,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 1019 || maps[y + 1][x] == 1019)
+	if (maps[y][x] == 1019)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 102;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(102);//行先
@@ -1457,11 +1519,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 1020)
+	if (maps[y][x] == 1020)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 102;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(102);//行先
@@ -1474,11 +1537,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 教室から廊下　１－２
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 11017 || maps[y][x] == 11017)
+	if (maps[y][x] == 11017)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1493,6 +1557,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1502,11 +1567,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 11019 || maps[y][x] == 11019)
+	if (maps[y][x] == 11019)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1521,6 +1587,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 1000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(1000);//行先
@@ -1533,11 +1600,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から教室　２ー１
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 2013 || maps[y + 1][x] == 2013)
+	if (maps[y][x] == 2013)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 201;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(201);//行先
@@ -1547,11 +1615,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 2014)
+	if (maps[y][x] == 2014)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 201;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(201);//行先
@@ -1561,11 +1630,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 2015 || maps[y + 1][x] == 2015)
+	if (maps[y][x] == 2015)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 201;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(201);//行先
@@ -1575,11 +1645,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 2016)
+	if (maps[y][x] == 2016)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 201;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(201);//行先
@@ -1592,11 +1663,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 教室から廊下　２－１
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 21013 || maps[y][x] == 21013)
+	if (maps[y][x] == 21013)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1611,6 +1683,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1620,11 +1693,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 21015 || maps[y][x] == 21015)
+	if (maps[y][x] == 21015)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1639,6 +1713,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1651,11 +1726,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 廊下から教室　２ー２
 	// ==================================================
 	//左　左扉
-	if (maps[y + 1][x + 1] == 2017 || maps[y + 1][x] == 2017)
+	if (maps[y][x] == 2017)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 202;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(202);//行先
@@ -1665,11 +1741,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//左　右扉
-	if (maps[y + 1][x] == 2018)
+	if (maps[y][x] == 2018)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 202;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(202);//行先
@@ -1679,11 +1756,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y + 1][x + 1] == 2019 || maps[y + 1][x] == 2019)
+	if (maps[y][x] == 2019)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 202;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(202);//行先
@@ -1693,11 +1771,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　右扉
-	if (maps[y + 1][x] == 2020)
+	if (maps[y][x] == 2020)
 	{
 		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_F))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 202;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(202);//行先
@@ -1710,11 +1789,12 @@ bool MainMap::Warp(int Px, int Py)
 	// 教室から廊下　２－２
 	// ==================================================
 	//左　左扉
-	if (maps[y][x + 1] == 21017 || maps[y][x] == 21017)
+	if (maps[y][x] == 21017)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1729,6 +1809,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1738,11 +1819,12 @@ bool MainMap::Warp(int Px, int Py)
 		}
 	}
 	//右　左扉
-	if (maps[y][x + 1] == 21019 || maps[y][x] == 21019)
+	if (maps[y][x] == 21019)
 	{
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1757,6 +1839,7 @@ bool MainMap::Warp(int Px, int Py)
 		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
 		if (CheckHitKey(KEY_INPUT_E))
 		{
+			fader->FadeIn(inTime);
 			targetWarpStage = 2000;//行先
 			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
 			floor->SetTargerWarpFloor(2000);//行先
@@ -1767,3 +1850,4 @@ bool MainMap::Warp(int Px, int Py)
 	}
 	return false;
 }
+

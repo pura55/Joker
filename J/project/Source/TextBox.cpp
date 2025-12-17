@@ -102,10 +102,6 @@ void TextBox::Update()
 
 void TextBox::Draw()
 {
-
-	int BoxPosX = 350;
-	int BoxPosY = 500;
-
 	//–â‘è‚Ìo—Í”»’è
 	switch (QuestionCount)
 	{

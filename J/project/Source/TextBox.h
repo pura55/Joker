@@ -21,4 +21,8 @@ private:
 	int QuestionNum;
 	bool TextJudge;
 	float time;
+
+private:
+	const int BoxPosX = 350;
+	const int BoxPosY = 500;
 };

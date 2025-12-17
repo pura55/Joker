@@ -64,6 +64,8 @@
     </ClCompile>
     <ClCompile Include="Source\Fader.cpp" />
     <ClCompile Include="Source\TextBox.cpp" />
+    <ClCompile Include="Source\Warp.cpp" />
+    <ClCompile Include="Source\FloorMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -142,6 +144,8 @@
     </ClInclude>
     <ClInclude Include="Source\Fader.h" />
     <ClInclude Include="Source\TextBox.h" />
+    <ClInclude Include="Source\Warp.h" />
+    <ClInclude Include="Source\FloorMap.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">

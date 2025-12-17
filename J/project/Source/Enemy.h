@@ -18,6 +18,9 @@ private:
 	float EnemyY; //敵のY座標
 	int MovementsPattern; //動作のパターン
 	int MovementsCount; //動作のカウント
+
+private:
+	const float speed = 2.0f;
 	
 };
 

@@ -25,7 +25,6 @@ void Player::Update()
 	{
 		return;
 	}
-	float speed = 8.2f;
 
 	if (CheckHitKey(KEY_INPUT_D)) //DƒL[‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì”»’è
 	{

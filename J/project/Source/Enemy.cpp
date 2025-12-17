@@ -19,7 +19,7 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	float speed = 2.0f;
+	
 	Player* player = FindGameObject<Player>();
 	VECTOR3 pPos = player->GetPosition();
 
