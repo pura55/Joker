@@ -20,13 +20,13 @@ public:
 	void SetStageNum(int stage) { StageNum = stage; } //ステージの番号をセットする関数
 	bool Warp(int Px, int Py);//ワープポイントの関数
 
-public://const
-	const int GetScrollX() { return scrollX; }
-	const int GetScrollY() { return scrollY; }
-	const int GetTargetWarpStage() const { return targetWarpStage; }
-	const int GetTargetWarpFloor() const { return targetWarpFloor; }
-	const int GetWarpOutX() const { return warpOutX; }
-	const int GetWarpOutY() const { return warpOutY; }
+public://getter
+    int GetScrollX() const { return scrollX; }
+    int GetScrollY() const { return scrollY; }
+	int GetTargetWarpStage() const { return targetWarpStage; }
+    int GetTargetWarpFloor() const { return targetWarpFloor; }
+	int GetWarpOutX() const { return warpOutX; }
+	int GetWarpOutY() const { return warpOutY; }
 
 
 private://画像
@@ -64,7 +64,7 @@ public:
 	
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ
-	const float inTime = 1.0f;//フェードインにかかる時間
-
+	const float inTime = 0.2f;//フェードインにかかる時間
+	const bool flg = false;
 
 };

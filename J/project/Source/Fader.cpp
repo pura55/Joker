@@ -11,8 +11,7 @@ Fader::Fader()
 	time= 0;
 	now = 0;
 	rgb = 0; // çï
-	
-	
+	rigor = true;
 }
 
 Fader::~Fader()
@@ -26,9 +25,11 @@ void Fader::Update()
 		now += Time::DeltaTime();
 		float rate = now / time;//äÑçáÅ@
 		alpha = (endAlpha - startAlpha) * rate + startAlpha;
+		rigor = false;
 	}
 	else
 	{
+		rigor = true;
 		alpha = endAlpha;
 	}
 	

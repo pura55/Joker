@@ -3,6 +3,7 @@
 #include "MainMap.h"
 #include "Warp.h"
 #include "FloorMap.h"
+#include "Fader.h"
 
 Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 {
@@ -22,6 +23,11 @@ Player::~Player()
 void Player::Update()
 {
 	if (!onPlay)
+	{
+		return;
+	}
+	Fader* fader = FindGameObject<Fader>();
+	if (!fader->GetRigor())
 	{
 		return;
 	}

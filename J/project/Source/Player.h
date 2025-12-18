@@ -8,11 +8,12 @@ public:
 	~Player();
 	void Update()override;
 	void Draw()override;
-
 	void SetPlay(bool flag = true) { onPlay = flag; }
-	const int GetPlayerPositionX() { return PlayerX; }
-	const int GetPlayerPositionY() { return PlayerY; }
-	VECTOR3 GetPosition(){ return VECTOR3(PlayerX, PlayerY, 0); }
+
+public://getter
+	int GetPlayerPositionX() const { return PlayerX; }
+	int GetPlayerPositionY() const { return PlayerY; }
+	VECTOR3 GetPosition() const { return VECTOR3(PlayerX, PlayerY, 0); }
 
 private:
 	int CharacterImage;//キャラクターの描画変数

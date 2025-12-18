@@ -1,7 +1,9 @@
 #include "TitleScene.h"
+#include "Common.h"
 
 TitleScene::TitleScene()
 {
+	new Common();
 }
 
 TitleScene::~TitleScene()

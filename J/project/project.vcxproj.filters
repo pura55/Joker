@@ -66,6 +66,7 @@
     <ClCompile Include="Source\TextBox.cpp" />
     <ClCompile Include="Source\Warp.cpp" />
     <ClCompile Include="Source\FloorMap.cpp" />
+    <ClCompile Include="Source\Common.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Source\TextBox.h" />
     <ClInclude Include="Source\Warp.h" />
     <ClInclude Include="Source\FloorMap.h" />
+    <ClInclude Include="Source\Common.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">

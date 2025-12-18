@@ -31,10 +31,10 @@ void Enemy::Update()
 		if (pPos.x > EnemyX)//px > exの時
 		{
 			EnemyX += speed;//移動距離加算
-			DirChara = 1;
+			DirChara = 1; //方向
 
 			MovementsCount += 1; //キャラクターの動作の処理
-			if (MovementsCount >=12) {
+			if (MovementsCount >=15) {
 
 				MovementsPattern = (MovementsPattern + 1) % 3 + 0;
 
@@ -57,7 +57,7 @@ void Enemy::Update()
 			DirChara = 0;
 
 			MovementsCount += 1; //キャラクターの動作の処理
-			if (MovementsCount >= 12) {
+			if (MovementsCount >= 15) {
 
 				MovementsPattern = (MovementsPattern + 1) % 3 + 0;
 
@@ -82,7 +82,7 @@ void Enemy::Update()
 			DirChara = 3;
 
 			MovementsCount += 1; //キャラクターの動作の処理
-			if (MovementsCount >= 12) {
+			if (MovementsCount >= 15) {
 
 				MovementsPattern = (MovementsPattern + 1) % 3 + 0;
 
@@ -94,7 +94,7 @@ void Enemy::Update()
 			int push2 = ObjectHit->HitCheckDown(EnemyX + 50, EnemyY + 63);
 			EnemyY -= max(push1, push2);
 
-			if (fabs(pPos.y - EnemyY) > 5.0f)
+			if (fabs(pPos.y - EnemyY) > 2.0f)
 			{
 				HitJudge = true;
 			}
@@ -109,7 +109,7 @@ void Enemy::Update()
 			DirChara = 2;
 
 			MovementsCount += 1; //キャラクターの動作の処理
-			if (MovementsCount >= 12) {
+			if (MovementsCount >= 15) {
 
 				MovementsPattern = (MovementsPattern + 1) % 3 + 0;
 
@@ -120,7 +120,7 @@ void Enemy::Update()
 			int push1 = ObjectHit->HitCheckUp(EnemyX + 14, EnemyY + 51);
 			int push2 = ObjectHit->HitCheckUp(EnemyX + 50, EnemyY + 51);
 			EnemyY += max(push1, push2);
-			if (fabs(pPos.y - EnemyY) > 5.0f)
+			if (fabs(pPos.y - EnemyY) > 2.0f)
 			{
 				HitJudge = true;
 			}

@@ -4,6 +4,7 @@
 #include "CsvReader.h"
 #include "FloorMap.h"
 #include "Fader.h"
+#include "Common.h"
 #include <vector>
 #include <iostream>
 
@@ -54,7 +55,7 @@ MainMap::MainMap(int stage)
 	ScienceTableImage = LoadGraph("data/image/ST-Schl-I02.png");
 	STChairImage = LoadGraph("data/image/student.png");//机椅子
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
-	new Enemy();
+	//new Enemy();
 }
 
 MainMap::~MainMap()
@@ -64,8 +65,6 @@ MainMap::~MainMap()
 
 void MainMap::Update()
 {
-	
-		
 }
 
 void MainMap::Draw()
@@ -603,1253 +602,1336 @@ bool MainMap::Warp(int Px, int Py)
 	}
 
 	Fader* fader = FindGameObject<Fader>();
-
+	Common* common = FindGameObject<Common>();
 	//maps[y][x]においてxは+をすると左側に寄り、-をすると右側による。yは+をすると上に寄り、-をすると下に寄る
 	// ==================================================
 	// １階から２階への階段
 	// ==================================================
 	//左
-	if (maps[y][x] == 100001)
+	if (common->GetTimeCheck())
 	{
-		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		if (maps[y][x] == 100001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//中央
-	if (maps[y][x - 1] == 100001)
-	{
-		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//中央
+		if (maps[y][x - 1] == 100001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右
-	if (maps[y][x - 2] == 100001)
-	{
-		DrawString(600, 5, "Fで２階に上がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右
+		if (maps[y][x - 2] == 100001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 7;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 2階から１階への階段
-	// ==================================================
-	//左
-	if (maps[y][x] == 200001)
-	{
-		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 2階から１階への階段
+		// ==================================================
+		//左
+		if (maps[y][x] == 200001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "１階に下がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//中央
-	if (maps[y][x - 1] == 200001)
-	{
-		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//中央
+		if (maps[y][x - 1] == 200001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "１階に下がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右
-	if (maps[y][x - 2] == 200001)
-	{
-		DrawString(600, 5, "Eで１階に下がる", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右
+		if (maps[y][x - 2] == 200001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 7;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "１階に下がる", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から職員室
-	// ==================================================
-	//左扉
-	if (maps[y][x] == 1011)
-	{
-		DrawString(600, 700, "Fで職員室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から職員室
+		// ==================================================
+		//左扉
+		if (maps[y][x] == 1011)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1);//行先
-			warpOutX = BgSize * 13;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "職員室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1);//行先
+				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右扉
-	if (maps[y][x] == 1012)
-	{
-		DrawString(600, 700, "Fで職員室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右扉
+		if (maps[y][x] == 1012)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1);//行先
-			warpOutX = BgSize * 14;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "職員室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1);//行先
+				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 職員室から廊下
-	// ==================================================
-	//左扉
-	if (maps[y][x] == 11011)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 職員室から廊下
+		// ==================================================
+		//左扉
+		if (maps[y][x] == 11011)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右扉
-	if (maps[y][x] == 11012)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右扉
+		if (maps[y][x] == 11012)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から理科室
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 10001)
-	{
-		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から理科室
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 10001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 10002)
-	{
-		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 10002)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 10003)
-	{
-		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 10003)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2);//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2);//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 10004)
-	{
-		DrawString(600, 5, "Fで理科室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 10004)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2);//行先
-			warpOutX = BgSize * 20;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2);//行先
+				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 理科室から廊下
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 1101)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 理科室から廊下
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 1101)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 13;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 1102)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 1102)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 14;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 1103)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 1103)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 25;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 1104)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 1104)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 26;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から図書室
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 10005)
-	{
-		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から図書室
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 10005)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 3;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(3);//行先
-			warpOutX = BgSize * 7;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3);//行先
+				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 10006)
-	{
-		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 10006)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 3;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(3);//行先
-			warpOutX = BgSize * 8;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3);//行先
+				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 10007)
-	{
-		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 10007)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 3;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(3);//行先
-			warpOutX = BgSize * 21;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3);//行先
+				warpOutX = BgSize * 21;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 10008)
-	{
-		DrawString(600, 5, "Fで図書室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 10008)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 3;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(3);//行先
-			warpOutX = BgSize * 22;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3);//行先
+				warpOutX = BgSize * 22;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 図書室から廊下
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 1105)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 図書室から廊下
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 1105)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 36;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 1106)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 1106)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 37;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 1107)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 1107)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 48;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 1108)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 1108)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 49;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から校長室
-	// ==================================================
-	//左扉
-	if (maps[y][x] == 2011)
-	{
-		DrawString(600, 700, "Fで校長室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から校長室
+		// ==================================================
+		//左扉
+		if (maps[y][x] == 2011)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 4;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(4);//行先
-			warpOutX = BgSize * 8;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "校長室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 4;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(4);//行先
+				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右扉
-	if (maps[y][x] == 2012)
-	{
-		DrawString(600, 700, "Fで校長室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右扉
+		if (maps[y][x] == 2012)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 4;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(4);//行先
-			warpOutX = BgSize * 9;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "校長室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 4;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(4);//行先
+				warpOutX = BgSize * 9;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 校長室から廊下
-	// ==================================================
-	//左扉
-	if (maps[y][x] == 21011)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 校長室から廊下
+		// ==================================================
+		//左扉
+		if (maps[y][x] == 21011)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右扉
-	if (maps[y][x] == 21012)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右扉
+		if (maps[y][x] == 21012)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から音楽室
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 20001)
-	{
-		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から音楽室
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 20001)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 5;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(5);//行先
-			warpOutX = BgSize * 4;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 5;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(5);//行先
+				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 20002)
-	{
-		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 20002)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 5;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(5);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 5;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(5);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 20003)
-	{
-		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 20003)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 5;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(5);//行先
-			warpOutX = BgSize * 16;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 5;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(5);//行先
+				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 20004)
-	{
-		DrawString(600, 5, "Fで音楽室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 20004)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 5;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(5);//行先
-			warpOutX = BgSize * 17;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 5;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(5);//行先
+				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 音楽室から廊下
-	// ==================================================
-	/*if (CheckHitKey(KEY_INPUT_E))
-	{
-		switch()
-	}*/
-	//左　左扉
-	if (maps[y][x] == 2101)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 音楽室から廊下
+		// ==================================================
+		/*if (CheckHitKey(KEY_INPUT_SPACE))
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 13;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
-		}
-	}
-	//左　右扉
-	if (maps[y][x] == 2102)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+			switch()
+		}*/
+		//左　左扉
+		if (maps[y][x] == 2101)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 14;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 2103)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 2102)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 25;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 2104)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 2103)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 26;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から美術室
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 20005)
-	{
-		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
+		//右　右扉
+		if (maps[y][x] == 2104)
+		{
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
+		}
+		// ==================================================
+		// 廊下から美術室
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 20005)
+		{
+			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
 
 
-		if (CheckHitKey(KEY_INPUT_F))
-		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 6;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(6);	//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
-		}
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 6;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(6);	//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 
-	}
-	//左　右扉
-	if (maps[y][x] == 20006)
-	{
-		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
-		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 6;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(6);	//行先
-			warpOutX = BgSize * 7;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 20007)
-	{
-		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 20006)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 6;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(6);	//行先
-			warpOutX = BgSize * 18;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 6;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(6);	//行先
+				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 20008)
-	{
-		DrawString(600, 5, "Fで美術室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 20007)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 6;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(6);	//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 6;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(6);	//行先
+				warpOutX = BgSize * 18;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 美術室から廊下
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 2105)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
+		//右　右扉
+		if (maps[y][x] == 20008)
+		{
+			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 6;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(6);	//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
+		}
+		// ==================================================
+		// 美術室から廊下
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 2105)
+		{
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 
 
-		if (CheckHitKey(KEY_INPUT_E))
-		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 36;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 2106)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 2106)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 37;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 2107)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 2107)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 48;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 2108)
-	{
-		DrawString(600, 700, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 2108)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 49;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(flg);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から教室　１ー１
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 1013)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から教室　１ー１
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 1013)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 101;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(101);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 101;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(101);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 1014)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 1014)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 101;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(101);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 101;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(101);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 1015)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 1015)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 101;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(101);//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 101;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(101);//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 1016)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 1016)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 101;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(101);//行先
-			warpOutX = BgSize * 20;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 101;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(101);//行先
+				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 教室から廊下　１－１
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 11013)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 教室から廊下　１－１
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 11013)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 16;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 11014)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 11014)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 17;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 11015)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 11015)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 28;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 11016)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 11016)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 29;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から教室　１ー２
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 1017)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から教室　１ー２
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 1017)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 102;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(102);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 102;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(102);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 1018)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 1018)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 102;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(102);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 102;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(102);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 1019)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 1019)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 102;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(102);//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 102;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(102);//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 1020)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 1020)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 102;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(102);//行先
-			warpOutX = BgSize * 20;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 102;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(102);//行先
+				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 教室から廊下　１－２
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 11017)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 教室から廊下　１－２
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 11017)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 40;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 11018)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 11018)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 41;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 11019)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 11019)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 52;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 11020)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 11020)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 1000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(1000);//行先
-			warpOutX = BgSize * 53;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 1000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(1000);//行先
+				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から教室　２ー１
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 2013)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から教室　２ー１
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 2013)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 201;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(201);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 201;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(201);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 2014)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 2014)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 201;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(201);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 201;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(201);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 2015)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 2015)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 201;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(201);//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 201;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(201);//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 2016)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 2016)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 201;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(201);//行先
-			warpOutX = BgSize * 20;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 201;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(201);//行先
+				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 教室から廊下　２－１
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 21013)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 教室から廊下　２－１
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 21013)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 16;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 21014)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 21014)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 17;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 21015)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 21015)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 28;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 21016)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 21016)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 29;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 廊下から教室　２ー２
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 2017)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		// ==================================================
+		// 廊下から教室　２ー２
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 2017)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 202;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(202);//行先
-			warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 202;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(202);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 2018)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//左　右扉
+		if (maps[y][x] == 2018)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 202;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(202);//行先
-			warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 202;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(202);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 2019)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　左扉
+		if (maps[y][x] == 2019)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 202;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(202);//行先
-			warpOutX = BgSize * 19;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 202;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(202);//行先
+				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 2020)
-	{
-		DrawString(600, 700, "Fで教室に入る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_F))
+		//右　右扉
+		if (maps[y][x] == 2020)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 202;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(202);//行先
-			warpOutX = BgSize * 20;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 202;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(202);//行先
+				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	// ==================================================
-	// 教室から廊下　２－２
-	// ==================================================
-	//左　左扉
-	if (maps[y][x] == 21017)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		// ==================================================
+		// 教室から廊下　２－２
+		// ==================================================
+		//左　左扉
+		if (maps[y][x] == 21017)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 40;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//左　右扉
-	if (maps[y][x] == 21018)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//左　右扉
+		if (maps[y][x] == 21018)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 41;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　左扉
-	if (maps[y][x] == 21019)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　左扉
+		if (maps[y][x] == 21019)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 52;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
-	}
-	//右　右扉
-	if (maps[y][x] == 21020)
-	{
-		DrawString(600, 5, "Eで廊下に出る", GetColor(255, 255, 255));
-		if (CheckHitKey(KEY_INPUT_E))
+		//右　右扉
+		if (maps[y][x] == 21020)
 		{
-			fader->FadeIn(inTime);
-			targetWarpStage = 2000;//行先
-			FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-			floor->SetTargerWarpFloor(2000);//行先
-			warpOutX = BgSize * 53;//X軸のワープ後の出現座標
-			warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-			return true;
+			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				common->SetTimeCheck(false);
+				return true;
+			}
 		}
+		return false;
 	}
-	return false;
+
+
 }
-
+	
