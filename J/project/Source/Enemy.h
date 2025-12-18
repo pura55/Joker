@@ -18,9 +18,11 @@ private:
 	float EnemyY; //敵のY座標
 	int MovementsPattern; //動作のパターン
 	int MovementsCount; //動作のカウント
+	int DirChara;
+	bool HitJudge;
 
 private:
-	const float speed = 2.0f;
+	const float speed = 6.0f;
 	
 };
 

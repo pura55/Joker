@@ -54,7 +54,7 @@ MainMap::MainMap(int stage)
 	ScienceTableImage = LoadGraph("data/image/ST-Schl-I02.png");
 	STChairImage = LoadGraph("data/image/student.png");//Š÷ˆÖŽq
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
-
+	new Enemy();
 }
 
 MainMap::~MainMap()
@@ -64,6 +64,8 @@ MainMap::~MainMap()
 
 void MainMap::Update()
 {
+	
+		
 }
 
 void MainMap::Draw()
