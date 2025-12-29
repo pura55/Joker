@@ -22,12 +22,12 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (!onPlay)
+	if (!onPlay)//プレイヤー操作時以外の硬直
 	{
 		return;
 	}
 	Fader* fader = FindGameObject<Fader>();
-	if (!fader->GetRigor())
+	if (!fader->GetRigor())//ワープ時の硬直
 	{
 		return;
 	}

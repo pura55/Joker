@@ -6,7 +6,7 @@ Common::Common()
 	DontDestroyOnSceneChange(); // Scene‚ª•Ï‚í‚Á‚Ä‚àÁ‚¦‚È‚¢
 	ClearTime = 0.0f;
 	LagTime = 0.0f;
-	TimeCheck = true;
+	PushStop = true;
 }
 
 void Common::Update()
@@ -15,12 +15,12 @@ void Common::Update()
 	ImGui::InputInt("Stage", &stageNumber);
 	ImGui::Checkbox("NoDead", &noDead);
 	ImGui::End()*/;
-	if (!TimeCheck)
+	if (!PushStop)
 	{
 		LagTime += Time::DeltaTime();
 		if (LagTime >= 0.5f)
 		{
-			TimeCheck = true;
+			PushStop = true;
 			LagTime = 0.0f;
 		}
 	}

@@ -52,6 +52,7 @@ private://画像
 	int ScienceTableImage;
 	int STChairImage;//机椅子
 	int StaffChairImage;
+	int ExclamationImage;//！マーク
 
 public:
 	int StageNum;
@@ -61,10 +62,13 @@ public:
 	int targetWarpFloor;
 	int warpOutX = 0;
 	int warpOutY = 0;
+	int MarkX = 0;
+	int MarkY = 0;
+	bool ExFlag;
 	
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ
 	const float inTime = 0.2f;//フェードインにかかる時間
-	const bool flg = false;
+	const bool stop = false;//keyプッシュを止める
 
 };

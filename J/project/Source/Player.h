@@ -13,6 +13,7 @@ public:
 public://getter
 	int GetPlayerPositionX() const { return PlayerX; }
 	int GetPlayerPositionY() const { return PlayerY; }
+	bool GetPlay() { return onPlay; }
 	VECTOR3 GetPosition() const { return VECTOR3(PlayerX, PlayerY, 0); }
 
 private:

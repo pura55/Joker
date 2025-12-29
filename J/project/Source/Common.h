@@ -7,14 +7,14 @@ public:
 	Common();
 	void Update() override;
 	void SetLagTime();
-	void SetTimeCheck(bool tc) { TimeCheck = tc; }
+	void SetPushStop(bool tc) { PushStop = tc; }//
 
 public://getter
-	bool GetTimeCheck() const { return TimeCheck; }
+	bool GetPushStop() const { return PushStop; }
 
 public:
 	float ClearTime;
 	float LagTime;
-	bool TimeCheck;
+	bool PushStop;//space‚ð˜A‘±‚Å‚¨‚³‚È‚¢
 	bool noDead;
 };
