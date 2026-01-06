@@ -86,7 +86,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())//Ç±ÇÃîªíËÇÇÕÇ≥ÇﬁÇ±Ç∆Ç≈âÒìöíÜÇÃñ‚ëËÇÃçƒê∂ê¨ÇñhÇÆ
 				{
-					new TextBox(textBox->GetExtra());//ì¡ï ñ‚ëË
+					textBox->SetExtra();//ì¡ï ñ‚ëË
 				}
 			}
 		}
@@ -102,17 +102,47 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetSociety());//óùâ»
+					textBox->SetScience();//óùâ»
+				}
+			}
+		}
+		if (fabs((px + 32) - (MarkX - (64 * 19) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 8) + 12)) < 80)
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (player->GetPlay())
+				{
+					textBox->SetScienceHint();//óùâ»ÇÃÉqÉìÉg
 				}
 			}
 		}
 		break;
 
-		//case 3://ê}èëé∫
-		//		ExFlag = 1;
-		//		MarkX = 64 * 5 ;
-		//		MarkY = 64 * 3 ;
-		//		break;
+	case 3://ê}èëé∫
+		ExFlag = true;
+		MarkX = 64 * 5;
+		MarkY = 64 * 3;
+		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (player->GetPlay())
+				{
+					textBox->SetSocietyHint();//é–âÔÇÃÉqÉìÉg
+				}
+			}
+		}
+		if (fabs((px + 32) - (MarkX + (64 * 21 + 18) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 4 + 15) + 12)) < 80)
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (player->GetPlay())
+				{
+					textBox->SetJapaneseHint();//çëåÍÇÃÉqÉìÉg
+				}
+			}
+		}
+		break;
 
 	case 4://çZí∑é∫
 		ExFlag = true;
@@ -124,7 +154,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetSociety());//é–âÔ
+					textBox->SetSociety();//é–âÔ
 				}
 			}
 		}
@@ -140,7 +170,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetJapanse());//çëåÍ
+					textBox->SetJapanese();//çëåÍ
 				}
 			}
 		}
@@ -156,7 +186,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetBlank());//âΩÇ‡Ç»Ç¢
+					textBox->SetBlank();//âΩÇ‡Ç»Ç¢
 				}
 			}
 		}
@@ -172,7 +202,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetBlank());//âΩÇ‡Ç»Ç¢
+					textBox->SetMathHint();//éZêîÇÃÉqÉìÉg
 				}
 			}
 		}
@@ -188,7 +218,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetMath());//éZêî
+					textBox->SetMath();//éZêî
 				}
 			}
 		}
@@ -203,7 +233,7 @@ void MainMap::Update()
 			{
 				if (player->GetPlay())
 				{
-					new TextBox(textBox->GetBlank());//âΩÇ‡Ç»Ç¢
+					textBox->SetBlank();//âΩÇ‡Ç»Ç¢
 				}
 			}
 		}
@@ -586,6 +616,14 @@ void MainMap::Draw()
 	if (ExFlag)
 	{
 		DrawRectGraph(MarkX - scrollX, MarkY - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+		if (StageNum == 2)
+		{
+			DrawRectGraph(MarkX - scrollX - (64 * 19) + 18, MarkY - scrollY + (64 * 8) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+		}
+		if (StageNum == 3)
+		{
+			DrawRectGraph(MarkX - scrollX + (64 * 21) + 18, MarkY - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+		}
 	}
 }
 

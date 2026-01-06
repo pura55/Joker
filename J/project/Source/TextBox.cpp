@@ -3,13 +3,14 @@
 #include <assert.h>
 
 
-TextBox::TextBox(TextBox_State state)
+TextBox::TextBox()
 {
+	SetDrawOrder(-5000);
 	BoxImage = LoadGraph("Data/image/TextBox.png");
 	assert(BoxImage > 0);
 
 	TextJudge = true;
-	question = state;
+	MainState = TextBox_State::STATE_END;
 	time = 0.0f;
 }
 
@@ -21,7 +22,10 @@ TextBox::~TextBox()
 void TextBox::Update()
 {
 	Player* player = FindGameObject<Player>();
-	player->SetPlay(false);
+	if (MainState != TextBox_State::STATE_END)//tureÇ∆falseÇÃè’ìÀÇñhÇÆ
+	{
+		player->SetPlay(false);//ÉvÉåÉCÉÑÅ[ÇÃìÆÇ´Çé~ÇﬂÇÈ
+	}
 
 
 	if (!TextJudge)
@@ -38,30 +42,183 @@ void TextBox::Update()
 		time = 0.0f;
 	}
 
-
-	switch (question)
+	switch (MainState)
 	{
 	case TextBox_State::STATE_JAPANESE://çëåÍ
-		QuestionJapanese();
+		if (TextJudge)
+		{
+			if (!Yes_Or_No)
+			{
+				if (CheckHitKey(KEY_INPUT_1))
+				{
+					Yes_Or_No = true;
+					QuestionJapanese();
+					TextJudge = false;
+				}
+				else if (CheckHitKey(KEY_INPUT_2))
+				{
+					MainState = TextBox_State::STATE_END;
+				}
+			}
+		}
 		break;
 	case TextBox_State::STATE_MATH://éZêî
-		QuestionMathematics();
+		if (TextJudge)
+		{
+			if (!Yes_Or_No)
+			{
+				if (CheckHitKey(KEY_INPUT_1))
+				{
+					QuestionMathematics();
+					Yes_Or_No = true;
+					TextJudge = false;
+				}
+				else if (CheckHitKey(KEY_INPUT_2))
+				{
+					MainState = TextBox_State::STATE_END;
+				}
+			}
+		}
 		break;
 	case TextBox_State::STATE_SCIENCE://óùâ»
-		QuestionScience();
+		if (TextJudge)
+		{
+			if (!Yes_Or_No)
+			{
+				if (CheckHitKey(KEY_INPUT_1))
+				{
+					QuestionScience();
+					Yes_Or_No = true;
+					TextJudge = false;
+				}
+				else if (CheckHitKey(KEY_INPUT_2))
+				{
+					MainState = TextBox_State::STATE_END;
+				}
+			}
+		}
 		break;
 	case TextBox_State::STATE_SOCIETY://é–âÔ
-		QuestionSociety();
+		if (TextJudge)
+		{
+			if (!Yes_Or_No)
+			{
+				if (CheckHitKey(KEY_INPUT_1))
+				{
+					QuestionSociety();
+					Yes_Or_No = true;
+					TextJudge = false;
+				}
+				else if (CheckHitKey(KEY_INPUT_2))
+				{
+					MainState = TextBox_State::STATE_END;
+					TextJudge = false;
+				}
+			}
+		}
 		break;
 	case TextBox_State::STATE_EXTRA://ì¡ï ñ‚ëË
-		QuestionExtra();
+		if (TextJudge)
+		{
+			if (!Yes_Or_No)
+			{
+				if (CheckHitKey(KEY_INPUT_1))
+				{
+					QuestionExtra();
+					Yes_Or_No = true;
+					TextJudge = false;
+				}
+				else if (CheckHitKey(KEY_INPUT_2))
+				{
+					MainState = TextBox_State::STATE_END;
+					TextJudge = false;
+				}
+			}
+		}
+		break;
+	case TextBox_State::STATE_DICIDE://yes,no
+		if (TextJudge)
+		{
+			if (CheckHitKey(KEY_INPUT_1))
+			{
+				switch (Q_AND_A)
+				{
+				case TextBox_State::STATE_JAPANESE:
+					MainState = TextBox_State::STATE_JAPANESE;
+					TextJudge = false;
+					break;
+				case TextBox_State::STATE_MATH:
+					MainState = TextBox_State::STATE_MATH;
+					TextJudge = false;
+					break;
+				case TextBox_State::STATE_SCIENCE:
+					MainState = TextBox_State::STATE_SCIENCE;
+					TextJudge = false;
+					break;
+				case TextBox_State::STATE_SOCIETY:
+					MainState = TextBox_State::STATE_SOCIETY;
+					TextJudge = false;
+					break;
+				case TextBox_State::STATE_EXTRA:
+					MainState = TextBox_State::STATE_EXTRA;
+					TextJudge = false;
+					break;
+				}
+			}
+			else if (CheckHitKey(KEY_INPUT_2))
+			{
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
+			}
+		}
+		break;
+	case TextBox_State::STATE_JP_HINT://çëåÍÇÃÉqÉìÉg
+		if (TextJudge)
+		{
+			if (CheckHitKey(KEY_INPUT_F))
+			{
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
+			}
+		}
+		break;
+	case TextBox_State::STATE_MT_HINT://éZêîÇÃÉqÉìÉgif (TextJudge)
+	{
+		if (CheckHitKey(KEY_INPUT_F))
+		{
+			MainState = TextBox_State::STATE_END;
+			TextJudge = false;
+		}
+	}
+	break;
+
+	case TextBox_State::STATE_SCI_HINT://óùâ»ÇÃÉqÉìÉg
+		if (TextJudge)
+		{
+			if (CheckHitKey(KEY_INPUT_F))
+			{
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
+			}
+		}
+		break;
+	case TextBox_State::STATE_SOC_HINT://é–âÔÇÃÉqÉìÉg
+		if (TextJudge)
+		{
+			if (CheckHitKey(KEY_INPUT_F))
+			{
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
+			}
+		}
 		break;
 	case TextBox_State::STATE_BLANK://âΩÇ‡Ç»Ç©Ç¡ÇΩ
 		if (TextJudge)
 		{
 			if (CheckHitKey(KEY_INPUT_F))
 			{
-				question = TextBox_State::STATE_END;
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
 			}
 		}
 		break;
@@ -70,7 +227,8 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_F))
 			{
-				question = TextBox_State::STATE_END;
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
 			}
 		}
 		break;
@@ -79,21 +237,23 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_F))
 			{
-				question = TextBox_State::STATE_END;
+				MainState = TextBox_State::STATE_END;
+				TextJudge = false;
+				/*GameManager* GM = FindGameObject<GameManager>();
+				GM->SetGameOver();*/
 			}
 		}
 		break;
 	case TextBox_State::STATE_END://STATEèIóπ
 		player->SetPlay(true);
-		DestroyMe();
+		break;
 	}
-
 }
 
 void TextBox::Draw()
 {
 	//ñ‚ëËÇÃèoóÕîªíË
-	switch (question)
+	switch (MainState)
 	{
 	case TextBox_State::STATE_JAPANESE://çëåÍ
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -102,6 +262,7 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 2, "ÇQÅDÇ±Ç±ÇÎ", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "ÇRÅDóÖê∂ñÂ", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "ÇSÅDâJÇ…Ç‡ïâÇØÇ∏", GetColor(255, 255, 255), 1);
+
 		break;
 	case TextBox_State::STATE_MATH://éZêî
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -110,6 +271,7 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 2, "ÇQÅDÇPÇO", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "ÇRÅDÇPÇS", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "ÇSÅDÇT", GetColor(255, 255, 255), 1);
+
 		break;
 	case TextBox_State::STATE_SCIENCE://óùâ»
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -118,6 +280,7 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 2, "ÇQÅDêÖëf", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "ÇRÅDé_ëf", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "ÇSÅDíYëf", GetColor(255, 255, 255), 1);
+
 		break;
 	case TextBox_State::STATE_SOCIETY://é–âÔ
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -126,6 +289,7 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 2, "ÇQÅDéáéÆïî", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "ÇRÅDóºñ èhôT", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "ÇSÅDî⁄ñÌåƒ", GetColor(255, 255, 255), 1);
+
 		break;
 	case TextBox_State::STATE_EXTRA://ì¡ï ñ‚ëË
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -134,6 +298,28 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 2, "ÇQÅDÉÜÉbÉP", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "ÇRÅDÉiÉ|ÉäÉ^Éì", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "ÇSÅDê‘î—", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_DICIDE://ÇÕÇ¢ÅEÇ¢Ç¢Ç¶
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(550, 570, "ñ‚ëËÇ…íßêÌÇµÇ‹Ç∑Ç©ÅH", GetColor(255, 255, 255), 1);
+		DrawString(600, 570 + 16 * 1, "ÇPÅDÇÕÇ¢", GetColor(255, 255, 255), 1);
+		DrawString(600, 570 + 16 * 2, "ÇQÅDÇ¢Ç¢Ç¶", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_JP_HINT://çëåÍÇÃÉqÉìÉg
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, 580, "ÅuäHêÏó¥îVâÓÅ@ë„ï\çÏÅFóÖê∂ñÂÅEï@1Åv", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_MT_HINT://éZêîÇÃÉqÉìÉg
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(430, 580, "Åuä|ÇØéZÇ∆äÑÇËéZÇÕë´ÇµéZà¯Ç´éZÇÊÇËÇ‡êÊÇ…åvéZÇµÇÊÇ§ÅIÅv", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_SCI_HINT://óùâ»ÇÃÉqÉìÉg
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(450, 580, "ÅuâŒÇ™îRÇ¶ÇÈÇ…ÇÕé_ëfÇ™ïKóvïsâ¬åáÅIäoÇ¶ÇƒÇ®Ç±Ç§ÅIÅv", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_SOC_HINT://é–âÔÇÃÉqÉìÉg
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(480, 580, "Åué◊înë‰çëÇé°ÇﬂÇΩò`çëÇÃèóâ§Åuî⁄ñÌåƒÅvÅv", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_BLANK://âΩÇ‡Ç»Ç¢Ç∆Ç´
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -148,26 +334,29 @@ void TextBox::Draw()
 		DrawString(500, 570, "ïsê≥â...", GetColor(255, 255, 255), 1);
 		break;
 	}
-
 }
 
 void TextBox::QuestionJapanese()
 {
 	if (CheckHitKey(KEY_INPUT_1))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_2))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_3))//ê≥â
 	{
-		question = TextBox_State::STATE_TRUE;
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_4))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
@@ -175,19 +364,23 @@ void TextBox::QuestionMathematics()
 {
 	if (CheckHitKey(KEY_INPUT_1))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_2))//ê≥â
 	{
-		question = TextBox_State::STATE_TRUE;
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_3))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_4))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
@@ -195,19 +388,23 @@ void TextBox::QuestionScience()
 {
 	if (CheckHitKey(KEY_INPUT_1))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_2))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_3))//ê≥â
 	{
-		question = TextBox_State::STATE_TRUE;
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_4))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
@@ -215,19 +412,23 @@ void TextBox::QuestionSociety()
 {
 	if (CheckHitKey(KEY_INPUT_1))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_2))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_3))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_4))//ê≥â
 	{
-		question = TextBox_State::STATE_TRUE;
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 }
 
@@ -235,18 +436,24 @@ void TextBox::QuestionExtra()
 {
 	if (CheckHitKey(KEY_INPUT_1))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_2))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_3))//ê≥â
 	{
-		question = TextBox_State::STATE_TRUE;
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 	if (CheckHitKey(KEY_INPUT_4))//ïsê≥â
 	{
-		question = TextBox_State::STATE_FALSE;
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
+
+

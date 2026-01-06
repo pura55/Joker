@@ -2,14 +2,16 @@
 #include "Player.h"
 #include "MainMap.h"
 #include "FloorMap.h"
+#include "TextBox.h"
 
 
 
 PlayScene::PlayScene()
 {
-	new FloorMap(6);//初期フロア
-	new MainMap(6);//初期マップ
+	new FloorMap(1);//初期フロア
+	new MainMap(1);//初期マップ
 	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生成
+	new TextBox();
 	
 	// ()の中にcsvの数字入れれば読み込みます
 	
