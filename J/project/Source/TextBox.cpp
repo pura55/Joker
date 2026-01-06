@@ -47,73 +47,31 @@ void TextBox::Update()
 	case TextBox_State::STATE_JAPANESE://国語
 		if (TextJudge)
 		{
-			if (CheckHitKey(KEY_INPUT_1))
-			{
-				QuestionJapanese();
-				TextJudge = false;
-			}
-			else if (CheckHitKey(KEY_INPUT_2))
-			{
-				MainState = TextBox_State::STATE_END;
-			}
+			QuestionJapanese();
 		}
 		break;
 	case TextBox_State::STATE_MATH://算数
 		if (TextJudge)
 		{
-			if (CheckHitKey(KEY_INPUT_1))
-			{
-				QuestionMathematics();
-				TextJudge = false;
-			}
-			else if (CheckHitKey(KEY_INPUT_2))
-			{
-				MainState = TextBox_State::STATE_END;
-			}
+			QuestionMathematics();
 		}
 		break;
 	case TextBox_State::STATE_SCIENCE://理科
 		if (TextJudge)
 		{
-			if (CheckHitKey(KEY_INPUT_1))
-			{
-				QuestionScience();
-				TextJudge = false;
-			}
-			else if (CheckHitKey(KEY_INPUT_2))
-			{
-				MainState = TextBox_State::STATE_END;
-			}
+			QuestionScience();
 		}
 		break;
 	case TextBox_State::STATE_SOCIETY://社会
 		if (TextJudge)
 		{
-			if (CheckHitKey(KEY_INPUT_1))
-			{
-				QuestionSociety();
-				TextJudge = false;
-			}
-			else if (CheckHitKey(KEY_INPUT_2))
-			{
-				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
-			}
+			QuestionSociety();
 		}
 		break;
 	case TextBox_State::STATE_EXTRA://特別問題
 		if (TextJudge)
 		{
-			if (CheckHitKey(KEY_INPUT_1))
-			{
-				QuestionExtra();
-				TextJudge = false;
-			}
-			else if (CheckHitKey(KEY_INPUT_2))
-			{
-				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
-			}
+			QuestionExtra();
 		}
 		break;
 	case TextBox_State::STATE_DICIDE://yes,no
@@ -318,136 +276,121 @@ void TextBox::Draw()
 
 void TextBox::QuestionJapanese()
 {
-	if (TextJudge)
+	if (CheckHitKey(KEY_INPUT_1))//不正解
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_2))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_3))//正解
-		{
-			MainState = TextBox_State::STATE_TRUE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_4))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_2))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_3))//正解
+	{
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_4))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
 void TextBox::QuestionMathematics()
 {
-	if (TextJudge)
+	if (CheckHitKey(KEY_INPUT_1))//不正解
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_2))//正解
-		{
-			MainState = TextBox_State::STATE_TRUE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_3))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_4))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_2))//正解
+	{
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_3))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_4))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
 void TextBox::QuestionScience()
 {
-	if (TextJudge)
+	if (CheckHitKey(KEY_INPUT_1))//不正解
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_2))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_3))//正解
-		{
-			MainState = TextBox_State::STATE_TRUE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_4))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_2))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_3))//正解
+	{
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_4))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
 void TextBox::QuestionSociety()
 {
-	if (TextJudge)
+	if (CheckHitKey(KEY_INPUT_1))//不正解
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_2))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_3))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_4))//正解
-		{
-			MainState = TextBox_State::STATE_TRUE;
-			TextJudge = false;
-		}
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_2))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_3))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_4))//正解
+	{
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
 	}
 }
 
 void TextBox::QuestionExtra()
 {
-	if (TextJudge)
+	if (CheckHitKey(KEY_INPUT_1))//不正解
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_2))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_3))//正解
-		{
-			MainState = TextBox_State::STATE_TRUE;
-			TextJudge = false;
-		}
-		if (CheckHitKey(KEY_INPUT_4))//不正解
-		{
-			MainState = TextBox_State::STATE_FALSE;
-			TextJudge = false;
-		}
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_2))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_3))//正解
+	{
+		MainState = TextBox_State::STATE_TRUE;
+		TextJudge = false;
+	}
+	if (CheckHitKey(KEY_INPUT_4))//不正解
+	{
+		MainState = TextBox_State::STATE_FALSE;
+		TextJudge = false;
 	}
 }
 
