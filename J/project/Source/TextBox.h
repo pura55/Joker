@@ -72,7 +72,6 @@ private:
 	int TextState;//textの状態
 	float time;//ボタンを押す時間間隔
 	bool TextJudge;//ボタンの時間のフラッグ
-	bool Yes_Or_No;//はい・いいえ
 	TextBox_State MainState;//問題の状態
 	TextBox_State Q_AND_A;
     TextBox_State TalkState;//プレイヤーの思考
@@ -80,4 +79,5 @@ private:
 private:
 	const int BoxPosX = 350;
 	const int BoxPosY = 500;
+	const int HintX = 580;//ヒント文のX座標
 };
