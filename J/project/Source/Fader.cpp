@@ -66,5 +66,5 @@ bool Fader::Finished()
 
 void Fader::SetColor(int r, int g, int b)
 {
-	rgb = GetColor(r, g, b);
+	rgb = GetColor(r, g , b);
 }
