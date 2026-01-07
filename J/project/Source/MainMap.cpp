@@ -34,6 +34,7 @@ MainMap::MainMap(int stage)
 	delete csv;
 
 	StageNum = stage;
+	ExFlag = false;
 
 	FloorImage = LoadGraph("data/image/artboad.png");//‘Š‘ò‚¨è»‚Ì°•Ç”
 	ArtImage = LoadGraph("data/image/Artrooms.png");//ƒA[ƒgŒn
@@ -78,23 +79,26 @@ void MainMap::Update()
 	switch (StageNum)//textbox‚Ö‚Ì‘JˆÚ
 	{
 	case 1: //Eˆõº 
-		ExFlag = true;
 		MarkX = 64 * 19 + 10;
 		MarkY = 64 * 12;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		if (textBox->GetJpKey() && textBox->GetMtKey() && textBox->GetSciKey() && textBox->GetSocKey())
 		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())//‚±‚Ì”»’è‚ğ‚Í‚³‚Ş‚±‚Æ‚Å‰ñ“š’†‚Ì–â‘è‚ÌÄ¶¬‚ğ–h‚®
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetExtra();//“Á•Ê–â‘è
-						common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
-					}
+			ExFlag = true;
+		   if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		   {
+			   if(common->GetLagCheck())
+			   {
+				   if (player->GetPlay())//‚±‚Ì”»’è‚ğ‚Í‚³‚Ş‚±‚Æ‚Å‰ñ“š’†‚Ì–â‘è‚ÌÄ¶¬‚ğ–h‚®
+				   {
+					   if (CheckHitKey(KEY_INPUT_SPACE))
+					   {
+						   textBox->SetExtra();//“Á•Ê–â‘è
+						   common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
+					   }
 
-				}
-			}
+				   }
+			   }
+		   }
 		}
 		break;
 

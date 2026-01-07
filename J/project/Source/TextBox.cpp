@@ -12,6 +12,10 @@ TextBox::TextBox()
 
 	//•Ï”‰Šú‰»
 	MainState = TextBox_State::STATE_END;
+	jpKey = false;
+	mtKey = false;
+	sciKey = false;
+	socKey = false;
 
 	//FindGameObject
 	common = FindGameObject<Common>();
@@ -284,6 +288,7 @@ void TextBox::QuestionJapanese()
 		}
 		if (CheckHitKey(KEY_INPUT_3))//³‰ğ
 		{
+			jpKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -306,6 +311,7 @@ void TextBox::QuestionMathematics()
 		}
 		if (CheckHitKey(KEY_INPUT_2))//³‰ğ
 		{
+			mtKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -338,6 +344,7 @@ void TextBox::QuestionScience()
 		}
 		if (CheckHitKey(KEY_INPUT_3))//³‰ğ
 		{
+			sciKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -370,6 +377,7 @@ void TextBox::QuestionSociety()
 		}
 		if (CheckHitKey(KEY_INPUT_4))//³‰ğ
 		{
+			socKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}

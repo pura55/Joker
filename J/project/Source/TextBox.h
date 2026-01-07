@@ -70,8 +70,19 @@ public://setter
 	void SetSocietyHint() { MainState = TextBox_State::STATE_SOC_HINT; }//社会の問題をセット
 	void SetBlank() { MainState = TextBox_State::STATE_BLANK; }//すかしをセット
 
+public://getter
+	bool GetJpKey()const { return jpKey; }
+	bool GetMtKey()const { return mtKey; }
+	bool GetSciKey()const { return sciKey; }
+	bool GetSocKey()const { return socKey; }
+	bool GetExKey()const { return exKey; }
 private://変数
 	int BoxImage;//mapの描画変数
+	bool jpKey;  //国語の鍵
+	bool mtKey;  //算数の鍵
+	bool sciKey; //理科の鍵
+	bool socKey; //社会の鍵
+	bool exKey;  //特別問題の鍵
 
 private://state
 	TextBox_State MainState;//問題の状態
