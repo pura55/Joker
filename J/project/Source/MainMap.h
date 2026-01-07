@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/GameObject.h"
 #include <vector>
+#include "Common.h"
 
 using namespace std;
 
@@ -66,6 +67,9 @@ public:
 	int MarkY = 0;
 	bool ExFlag;
 	
+private:
+	//Common* common;
+
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ
 	const float inTime = 0.2f;//フェードインにかかる時間

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Library/GameObject.h"
+#include "Common.h"
 
 //textboxの状態
 enum class TextBox_State
@@ -10,7 +11,7 @@ enum class TextBox_State
 	STATE_SCIENCE,     //理科
 	STATE_SOCIETY,     //社会
 	STATE_EXTRA,       //特別問題
-	STATE_DICIDE,
+	STATE_DICIDE,      //はい・いいえ
 	STATE_JP_HINT,     //国語のヒント
 	STATE_MT_HINT,     //算数のヒント
 	STATE_SCI_HINT,    //理科のヒント
@@ -28,6 +29,8 @@ public:
 	~TextBox();
 	void Update()override;
 	void Draw()override;
+	void TextPro(); //プロローグ
+
 	//問題の正誤判定関数
 	void QuestionJapanese();    //国語の問題判定
 	void QuestionMathematics(); //算数の問題判定
@@ -67,16 +70,18 @@ public://setter
 	void SetSocietyHint() { MainState = TextBox_State::STATE_SOC_HINT; }//社会の問題をセット
 	void SetBlank() { MainState = TextBox_State::STATE_BLANK; }//すかしをセット
 
-private:
+private://変数
 	int BoxImage;//mapの描画変数
-	int TextState;//textの状態
-	float time;//ボタンを押す時間間隔
-	bool TextJudge;//ボタンの時間のフラッグ
+
+private://state
 	TextBox_State MainState;//問題の状態
 	TextBox_State Q_AND_A;
     TextBox_State TalkState;//プレイヤーの思考
 
-private:
+private://object
+	Common* common;
+
+private://定数
 	const int BoxPosX = 350;
 	const int BoxPosY = 500;
 	const int HintX = 580;//ヒント文のX座標

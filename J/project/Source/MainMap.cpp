@@ -73,6 +73,7 @@ void MainMap::Update()
 	float py = player->GetPlayerPositionY();
 
 	TextBox* textBox = FindGameObject<TextBox>();
+	Common* common = FindGameObject<Common>();
 
 	switch (StageNum)//textboxへの遷移
 	{
@@ -82,11 +83,16 @@ void MainMap::Update()
 		MarkY = 64 * 12;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())//この判定をはさむことで回答中の問題の再生成を防ぐ
 				{
-					textBox->SetExtra();//特別問題
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetExtra();//特別問題
+						common->SetLagIn_T();//連続押し込み防止
+					}
+
 				}
 			}
 		}
@@ -98,21 +104,29 @@ void MainMap::Update()
 		MarkY = 64 * 6 + 6;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetScience();//理科
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetScience();//理科
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
 		if (fabs((px + 32) - (MarkX - (64 * 19) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 8) + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetScienceHint();//理科のヒント
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetScienceHint();//理科のヒント
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -124,21 +138,29 @@ void MainMap::Update()
 		MarkY = 64 * 3;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetSocietyHint();//社会のヒント
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetSocietyHint();//社会のヒント
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
 		if (fabs((px + 32) - (MarkX + (64 * 21 + 18) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 4 + 15) + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetJapaneseHint();//国語のヒント
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetJapaneseHint();//国語のヒント
+						common->SetLagIn_T();//連続押し込み防止	
+					}
 				}
 			}
 		}
@@ -150,11 +172,15 @@ void MainMap::Update()
 		MarkY = 64 * 13 + 15;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetSociety();//社会
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetSociety();//社会
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -166,12 +192,17 @@ void MainMap::Update()
 		MarkY = 64 * 6;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetJapanese();//国語
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetJapanese();//国語
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
+
 			}
 		}
 		break;
@@ -182,11 +213,15 @@ void MainMap::Update()
 		MarkY = 64 * 11 + 6;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetBlank();//何もない
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetBlank();//何もない
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -198,11 +233,15 @@ void MainMap::Update()
 		MarkY = 64 * 10;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetMathHint();//算数のヒント
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetMathHint();//算数のヒント
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -214,11 +253,15 @@ void MainMap::Update()
 		MarkY = 64 * 10;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetMath();//算数
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetMath();//算数
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -229,11 +272,15 @@ void MainMap::Update()
 		MarkY = 64 * 17;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (common->GetLagCheck())
 			{
 				if (player->GetPlay())
 				{
-					textBox->SetBlank();//何もない
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						textBox->SetBlank();//何もない
+						common->SetLagIn_T();//連続押し込み防止
+					}
 				}
 			}
 		}
@@ -243,6 +290,7 @@ void MainMap::Update()
 		ExFlag = false;
 		break;
 	}
+	
 }
 
 void MainMap::Draw()
@@ -798,7 +846,7 @@ bool MainMap::Warp(int Px, int Py)
 	// １階から２階への階段
 	// ==================================================
 	//左
-	if (common->GetPushStop())
+	if (common->GetLagCheck())
 	{
 		if (maps[y][x] == 100001)
 		{
@@ -811,7 +859,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -827,7 +875,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -843,7 +891,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -862,7 +910,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -878,7 +926,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -894,7 +942,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -913,7 +961,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -929,7 +977,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -948,7 +996,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -964,7 +1012,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -983,7 +1031,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -999,7 +1047,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1015,7 +1063,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1031,7 +1079,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1050,7 +1098,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1066,7 +1114,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1082,7 +1130,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1098,7 +1146,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1117,7 +1165,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1133,7 +1181,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1149,7 +1197,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 21;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1165,7 +1213,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 22;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1184,7 +1232,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1200,7 +1248,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1216,7 +1264,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1232,7 +1280,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1251,7 +1299,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(4);//行先
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1267,7 +1315,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(4);//行先
 				warpOutX = BgSize * 9;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1286,7 +1334,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1302,7 +1350,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1321,7 +1369,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1337,7 +1385,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1353,7 +1401,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1369,7 +1417,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(false);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1392,7 +1440,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1408,7 +1456,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1424,7 +1472,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1440,7 +1488,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1461,7 +1509,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 
@@ -1478,7 +1526,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1494,7 +1542,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 18;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1510,7 +1558,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1531,7 +1579,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1547,7 +1595,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1563,7 +1611,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1579,7 +1627,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1598,7 +1646,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1614,7 +1662,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1630,7 +1678,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1646,7 +1694,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1665,7 +1713,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1681,7 +1729,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1697,7 +1745,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1713,7 +1761,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1732,7 +1780,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1748,7 +1796,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1764,7 +1812,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1780,7 +1828,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1799,7 +1847,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1815,7 +1863,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1831,7 +1879,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1847,7 +1895,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1866,7 +1914,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1882,7 +1930,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1898,7 +1946,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1914,7 +1962,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1933,7 +1981,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1949,7 +1997,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1965,7 +2013,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -1981,7 +2029,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2000,7 +2048,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2016,7 +2064,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2032,7 +2080,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2048,7 +2096,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2067,7 +2115,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2083,7 +2131,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2099,7 +2147,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}
@@ -2115,7 +2163,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				common->SetPushStop(stop);
+				common->SetLagIn_W();
 				return true;
 			}
 		}

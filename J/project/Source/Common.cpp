@@ -4,9 +4,11 @@
 Common::Common()
 {
 	DontDestroyOnSceneChange(); // Sceneが変わっても消えない
+	
+	//初期化
 	ClearTime = 0.0f;
-	LagTime = 0.0f;
-	PushStop = true;
+	TimeLag = 0.0f;
+	lagCheck = true;
 }
 
 void Common::Update()
@@ -15,18 +17,39 @@ void Common::Update()
 	ImGui::InputInt("Stage", &stageNumber);
 	ImGui::Checkbox("NoDead", &noDead);
 	ImGui::End()*/;
-	if (!PushStop)
+
+	//ワープした時のラグ
+	if (!lagCheck)
 	{
-		LagTime += Time::DeltaTime();
-		if (LagTime >= 0.5f)
+		if (nowState == COMMON_STATE::STATE_WARP)
 		{
-			PushStop = true;
-			LagTime = 0.0f;
+			WarpLag();//ワープをするのにかかるラグをセット
 		}
+		else if (nowState == COMMON_STATE::STATE_TEXT)
+		{
+			TextLag();//textを勧めるのにかかるラグをセット
+		}
+
+	}
+
+}
+
+void Common::WarpLag()
+{
+	TimeLag += Time::DeltaTime();
+	if (TimeLag >= 0.5f)
+	{
+		lagCheck = true;
+		TimeLag = 0.0f;
 	}
 }
 
-void Common::SetLagTime()
+void Common::TextLag()
 {
-	
+	TimeLag += Time::DeltaTime();
+	if (TimeLag >= 0.65f)
+	{
+		lagCheck = true;
+		TimeLag = 0.0f;
+	}
 }

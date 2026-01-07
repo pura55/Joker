@@ -6,12 +6,16 @@
 TextBox::TextBox()
 {
 	SetDrawOrder(-5000);
+	//画像読み込み
 	BoxImage = LoadGraph("Data/image/TextBox.png");
 	assert(BoxImage > 0);
 
-	TextJudge = true;
+	//変数初期化
 	MainState = TextBox_State::STATE_END;
-	time = 0.0f;
+
+	//FindGameObject
+	common = FindGameObject<Common>();
+	
 }
 
 TextBox::~TextBox()
@@ -22,60 +26,48 @@ TextBox::~TextBox()
 void TextBox::Update()
 {
 	Player* player = FindGameObject<Player>();
-	if (MainState != TextBox_State::STATE_END)//tureとfalseの衝突を防ぐ
+	//mainStateがEND以外だったらプレイヤーの動きを止める
+	if (MainState != TextBox_State::STATE_END)//trueとfalseの衝突を防ぐ
 	{
 		player->SetPlay(false);//プレイヤーの動きを止める
 	}
 
-
-	if (!TextJudge)
-	{
-		time += Time::DeltaTime();
-		if (time >= 1.0f)
-		{
-			TextJudge = true;
-		}
-
-	}
-	if (time > 1.0f)
-	{
-		time = 0.0f;
-	}
-
+	Common* common = FindGameObject<Common>();
+	//メインの状態
 	switch (MainState)
 	{
 	case TextBox_State::STATE_JAPANESE://国語
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			QuestionJapanese();
 		}
 		break;
 	case TextBox_State::STATE_MATH://算数
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			QuestionMathematics();
 		}
 		break;
 	case TextBox_State::STATE_SCIENCE://理科
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			QuestionScience();
 		}
 		break;
 	case TextBox_State::STATE_SOCIETY://社会
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			QuestionSociety();
 		}
 		break;
 	case TextBox_State::STATE_EXTRA://特別問題
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			QuestionExtra();
 		}
 		break;
 	case TextBox_State::STATE_DICIDE://yes,no
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
 			if (CheckHitKey(KEY_INPUT_1))
 			{
@@ -83,100 +75,101 @@ void TextBox::Update()
 				{
 				case TextBox_State::STATE_JAPANESE:
 					MainState = TextBox_State::STATE_JAPANESE;
-					TextJudge = false;
+					common->SetLagIn_T();
 					break;
 				case TextBox_State::STATE_MATH:
 					MainState = TextBox_State::STATE_MATH;
-					TextJudge = false;
+					common->SetLagIn_T();
 					break;
 				case TextBox_State::STATE_SCIENCE:
 					MainState = TextBox_State::STATE_SCIENCE;
-					TextJudge = false;
+					common->SetLagIn_T();
 					break;
 				case TextBox_State::STATE_SOCIETY:
 					MainState = TextBox_State::STATE_SOCIETY;
-					TextJudge = false;
+					common->SetLagIn_T();
 					break;
 				case TextBox_State::STATE_EXTRA:
 					MainState = TextBox_State::STATE_EXTRA;
-					TextJudge = false;
+					common->SetLagIn_T();
 					break;
 				}
 			}
 			else if (CheckHitKey(KEY_INPUT_2))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 			}
 		}
 		break;
 	case TextBox_State::STATE_JP_HINT://国語のヒント
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 			}
 		}
 		break;
-	case TextBox_State::STATE_MT_HINT://算数のヒントif (TextJudge)
-	{
-		if (CheckHitKey(KEY_INPUT_F))
+	case TextBox_State::STATE_MT_HINT://算数のヒント
+		if (common->GetLagCheck())
 		{
-			MainState = TextBox_State::STATE_END;
-			TextJudge = false;
-		}
-	}
-	break;
-
-	case TextBox_State::STATE_SCI_HINT://理科のヒント
-		if (TextJudge)
-		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+
+	case TextBox_State::STATE_SCI_HINT://理科のヒント
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
 			}
 		}
 		break;
 	case TextBox_State::STATE_SOC_HINT://社会のヒント
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 			}
 		}
 		break;
 	case TextBox_State::STATE_BLANK://何もなかった
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 			}
 		}
 		break;
 	case TextBox_State::STATE_TRUE://正解
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 			}
 		}
 		break;
 	case TextBox_State::STATE_FALSE://不正解
-		if (TextJudge)
+		if (common->GetLagCheck())
 		{
-			if (CheckHitKey(KEY_INPUT_F))
+			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				MainState = TextBox_State::STATE_END;
-				TextJudge = false;
+				common->SetLagIn_T();
 				/*GameManager* GM = FindGameObject<GameManager>();
 				GM->SetGameOver();*/
 			}
@@ -186,6 +179,7 @@ void TextBox::Update()
 		player->SetPlay(true);
 		break;
 	}
+
 }
 
 void TextBox::Draw()
@@ -276,121 +270,136 @@ void TextBox::Draw()
 
 void TextBox::QuestionJapanese()
 {
-	if (CheckHitKey(KEY_INPUT_1))//不正解
+	if (common->GetLagCheck())
 	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_2))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_3))//正解
-	{
-		MainState = TextBox_State::STATE_TRUE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_4))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//正解
+		{
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
 	}
 }
 
 void TextBox::QuestionMathematics()
 {
-	if (CheckHitKey(KEY_INPUT_1))//不正解
+	if (common->GetLagCheck())
 	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_2))//正解
-	{
-		MainState = TextBox_State::STATE_TRUE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_3))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_4))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//正解
+		{
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
 	}
 }
 
 void TextBox::QuestionScience()
 {
-	if (CheckHitKey(KEY_INPUT_1))//不正解
+	if (common->GetLagCheck())
 	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_2))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_3))//正解
-	{
-		MainState = TextBox_State::STATE_TRUE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_4))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//正解
+		{
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
 	}
 }
 
 void TextBox::QuestionSociety()
 {
-	if (CheckHitKey(KEY_INPUT_1))//不正解
+	if (common->GetLagCheck())
 	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_2))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_3))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_4))//正解
-	{
-		MainState = TextBox_State::STATE_TRUE;
-		TextJudge = false;
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//正解
+		{
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
 	}
 }
 
 void TextBox::QuestionExtra()
 {
-	if (CheckHitKey(KEY_INPUT_1))//不正解
+	if (common->GetLagCheck())
 	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_2))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_3))//正解
-	{
-		MainState = TextBox_State::STATE_TRUE;
-		TextJudge = false;
-	}
-	if (CheckHitKey(KEY_INPUT_4))//不正解
-	{
-		MainState = TextBox_State::STATE_FALSE;
-		TextJudge = false;
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//正解
+		{
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//不正解
+		{
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+		}
 	}
 }
 
