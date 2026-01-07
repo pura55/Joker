@@ -239,7 +239,7 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_JP_HINT://国語のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(490, HintX, "「芥川龍之介　代表作：羅生門・鼻1」", GetColor(255, 255, 255), 1);
+		DrawString(490, HintX, "「芥川龍之介　代表作：羅生門・鼻」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_MT_HINT://算数のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
