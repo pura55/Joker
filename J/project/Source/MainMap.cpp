@@ -36,6 +36,7 @@ MainMap::MainMap(int stage)
 	StageNum = stage;
 	ExFlag = false;
 
+	GoldBoss= LoadGraph("data/image/bigboss.png");//‘œ
 	FloorImage = LoadGraph("data/image/artboad.png");//‘Š‘ò‚¨è»‚Ì°•Ç”
 	ArtImage = LoadGraph("data/image/Artrooms.png");//ƒA[ƒgŒn
 	BodyModelImage = LoadGraph("data/image/Bodymodel.png");//l‘Ì–ÍŒ^
@@ -214,7 +215,7 @@ void MainMap::Update()
 	case 6:// ”üpº
 		ExFlag = true;
 		MarkX = 64 * 13 + 18;
-		MarkY = 64 * 11 + 6;
+		MarkY = 64 * 11 -2;
 		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
 		{
 			if (common->GetLagCheck())
@@ -609,7 +610,7 @@ void MainMap::Draw()
 			}
 			if (maps[y][x] == 98)//ƒ€ƒLƒ€ƒLZ’·‘œ@~
 			{
-
+				DrawRectGraph(BgSize* x - scrollX, BgSize* y-10 - scrollY, 0 , 0 , 192, 320 , GoldBoss, 1);
 			}
 			if (maps[y][x] == 99)//”üpºˆÖq
 			{

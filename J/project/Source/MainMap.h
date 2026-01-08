@@ -31,6 +31,7 @@ public://getter
 
 
 private://画像
+	int GoldBoss;//像
 	int FloorImage;//相沢お手製の床壁諸々
 	int ArtImage;//アート系
 	int BodyModelImage;//人体模型
