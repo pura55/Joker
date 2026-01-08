@@ -67,6 +67,7 @@
     <ClCompile Include="Source\Warp.cpp" />
     <ClCompile Include="Source\FloorMap.cpp" />
     <ClCompile Include="Source\Common.cpp" />
+    <ClCompile Include="Source\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Source\Warp.h" />
     <ClInclude Include="Source\FloorMap.h" />
     <ClInclude Include="Source\Common.h" />
+    <ClInclude Include="Source\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
