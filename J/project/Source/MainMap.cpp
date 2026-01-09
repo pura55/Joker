@@ -224,7 +224,7 @@ void MainMap::Update()
 				{
 					if (CheckHitKey(KEY_INPUT_SPACE))
 					{
-						textBox->SetBlank();//‰½‚à‚È‚¢
+						textBox->SetArt();//‰½‚à‚È‚¢
 						common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 					}
 				}
@@ -283,7 +283,7 @@ void MainMap::Update()
 				{
 					if (CheckHitKey(KEY_INPUT_SPACE))
 					{
-						textBox->SetBlank();//‰½‚à‚È‚¢
+						textBox->SetCls();//‰½‚à‚È‚¢
 						common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 					}
 				}

@@ -12,6 +12,7 @@ TextBox::TextBox()
 
 	//変数初期化
 	MainState = TextBox_State::STATE_END;
+	TalkState = TextBox_State::STATE_END;
 	jpKey = false;
 	mtKey = false;
 	sciKey = false;
@@ -147,7 +148,17 @@ void TextBox::Update()
 			}
 		}
 		break;
-	case TextBox_State::STATE_BLANK://何もなかった
+	case TextBox_State::STATE_CLASS_ROOM://すかし
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+	case TextBox_State::STATE_ART_ROOM://すかし
 		if (common->GetLagCheck())
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
@@ -211,20 +222,21 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_SCIENCE://理科
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "火が燃えるのに必要な物質は？", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 1, "１．二酸化炭素", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 2, "２．水素", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 3, "３．酸素", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 4, "４．炭素", GetColor(255, 255, 255), 1);
+		DrawString(500, 554, "夏の大三角を作る星座のうちデネブ、", GetColor(255, 255, 255), 1);
+		DrawString(500, 554 + 16 * 1, "ベガ、あと一つは？", GetColor(255, 255, 255), 1);
+		DrawString(550, 554 + 16 * 2, "１．アルタイル", GetColor(255, 255, 255), 1);
+		DrawString(550, 554 + 16 * 3, "２．ペテルギウス", GetColor(255, 255, 255), 1);
+		DrawString(550, 554 + 16 * 4, "３．シリウス", GetColor(255, 255, 255), 1);
+		DrawString(550, 554 + 16 * 5, "４．アンタレス", GetColor(255, 255, 255), 1);
 
 		break;
 	case TextBox_State::STATE_SOCIETY://社会
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "邪馬台国を治めた人物は？", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 1, "１．聖徳太子", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 2, "２．紫式部", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 3, "３．両面宿儺", GetColor(255, 255, 255), 1);
-		DrawString(550, 570 + 16 * 4, "４．卑弥呼", GetColor(255, 255, 255), 1);
+		DrawString(500, 570, "710年にできた日本の首都の名前は？？", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 1, "１．平条京", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 2, "２．平安京", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 3, "３．幸安京", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 4, "４．平城京", GetColor(255, 255, 255), 1);
 
 		break;
 	case TextBox_State::STATE_EXTRA://特別問題
@@ -243,23 +255,29 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_JP_HINT://国語のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(490, HintX, "「芥川龍之介　代表作：羅生門・鼻」", GetColor(255, 255, 255), 1);
+		DrawString(490, HintY, "「芥川龍之介　代表作：羅生門・鼻」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_MT_HINT://算数のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(430, HintX, "「掛け算と割り算は足し算引き算よりも先に計算しよう！」", GetColor(255, 255, 255), 1);
+		DrawString(430, HintY, "「掛け算と割り算は足し算引き算よりも先に計算しよう！」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_SCI_HINT://理科のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(450, HintX, "「火が燃えるには酸素が必要不可欠！覚えておこう！」", GetColor(255, 255, 255), 1);
+		DrawString(470, HintY, "「デネブ　アルタイル　ベガ」", GetColor(255, 255, 255), 1);
+		DrawString(470, HintY + 16, "「これが夏の大三角」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_SOC_HINT://社会のヒント
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(480, HintX, "「邪馬台国を治めた倭国の女王「卑弥呼」」", GetColor(255, 255, 255), 1);
+		DrawString(480, HintY, "「納豆ねばねば平城京」", GetColor(255, 255, 255), 1);
+		DrawString(480, HintY + 16, "「見間違いに注意！」", GetColor(255, 255, 255), 1);
 		break;
-	case TextBox_State::STATE_BLANK://何もないとき
+	case TextBox_State::STATE_ART_ROOM://何もないとき
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "何もなかった...", GetColor(255, 255, 255), 1);
+		DrawString(450, 570, "「校長先生の彫像のらしい... 筋肉ムキムキだ」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_CLASS_ROOM://何もないとき
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(450, 570, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_TRUE://正解
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -270,6 +288,10 @@ void TextBox::Draw()
 		DrawString(500, 570, "不正解...", GetColor(255, 255, 255), 1);
 		break;
 	}
+}
+
+void TextBox::TextPro()
+{
 }
 
 void TextBox::QuestionJapanese()
@@ -332,9 +354,10 @@ void TextBox::QuestionScience()
 {
 	if (common->GetLagCheck())
 	{
-		if (CheckHitKey(KEY_INPUT_1))//不正解
+		if (CheckHitKey(KEY_INPUT_1))//正解
 		{
-			MainState = TextBox_State::STATE_FALSE;
+			sciKey = true;
+			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_2))//不正解
@@ -342,10 +365,9 @@ void TextBox::QuestionScience()
 			MainState = TextBox_State::STATE_FALSE;
 			common->SetLagIn_T();
 		}
-		if (CheckHitKey(KEY_INPUT_3))//正解
+		if (CheckHitKey(KEY_INPUT_3))//不正解
 		{
-			sciKey = true;
-			MainState = TextBox_State::STATE_TRUE;
+			MainState = TextBox_State::STATE_FALSE;
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_4))//不正解
