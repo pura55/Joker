@@ -20,12 +20,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	//‰ñ“škey‚Ìsetter
-	void SetJp(bool jp) { japaneseKey = jp; }         //‘Œê‚Ì‰ñ“š‚ª³‰ğ
-	void SetKeyMath(bool math) { mathKey = math; }    //Z”‚Ì‰ñ“š‚ª³‰ğ
-	void SetKeyScience(bool sci) { scienceKey = sci; }//—‰È‚Ì‰ñ“š‚ª³‰ğ
-	void SetKeySociety(bool soc) { societyKey = soc; }//Ğ‰ï‚Ì‰ñ“š‚ª³‰ğ
-	void SetKeyExtra(bool ex) { extraKey = ex; }      //“Á•Ê–â‘è‚Ì‰ñ“š‚ª³‰ğ
+	//setter
 	void SetGameOver() { state = GAME_STATE::STATE_GAMEOVER; }
 
 public:

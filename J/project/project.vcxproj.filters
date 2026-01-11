@@ -68,6 +68,7 @@
     <ClCompile Include="Source\FloorMap.cpp" />
     <ClCompile Include="Source\Common.cpp" />
     <ClCompile Include="Source\GameManager.cpp" />
+    <ClCompile Include="Source\KeyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Source\FloorMap.h" />
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\GameManager.h" />
+    <ClInclude Include="Source\KeyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">

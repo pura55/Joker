@@ -13,13 +13,10 @@ TextBox::TextBox()
 	//変数初期化
 	MainState = TextBox_State::STATE_END;
 	TalkState = TextBox_State::STATE_END;
-	jpKey = false;
-	mtKey = false;
-	sciKey = false;
-	socKey = false;
 
 	//FindGameObject
 	common = FindGameObject<Common>();
+	keyManager = FindGameObject<KeyManager>();
 	
 }
 
@@ -173,8 +170,34 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				MainState = TextBox_State::STATE_END;
-				common->SetLagIn_T();
+				switch (Q_AND_A)
+				{
+				case TextBox_State::STATE_JAPANESE:
+					keyManager->SetJpKey();
+					MainState = TextBox_State::STATE_JP_KEY;
+					common->SetLagIn_T();
+					break;
+				case TextBox_State::STATE_MATH:
+					keyManager->SetMtKey();
+					MainState = TextBox_State::STATE_MT_KEY;
+					common->SetLagIn_T();
+					break;
+				case TextBox_State::STATE_SCIENCE:
+					keyManager->SetSciKey();
+					MainState = TextBox_State::STATE_SCI_KEY;
+					common->SetLagIn_T();
+					break;
+				case TextBox_State::STATE_SOCIETY:
+					keyManager->SetSocKey();
+					MainState = TextBox_State::STATE_SOC_KEY;
+					common->SetLagIn_T();
+					break;
+				case TextBox_State::STATE_EXTRA:
+					keyManager->SetExKey();
+					MainState = TextBox_State::STATE_EX_KEY;
+					common->SetLagIn_T();
+					break;
+				}
 			}
 		}
 		break;
@@ -187,6 +210,108 @@ void TextBox::Update()
 				common->SetLagIn_T();
 				/*GameManager* GM = FindGameObject<GameManager>();
 				GM->SetGameOver();*/
+			}
+		}
+		break;
+	case TextBox_State::STATE_JP_KEY://国語の答案をゲット
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (keyManager->GetSbjectKey())
+				{
+					MainState = TextBox_State::STATE_EX_GUIDE;
+					common->SetLagIn_T();
+				}
+				else
+				{
+					MainState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+		}
+		break;
+	case TextBox_State::STATE_MT_KEY://算数の答案をゲット
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (keyManager->GetSbjectKey())
+				{
+					MainState = TextBox_State::STATE_EX_GUIDE;
+					common->SetLagIn_T();
+				}
+				else
+				{
+					MainState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+		}
+		break;
+	case TextBox_State::STATE_SCI_KEY://理科の答案をゲット
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (keyManager->GetSbjectKey())
+				{
+					MainState = TextBox_State::STATE_EX_GUIDE;
+					common->SetLagIn_T();
+				}
+				else
+				{
+					MainState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+		}
+		break;
+	case TextBox_State::STATE_SOC_KEY://社会の答案をゲット
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				if (keyManager->GetSbjectKey())
+				{
+					MainState = TextBox_State::STATE_EX_GUIDE;
+					common->SetLagIn_T();
+				}
+				else
+				{
+					MainState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+		}
+		break;
+	case TextBox_State::STATE_EX_KEY://屋上の鍵をゲット
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				MainState = TextBox_State::STATE_ESCAPE_GUIDE;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
 			}
 		}
 		break;
@@ -273,19 +398,49 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_ART_ROOM://何もないとき
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(450, 570, "「校長先生の彫像のらしい... 筋肉ムキムキだ」", GetColor(255, 255, 255), 1);
+		DrawString(450, 580, "「校長先生の彫像のらしい... 筋肉ムキムキだ」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_CLASS_ROOM://何もないとき
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(450, 570, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
+		DrawString(450, 580, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_TRUE://正解
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "正解！", GetColor(255, 255, 255), 1);
+		DrawString(500, 580, "「正解！」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_FALSE://不正解
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "不正解...", GetColor(255, 255, 255), 1);
+		DrawString(500, 580, "「不正解...」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_JP_KEY://国語の答案をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「国語の回答を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_MT_KEY://算数の答案をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「算数の回答を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_SCI_KEY://理科の答案をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「理科の回答を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_SOC_KEY://社会の答案をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「社会の回答を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_EX_KEY://屋上の鍵をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「屋上の鍵を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(395, HintY, "「すべての回答を集めた！　脱出するために屋上のカギを探そう」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(480, HintY, "「屋上へ向かって脱出しよう！」", GetColor(255, 255, 255), 1);
+		break;
+	default:
 		break;
 	}
 }
@@ -310,7 +465,6 @@ void TextBox::QuestionJapanese()
 		}
 		if (CheckHitKey(KEY_INPUT_3))//正解
 		{
-			jpKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -333,7 +487,6 @@ void TextBox::QuestionMathematics()
 		}
 		if (CheckHitKey(KEY_INPUT_2))//正解
 		{
-			mtKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -356,7 +509,6 @@ void TextBox::QuestionScience()
 	{
 		if (CheckHitKey(KEY_INPUT_1))//正解
 		{
-			sciKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -399,7 +551,6 @@ void TextBox::QuestionSociety()
 		}
 		if (CheckHitKey(KEY_INPUT_4))//正解
 		{
-			socKey = true;
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}

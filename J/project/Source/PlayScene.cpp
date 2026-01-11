@@ -3,11 +3,14 @@
 #include "MainMap.h"
 #include "FloorMap.h"
 #include "TextBox.h"
+#include "KeyManager.h"
+
 
 
 
 PlayScene::PlayScene()
 {
+	new KeyManager();
 	new FloorMap(1);//初期フロア
 	new MainMap(1);//初期マップ
 	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生成

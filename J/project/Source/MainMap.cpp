@@ -6,6 +6,7 @@
 #include "Fader.h"
 #include "Common.h"
 #include "TextBox.h"
+#include "KeyManager.h"
 #include <vector>
 #include <iostream>
 
@@ -34,7 +35,8 @@ MainMap::MainMap(int stage)
 	delete csv;
 
 	StageNum = stage;
-	ExFlag = false;
+	ExFlag_Q = false;
+	ExFlag_Another = false;
 
 	GoldBoss= LoadGraph("data/image/bigboss.png");//ëú
 	FloorImage = LoadGraph("data/image/artboad.png");//ëäëÚÇ®éËêªÇÃè∞ï«èî
@@ -76,16 +78,21 @@ void MainMap::Update()
 
 	TextBox* textBox = FindGameObject<TextBox>();
 	Common* common = FindGameObject<Common>();
+	KeyManager* keyManager = FindGameObject<KeyManager>();
 
-	switch (StageNum)//textboxÇ÷ÇÃëJà⁄
+	switch (StageNum)//textboxÇ÷ÇÃëJà⁄Åiñ‚ëËÅj
 	{
 	case 1: //êEàıé∫ 
-		MarkX = 64 * 19 + 10;
-		MarkY = 64 * 12;
-		if (textBox->GetJpKey() && textBox->GetMtKey() && textBox->GetSciKey() && textBox->GetSocKey())
+		MarkX_Q = 64 * 19 + 10;
+		MarkY_Q = 64 * 12;
+		if (keyManager->GetExKey())
 		{
-			ExFlag = true;
-		   if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+			ExFlag_Q = false;
+		}
+		else if (keyManager->GetSbjectKey())
+		{
+			ExFlag_Q = true;
+		   if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
 		   {
 			   if(common->GetLagCheck())
 			   {
@@ -101,90 +108,33 @@ void MainMap::Update()
 			   }
 		   }
 		}
+		else
+		{
+			ExFlag_Q = false;
+		}
 		break;
 
 	case 2://óùâ»é∫
-		ExFlag = true;
-		MarkX = 64 * 22 + 18;
-		MarkY = 64 * 6 + 6;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		MarkX_Q = 64 * 22 + 18;
+		MarkY_Q = 64 * 6 + 6;
+		if (keyManager->GetSciKey())
 		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetScience();//óùâ»
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
-					}
-				}
-			}
+			ExFlag_Q = false;
 		}
-		if (fabs((px + 32) - (MarkX - (64 * 19) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 8) + 12)) < 80)
+		else
 		{
-			if (common->GetLagCheck())
+			ExFlag_Q = true;
+			if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
 			{
-				if (player->GetPlay())
+				if (common->GetLagCheck())
 				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
+					if (player->GetPlay())
 					{
-						textBox->SetScienceHint();//óùâ»ÇÃÉqÉìÉg
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
-					}
-				}
-			}
-		}
-		break;
-
-	case 3://ê}èëé∫
-		ExFlag = true;
-		MarkX = 64 * 5;
-		MarkY = 64 * 3;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
-		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetSocietyHint();//é–âÔÇÃÉqÉìÉg
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
-					}
-				}
-			}
-		}
-		if (fabs((px + 32) - (MarkX + (64 * 21 + 18) + 12)) < 80 && fabs((py + 48) - (MarkY + (64 * 4 + 15) + 12)) < 80)
-		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetJapaneseHint();//çëåÍÇÃÉqÉìÉg
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~	
-					}
-				}
-			}
-		}
-		break;
-
-	case 4://çZí∑é∫
-		ExFlag = true;
-		MarkX = 64 * 7 + 18;
-		MarkY = 64 * 13 + 15;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
-		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetSociety();//é–âÔ
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetScience();//óùâ»
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
 					}
 				}
 			}
@@ -192,99 +142,81 @@ void MainMap::Update()
 		break;
 
 	case 5://âπäyé∫
-		ExFlag = true;
-		MarkX = 64 * 11 + 19;
-		MarkY = 64 * 6;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		MarkX_Q = 64 * 11 + 19;
+		MarkY_Q = 64 * 6;
+		if (keyManager->GetJpKey())
 		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetJapanese();//çëåÍ
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
-					}
-				}
-
-			}
+			ExFlag_Q = false;
 		}
-		break;
-
-	case 6:// î¸èpé∫
-		ExFlag = true;
-		MarkX = 64 * 13 + 18;
-		MarkY = 64 * 11 -2;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		else
 		{
-			if (common->GetLagCheck())
+			ExFlag_Q = true;
+			if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
 			{
-				if (player->GetPlay())
+				if (common->GetLagCheck())
 				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
+					if (player->GetPlay())
 					{
-						textBox->SetArt();//âΩÇ‡Ç»Ç¢
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetJapanese();//çëåÍ
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
 					}
-				}
-			}
-		}
-		break;
 
-	case 101://ÇPäKã≥é∫1
-		ExFlag = true;
-		MarkX = 64 * 22 + 18;
-		MarkY = 64 * 10;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
-		{
-			if (common->GetLagCheck())
-			{
-				if (player->GetPlay())
-				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
-					{
-						textBox->SetMathHint();//éZêîÇÃÉqÉìÉg
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
-					}
 				}
 			}
 		}
 		break;
 
 	case 102://ÇPäKã≥é∫1
-		ExFlag = true;
-		MarkX = 64 * 22 + 18;
-		MarkY = 64 * 10;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+		MarkX_Q = 64 * 22 + 18;
+		MarkY_Q = 64 * 10;
+		if (keyManager->GetMtKey())
 		{
-			if (common->GetLagCheck())
+			ExFlag_Q = false;
+		}
+		else
+		{
+			ExFlag_Q = true;
+			if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
 			{
-				if (player->GetPlay())
+				if (common->GetLagCheck())
 				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
+					if (player->GetPlay())
 					{
-						textBox->SetMath();//éZêî
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetMath();//éZêî
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
 					}
 				}
 			}
 		}
 		break;
-	case 202:// ÇQäKã≥é∫ÇQ
-		ExFlag = true;
-		MarkX = 64 * 6 + 18;
-		MarkY = 64 * 17;
-		if (fabs((px + 32) - (MarkX + 12)) < 80 && fabs((py + 48) - (MarkY + 12)) < 80)
+
+	case 201://2äKã≥é∫1
+		MarkX_Q = 64 * 4 + 18;
+		MarkY_Q = 64 * 11 + 15;
+		if (keyManager->GetSocKey())
 		{
-			if (common->GetLagCheck())
+			ExFlag_Q = false;
+		}
+		else
+		{
+			ExFlag_Q = true;
+			if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
 			{
-				if (player->GetPlay())
+				if (common->GetLagCheck())
 				{
-					if (CheckHitKey(KEY_INPUT_SPACE))
+					if (player->GetPlay())
 					{
-						textBox->SetCls();//âΩÇ‡Ç»Ç¢
-						common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetSociety();//é–âÔ
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
 					}
 				}
 			}
@@ -292,7 +224,170 @@ void MainMap::Update()
 		break;
 
 	default:
-		ExFlag = false;
+		ExFlag_Q = false;
+		break;
+	}
+
+	switch (StageNum)//textBoxÅiÇªÇÃëºÅj
+	{
+	case 2://óùâ»é∫
+		
+		MarkX_Another = 64 * 3 + 18;
+		MarkY_Another = 64 * 14 + 6;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else 
+		{
+			ExFlag_Another = true;
+			if (fabs((px + 32) - MarkX_Another + 12) < 80 && fabs((py + 48) - MarkY_Another + 12) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetScienceHint();//óùâ»ÇÃÉqÉìÉg
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+		}
+		break;
+
+	case 3://ê}èëé∫
+		
+		MarkX_Another = 64 * 5;
+		MarkY_Another = 64 * 3;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else 
+		{
+			ExFlag_Another = true;
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+			
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetSocietyHint();//é–âÔÇÃÉqÉìÉg
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+
+			if (fabs((px + 32) - (MarkX_Another + (64 * 21 + 18) + 12)) < 80 && fabs((py + 48) - (MarkY_Another + (64 * 4 + 15) + 12)) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetJapaneseHint();//çëåÍÇÃÉqÉìÉg
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~	
+						}
+					}
+				}
+			}
+		}
+		
+		break;
+
+	case 6:// î¸èpé∫
+		MarkX_Another = 64 * 13 + 18;
+		MarkY_Another = 64 * 11 - 2;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else 
+		{
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				ExFlag_Another = true;
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetArt();//âΩÇ‡Ç»Ç¢
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+		}
+		break;
+
+	case 101://ÇPäKã≥é∫1
+		ExFlag_Another = true;
+		MarkX_Another = 64 * 22 + 18;
+		MarkY_Another = 64 * 10;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else 
+		{
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				ExFlag_Another = true;
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetMathHint();//éZêîÇÃÉqÉìÉg
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+		}
+		break;
+
+	case 202:// ÇQäKã≥é∫2
+		MarkX_Another = 64 * 7 + 18;
+		MarkY_Another = 64 * 17;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else 
+		{
+			ExFlag_Another = true;
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetCls();//âΩÇ‡Ç»Ç¢
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+			
+		}
+		break;
+
+	default:
+		ExFlag_Another = false;
 		break;
 	}
 	
@@ -666,16 +761,17 @@ void MainMap::Draw()
 		}
 	}
 
-	if (ExFlag)
+	if (ExFlag_Q)
 	{
-		DrawRectGraph(MarkX - scrollX, MarkY - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
-		if (StageNum == 2)
-		{
-			DrawRectGraph(MarkX - scrollX - (64 * 19) + 18, MarkY - scrollY + (64 * 8) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
-		}
+		DrawRectGraph(MarkX_Q - scrollX, MarkY_Q - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+	}
+	if (ExFlag_Another)
+	{
+		DrawRectGraph(MarkX_Another - scrollX, MarkY_Another - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+
 		if (StageNum == 3)
 		{
-			DrawRectGraph(MarkX - scrollX + (64 * 21) + 18, MarkY - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
 		}
 	}
 }

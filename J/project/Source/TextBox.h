@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/GameObject.h"
 #include "Common.h"
+#include "KeyManager.h"
 
 //textboxの状態
 enum class TextBox_State
@@ -21,15 +22,26 @@ enum class TextBox_State
 	STATE_SCI_HINT,    //理科のヒント
 	STATE_SOC_HINT,    //社会のヒント
 
+	//鍵
+	STATE_JP_KEY,      //国語の鍵
+	STATE_MT_KEY,      //算数の鍵
+	STATE_SCI_KEY,     //理科の鍵
+	STATE_SOC_KEY,     //社会の鍵
+	STATE_EX_KEY,      //特別問題の鍵
+
 	//場所
-	STATE_CLASS_ROOM,  //教室
+	STATE_CLASS_ROOM,   //教室
 	STATE_ART_ROOM,     //美術室
+
+	//案内
+	STATE_EX_GUIDE,    //特別問題の場所を示唆
+	STATE_ESCAPE_GUIDE,//屋上からの脱出を示唆
 
 	//その他
 	//STATE_BLANK,       //使うかもしれないから残す
 	STATE_TRUE,        //正解
 	STATE_FALSE,       //不正解
-	STATE_END   //STATE終了
+	STATE_END          //STATE終了
 };
 
 class TextBox : public GameObject
@@ -88,18 +100,9 @@ public://setter
 	void SetCls() { MainState = TextBox_State::STATE_CLASS_ROOM; }//
 
 public://getter
-	bool GetJpKey()const { return jpKey; }
-	bool GetMtKey()const { return mtKey; }
-	bool GetSciKey()const { return sciKey; }
-	bool GetSocKey()const { return socKey; }
-	bool GetExKey()const { return exKey; }
+
 private://変数
 	int BoxImage;//mapの描画変数
-	bool jpKey;  //国語の鍵
-	bool mtKey;  //算数の鍵
-	bool sciKey; //理科の鍵
-	bool socKey; //社会の鍵
-	bool exKey;  //特別問題の鍵
 
 private://state
 	TextBox_State MainState;//テキストボックスの状態
@@ -108,6 +111,7 @@ private://state
 
 private://object
 	Common* common;
+	KeyManager* keyManager;
 
 private://定数
 	const int BoxPosX = 350;

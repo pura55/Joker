@@ -64,9 +64,14 @@ public:
 	int targetWarpFloor;
 	int warpOutX = 0;
 	int warpOutY = 0;
-	int MarkX = 0;
-	int MarkY = 0;
-	bool ExFlag;
+
+public://I—p‚Ì•Ï”
+	int MarkX_Q = 0;
+	int MarkY_Q = 0;
+	int MarkX_Another = 0;
+	int MarkY_Another = 0;
+	bool ExFlag_Q;
+	bool ExFlag_Another;
 	
 private:
 	//Common* common;
