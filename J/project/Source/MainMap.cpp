@@ -332,7 +332,7 @@ void MainMap::Update()
 		}
 		break;
 	case 6:// ”üpŽº
-		MarkX_Another = 64 * 12 + 18;
+		MarkX_Another = 64 * 12 + 20;
 		MarkY_Another = 64 * 11 - 2;
 		if (keyManager->GetExKey())
 		{
@@ -341,7 +341,7 @@ void MainMap::Update()
 		else 
 		{
 			ExFlag_Another = true;
-			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 128 && fabs((py + 48) - (MarkY_Another + 12)) < 192)
 			{
 				if (common->GetLagCheck())
 				{
