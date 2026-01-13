@@ -38,6 +38,7 @@ enum class TextBox_State
 	//êŠ
 	STATE_CLASS_ROOM,   //‹³º
 	STATE_ART_ROOM,     //”üpº
+	STATE_PRINCIPAL_OFFICE,
 
 	//ˆÄ“à
 	STATE_EX_GUIDE,    //“Á•Ê–â‘è‚ÌêŠ‚ğ¦´
@@ -110,7 +111,12 @@ public://setter
 
 	//“§‚©‚µ
 	void SetArt() { MainState = TextBox_State::STATE_ART_ROOM; }//”üpº
-	void SetCls() { MainState = TextBox_State::STATE_CLASS_ROOM; }//
+	void SetCls() { MainState = TextBox_State::STATE_CLASS_ROOM; }//‹³º
+	void SetPri() 
+	{
+		MainState = TextBox_State::STATE_PRINCIPAL_OFFICE;
+		TalkState = TextBox_State::STATE_STRING_1;
+	}//Z’·º
 
 public://getter
 

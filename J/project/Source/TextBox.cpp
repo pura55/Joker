@@ -205,6 +205,34 @@ void TextBox::Update()
 			}
 		}
 		break;
+	case TextBox_State::STATE_PRINCIPAL_OFFICE://ナポヒント
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					TalkState = TextBox_State::STATE_STRING_2;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+
+		case TextBox_State::STATE_STRING_2:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					MainState = TextBox_State::STATE_END;
+					TalkState = TextBox_State::STATE_END;
+					SetFontSize(16);
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		}
+		break;
 	case TextBox_State::STATE_TRUE://正解
 		if (common->GetLagCheck())
 		{
@@ -488,6 +516,21 @@ void TextBox::Draw()
 	case TextBox_State::STATE_CLASS_ROOM://何もないとき
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(450, 580, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_PRINCIPAL_OFFICE://ナポ
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			DrawString(450, HintY, "「ナポリタンが...  ナポい気分になってきた...」", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_2:
+			SetFontSize(40);
+			DrawString(500, HintY, "うぉww", GetColor(255, 255, 255), 1);
+			break;
+		default:
+			break;
+		}
 		break;
 	case TextBox_State::STATE_TRUE://正解
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);

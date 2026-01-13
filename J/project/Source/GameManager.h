@@ -30,21 +30,8 @@ public:
 	GAME_STATE gameClear();
 	GAME_STATE gameOver();
 	
-
-public:
-	bool GetKeyAll() const { return ALL_KEY_IS_TRUE; }
 private:
 	GAME_STATE state;
 
-	//Œ®‚ğtrue‚É‚·‚é‚Æ‰ğ“š‚ğŠ‚µ‚Ä‚¢‚é”»’è‚É‚È‚é
-	bool japaneseKey;  //‘Œê‚Ì³‰ğ—p‚ÌŒ®
-	bool mathKey;      //Z”‚Ì³‰ğ—p‚ÌŒ®
-	bool scienceKey;   //—‰È‚ÌŒ®
-	bool societyKey;   //Ğ‰ï‚ÌŒ®
-	bool extraKey;     //“Á•Ê–â‘è‚ÌŒ®
-	bool ALL_KEY_IS_TRUE; //‚·‚×‚Ä‚ÌŒ®‚ğŠ‚·‚é‚Æture
 
-	
-	
-	
 };

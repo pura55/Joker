@@ -9,13 +9,6 @@
 GameManager::GameManager()
 {
 	state = GAME_STATE::STATE_INIT;
-
-	japaneseKey = false;
-	mathKey = false;
-	scienceKey = false;
-	societyKey = false;
-	extraKey = false;
-	ALL_KEY_IS_TRUE = false;
 }
 
 GameManager::~GameManager()

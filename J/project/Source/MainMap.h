@@ -55,6 +55,7 @@ private://画像
 	int STChairImage;//机椅子
 	int StaffChairImage;
 	int ExclamationImage;//！マーク
+	int NapoImage;//ナポリタンの画像
 
 public:
 	int StageNum;

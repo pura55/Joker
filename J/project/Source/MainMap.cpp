@@ -62,6 +62,7 @@ MainMap::MainMap(int stage)
 	STChairImage = LoadGraph("data/image/student.png");//ä˜à÷éq
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
 	ExclamationImage = LoadGraph("data/image/ExBg.png");
+	NapoImage = LoadGraph("data/image/napo.png");//ÉiÉ|
 	//new Enemy();
 
 }
@@ -304,6 +305,32 @@ void MainMap::Update()
 		
 		break;
 
+	case 4://çZí∑é∫
+		MarkX_Another = 64 * 8 + 18;
+		MarkY_Another = 64 * 13 + 15;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else
+		{
+			ExFlag_Another = true;
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							textBox->SetPri();//âΩÇ‡Ç»Ç¢
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+		}
+		break;
 	case 6:// î¸èpé∫
 		MarkX_Another = 64 * 12 + 18;
 		MarkY_Another = 64 * 11 - 2;
@@ -313,9 +340,9 @@ void MainMap::Update()
 		}
 		else 
 		{
+			ExFlag_Another = true;
 			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
 			{
-				ExFlag_Another = true;
 				if (common->GetLagCheck())
 				{
 					if (player->GetPlay())
@@ -341,9 +368,9 @@ void MainMap::Update()
 		}
 		else 
 		{
+			ExFlag_Another = true;
 			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
 			{
-				ExFlag_Another = true;
 				if (common->GetLagCheck())
 				{
 					if (player->GetPlay())
@@ -762,6 +789,11 @@ void MainMap::Draw()
 		}
 	}
 
+	if (StageNum == 4)
+	{
+		DrawRectGraph(BgSize * 8 - scrollX, BgSize * 13 - scrollY, 0, 0, 64, 64, NapoImage, TRUE);
+	}
+
 	if (ExFlag_Q)
 	{
 		DrawRectGraph(MarkX_Q - scrollX, MarkY_Q - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
@@ -769,10 +801,15 @@ void MainMap::Draw()
 	if (ExFlag_Another)
 	{
 		DrawRectGraph(MarkX_Another - scrollX, MarkY_Another - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+	
 		if (StageNum == 3)
 		{
 			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
 		}
+		/*if (StageNum == 6)
+		{
+			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+		}*/
 	}
 }
 
