@@ -304,7 +304,7 @@ void MainMap::Update()
 		break;
 
 	case 6:// î¸èpé∫
-		MarkX_Another = 64 * 13 + 18;
+		MarkX_Another = 64 * 12 + 18;
 		MarkY_Another = 64 * 11 - 2;
 		if (keyManager->GetExKey())
 		{
@@ -705,7 +705,7 @@ void MainMap::Draw()
 			}
 			if (maps[y][x] == 98)//ÉÄÉLÉÄÉLçZí∑ëúÅ@Å~
 			{
-				DrawRectGraph(BgSize* x - scrollX, BgSize* y-10 - scrollY, 0 , 0 , 192, 320 , GoldBoss, 1);
+				DrawRectGraph(BgSize* x - scrollX, BgSize * y - 10 - scrollY, 0, 0, 192, 320, GoldBoss, 1);
 			}
 			if (maps[y][x] == 99)//î¸èpé∫à÷éq
 			{
@@ -773,6 +773,10 @@ void MainMap::Draw()
 		{
 			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
 		}
+		/*if (StageNum == 6)
+		{
+			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+		}*/
 	}
 }
 
