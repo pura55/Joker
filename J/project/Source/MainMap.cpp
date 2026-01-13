@@ -61,8 +61,8 @@ MainMap::MainMap(int stage)
 	ScienceTableImage = LoadGraph("data/image/ST-Schl-I02.png");
 	STChairImage = LoadGraph("data/image/student.png");//机椅子
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
-	ExclamationImage = LoadGraph("data/image/ExBg.png");
-	NapoImage = LoadGraph("data/image/napo.png");//ナポ
+	ExtentionImage = LoadGraph("data/image/ExBg.png");
+	NapoImage = LoadGraph("data/image/napo2.png");//ナポ
 	//new Enemy();
 
 }
@@ -306,8 +306,8 @@ void MainMap::Update()
 		break;
 
 	case 4://校長室
-		MarkX_Another = 64 * 8 + 18;
-		MarkY_Another = 64 * 13 + 15;
+		MarkX_Another = 64 * 8 + 20;
+		MarkY_Another = 64 * 13 + 4;
 		if (keyManager->GetExKey())
 		{
 			ExFlag_Another = false;
@@ -796,19 +796,19 @@ void MainMap::Draw()
 
 	if (ExFlag_Q)
 	{
-		DrawRectGraph(MarkX_Q - scrollX, MarkY_Q - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+		DrawRectGraph(MarkX_Q - scrollX, MarkY_Q - scrollY, 0, 0, 24, 24, ExtentionImage, TRUE);
 	}
 	if (ExFlag_Another)
 	{
-		DrawRectGraph(MarkX_Another - scrollX, MarkY_Another - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
+		DrawRectGraph(MarkX_Another - scrollX, MarkY_Another - scrollY, 0, 0, 24, 24, ExtentionImage, TRUE);
 	
 		if (StageNum == 3)
 		{
-			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExtentionImage, TRUE);
 		}
 		/*if (StageNum == 6)
 		{
-			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
+			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExtentionImage, TRUE);
 		}*/
 	}
 }

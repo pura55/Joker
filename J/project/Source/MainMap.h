@@ -54,7 +54,7 @@ private://画像
 	int ScienceTableImage;
 	int STChairImage;//机椅子
 	int StaffChairImage;
-	int ExclamationImage;//！マーク
+	int ExtentionImage;//！マーク
 	int NapoImage;//ナポリタンの画像
 
 public:
