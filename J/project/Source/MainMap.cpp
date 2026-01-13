@@ -63,6 +63,7 @@ MainMap::MainMap(int stage)
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
 	ExclamationImage = LoadGraph("data/image/ExBg.png");
 	//new Enemy();
+
 }
 
 MainMap::~MainMap()
@@ -768,15 +769,10 @@ void MainMap::Draw()
 	if (ExFlag_Another)
 	{
 		DrawRectGraph(MarkX_Another - scrollX, MarkY_Another - scrollY, 0, 0, 24, 24, ExclamationImage, TRUE);
-
 		if (StageNum == 3)
 		{
 			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
 		}
-		/*if (StageNum == 6)
-		{
-			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExclamationImage, TRUE);
-		}*/
 	}
 }
 
@@ -797,7 +793,7 @@ int MainMap::HitCheckRight(int Px, int Py) //âEÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
-		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 99
+		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98||maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
 		|| maps[y][x] == 10001 || maps[y][x] == 10002 || maps[y][x] == 10003 || maps[y][x] == 10004
 		|| maps[y][x] == 10005 || maps[y][x] == 10006 || maps[y][x] == 10007 || maps[y][x] == 10008
@@ -832,7 +828,7 @@ int MainMap::HitCheckLeft(int Px, int Py)//âEÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
-		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 99
+		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
 		|| maps[y][x] == 10001 || maps[y][x] == 10002 || maps[y][x] == 10003 || maps[y][x] == 10004
 		|| maps[y][x] == 10005 || maps[y][x] == 10006 || maps[y][x] == 10007 || maps[y][x] == 10008
@@ -867,7 +863,7 @@ int MainMap::HitCheckUp(int Px, int Py) //è„ÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
-		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 99
+		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
 		|| maps[y][x] == 10001 || maps[y][x] == 10002 || maps[y][x] == 10003 || maps[y][x] == 10004
 		|| maps[y][x] == 10005 || maps[y][x] == 10006 || maps[y][x] == 10007 || maps[y][x] == 10008
@@ -902,7 +898,7 @@ int MainMap::HitCheckDown(int Px, int Py) //â∫ÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
-		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 99
+		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
 		|| maps[y][x] == 10001 || maps[y][x] == 10002 || maps[y][x] == 10003 || maps[y][x] == 10004
 		|| maps[y][x] == 10005 || maps[y][x] == 10006 || maps[y][x] == 10007 || maps[y][x] == 10008

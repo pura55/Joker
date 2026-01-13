@@ -38,6 +38,46 @@ void TextBox::Update()
 	//メインの状態
 	switch (MainState)
 	{
+	case TextBox_State::STATE_PRO:
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					TalkState = TextBox_State::STATE_STRING_2;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+
+		case TextBox_State::STATE_STRING_2:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					TalkState = TextBox_State::STATE_STRING_3;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+
+		case TextBox_State::STATE_STRING_3:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					MainState = TextBox_State::STATE_END;
+					TalkState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		break;
 	case TextBox_State::STATE_JAPANESE://国語
 		if (common->GetLagCheck())
 		{
@@ -221,6 +261,7 @@ void TextBox::Update()
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
+					TalkState = TextBox_State::STATE_STRING_1;
 					common->SetLagIn_T();
 				}
 				else
@@ -239,6 +280,7 @@ void TextBox::Update()
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
+					TalkState = TextBox_State::STATE_STRING_1;
 					common->SetLagIn_T();
 				}
 				else
@@ -257,6 +299,7 @@ void TextBox::Update()
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
+					TalkState = TextBox_State::STATE_STRING_1;
 					common->SetLagIn_T();
 				}
 				else
@@ -275,6 +318,7 @@ void TextBox::Update()
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
+					TalkState = TextBox_State::STATE_STRING_1;
 					common->SetLagIn_T();
 				}
 				else
@@ -296,13 +340,33 @@ void TextBox::Update()
 		}
 		break;
 	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
-		if (common->GetLagCheck())
+		switch (TalkState)
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+		case TextBox_State::STATE_STRING_1:
+			if (common->GetLagCheck())
 			{
-				MainState = TextBox_State::STATE_END;
-				common->SetLagIn_T();
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					TalkState = TextBox_State::STATE_STRING_2;
+					common->SetLagIn_T();
+				}
 			}
+			break;
+
+		case TextBox_State::STATE_STRING_2:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					MainState = TextBox_State::STATE_END;
+					TalkState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+
+		default :
+			break;
 		}
 		break;
 	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
@@ -318,6 +382,8 @@ void TextBox::Update()
 	case TextBox_State::STATE_END://STATE終了
 		player->SetPlay(true);
 		break;
+	default:
+		break;
 	}
 
 }
@@ -327,6 +393,25 @@ void TextBox::Draw()
 	//問題の出力判定
 	switch (MainState)
 	{
+	case TextBox_State::STATE_PRO:
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+			DrawString(550, 570, "職員室に答案がない・・・　", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_2:
+			DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+			DrawString(430, 570, "もしかしたら構内のどこかに隠されているかもしれない", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_3:
+			DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+			DrawString(550, 570, "答案を盗んで脱出しよう！", GetColor(255, 255, 255), 1);
+			break;
+		default:
+			break;
+		}
+		break;
 	case TextBox_State::STATE_JAPANESE://国語
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(500, 570, "この中で芥川龍之介が描いた本は？", GetColor(255, 255, 255), 1);
@@ -434,7 +519,17 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(395, HintY, "「すべての回答を集めた！　脱出するために屋上のカギを探そう」", GetColor(255, 255, 255), 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			DrawString(395, HintY, "「すべての回答を集めた！　脱出するために屋上のカギを探そう」", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_2:
+			DrawString(490, HintY, "めぼしい場所は職員室だろうか...", GetColor(255,255,255), 1);
+			break;
+		default :
+			break;
+		}
 		break;
 	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);

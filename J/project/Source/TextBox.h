@@ -6,8 +6,14 @@
 //textboxの状態
 enum class TextBox_State
 {
+	//STATE終了
+	STATE_END = 0,
+
+	//プロローグ
+	STATE_PRO = 1,
+
 	//問題
-	STATE_JAPANESE = 1,//国語
+	STATE_JAPANESE = 2,//国語
 	STATE_MATH,        //算数
 	STATE_SCIENCE,     //理科
 	STATE_SOCIETY,     //社会
@@ -37,11 +43,18 @@ enum class TextBox_State
 	STATE_EX_GUIDE,    //特別問題の場所を示唆
 	STATE_ESCAPE_GUIDE,//屋上からの脱出を示唆
 
-	//その他
+	//同じ内容の文章で複数文章がある場合使用する
+	STATE_STRING_1,
+	STATE_STRING_2,
+	STATE_STRING_3,
+	STATE_STRING_4,
+
+	//正解
+	STATE_TRUE,    
+	//不正解
+	STATE_FALSE           
+
 	//STATE_BLANK,       //使うかもしれないから残す
-	STATE_TRUE,        //正解
-	STATE_FALSE,       //不正解
-	STATE_END          //STATE終了
 };
 
 class TextBox : public GameObject
