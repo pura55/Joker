@@ -36,6 +36,17 @@ public:
 	bool lagCheck;//space‚ð˜A‘±‚Å‚¨‚³‚È‚¢
 	bool noDead;
 
+private:
+	int warpOutX = 0;
+	int warpOutY = 0;
+public:
+	void SetWarpOut(int x, int y) {
+		warpOutX = x; warpOutY = y;
+	}
+	int GetwarpOutX() { return warpOutX; }
+	int GetwarpOutY() { return warpOutY; }
+
+
 private://state
 	COMMON_STATE nowState;
 };

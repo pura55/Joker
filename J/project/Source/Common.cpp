@@ -9,6 +9,9 @@ Common::Common()
 	ClearTime = 0.0f;
 	TimeLag = 0.0f;
 	lagCheck = true;
+
+	warpOutX = -1;
+	warpOutY = -1;
 }
 
 void Common::Update()

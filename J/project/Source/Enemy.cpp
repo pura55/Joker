@@ -2,17 +2,27 @@
 #include "Player.h"
 #include "MainMap.h"
 
+bool Enemy::followReserved = false;
+float Enemy::followX = 0.0f;
+float Enemy::followY = 0.0f;
+int Enemy::followTimer = 0;
 
-Enemy::Enemy()
+
+Enemy::Enemy(float x, float y)
 {
 	CharacterImage = LoadGraph("data/image/teacher.png");
 
-	EnemyX = 300.0f;
-	EnemyY = 300.0f;
+	EnemyX = x;
+	EnemyY = y;
 	MovementsPattern = 0;
 	MovementsCount = 0;
 	DirChara = 3;
 	HitJudge = true;
+}
+
+Enemy::Enemy(float x, float y, int waitFrame)
+{
+	ReserveFollowSpawn(x, y, waitFrame);
 }
 
 Enemy::~Enemy()
@@ -22,7 +32,16 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	
+	if (followReserved)
+	{
+		followTimer--;
+		if (followTimer <= 0)
+		{
+			new Enemy(followX, followY);
+			followReserved = false;
+		}
+	}
+
 	Player* player = FindGameObject<Player>();
 	VECTOR3 pPos = player->GetPosition();
 
@@ -156,4 +175,21 @@ bool Enemy::Ishit(float px, float py)
 		return true;
 	}
 	return false;
+}
+
+void Enemy::ReserveFollowSpawn(float x, float y, int waitFrame)
+{
+	followReserved = true;
+	followX = x;
+	followY = y;
+	followTimer = waitFrame;
+}
+
+void Enemy::killAll()
+{
+	auto enemies = FindGameObjects<Enemy>();
+	for (auto e : enemies)
+	{
+		e->DestroyMe();
+	}
 }

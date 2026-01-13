@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "MainMap.h"
 #include "FloorMap.h"
+#include "Enemy.h"
 #include <vector>
 
 using namespace std;
@@ -18,6 +19,9 @@ Warp::Warp(int mainMapStage, int floorMapFloor, int playerX, int playerY)
 
     Player* player = FindGameObject<Player>();
     if (player) player->DestroyMe();
+
+    Enemy* enemy = FindGameObject<Enemy>();
+    if (enemy) enemy->DestroyMe();
 
     // êVÇµÇ≠ê∂ê¨
     new FloorMap(floorMapFloor);
