@@ -5,11 +5,16 @@
 class Enemy :public GameObject 
 {
 public:
-	Enemy();
+	Enemy(float x, float y);
+	Enemy(float x, float y, int waitFrame);
 	~Enemy();
 	void Update()override;
 	void Draw()override;
 	bool Ishit(float px, float py);
+
+	static void ReserveFollowSpawn(float x, float y, int waitFrame);
+
+	static void killAll();
 
 private:
 	int CharacterImage ;
@@ -19,6 +24,11 @@ private:
 	int MovementsCount; //ìÆçÏÇÃÉJÉEÉìÉg
 	int DirChara;
 	bool HitJudge;
+
+	static bool followReserved;
+	static float followX;
+	static float followY;
+	static int followTimer;
 
 private:
 	const float speed = 6.0f;

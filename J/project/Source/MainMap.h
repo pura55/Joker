@@ -76,6 +76,8 @@ public://！用の変数
 	
 private:
 	//Common* common;
+	static int Chasetimer;
+	static int Intervaltimer;
 
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ

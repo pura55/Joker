@@ -14,6 +14,17 @@ using namespace std;
 
 vector<vector<int>> maps;
 
+int MainMap::Chasetimer = 0;
+int MainMap::Intervaltimer = 0;
+
+enum class EnemyState
+{
+	Chase, // 追尾
+	Idle, // 待機
+	Interval //インターバル
+};
+EnemyState currentState = EnemyState::Idle;
+
 MainMap::MainMap(int stage)
 {
 	char MAP_FILE_NAME[10000];                                 //csvファイルの読み込み処理
@@ -65,6 +76,310 @@ MainMap::MainMap(int stage)
 	NapoImage = LoadGraph("data/image/napo2.png");//ナポ
 	//new Enemy();
 
+	srand((unsigned int)time(nullptr));
+
+	int r = rand() % 100;
+	if (currentState == EnemyState::Idle)
+	{
+		switch (StageNum)
+		{
+		case 1:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 7, 10, 17, 20, 23 };
+				int spawnY[] = { 9, 9, 9, 9, 9 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+				if (r < 70)
+				{
+					new Enemy(64 * 7, 64 * 4);
+					new Enemy(64 * 7, 64 * 9);
+					new Enemy(64 * 7, 64 * 14);
+					//new Enemy(64 * 10, 64 * 4);
+					new Enemy(64 * 10, 64 * 9);
+					new Enemy(64 * 10, 64 * 14);
+					//new Enemy(64 * 17, 64 * 4);
+					new Enemy(64 * 17, 64 * 9);
+					new Enemy(64 * 17, 64 * 14);
+					new Enemy(64 * 20, 64 * 4);
+					new Enemy(64 * 20, 64 * 9);
+					new Enemy(64 * 20, 64 * 14);
+					new Enemy(64 * 23, 64 * 4);
+					new Enemy(64 * 23, 64 * 9);
+					new Enemy(64 * 23, 64 * 14);
+					currentState = EnemyState::Chase;
+					Chasetimer = 0;
+				}
+			}
+
+		}
+		break;
+		case 2:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 6, 12, 22, 22 };
+				int spawnY[] = { 7, 7, 4, 11 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 3:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 6, 14, 17, 23, 25 };
+				int spawnY[] = { 11, 10, 10, 6, 14 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 4:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 5, 6, 7, 8 };
+				int spawnY[] = { 5, 6, 7, 8 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 5:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 6, 11, 18 };
+				int spawnY[] = { 5, 5, 12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 6:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 6, 19 };
+				int spawnY[] = { 8, 12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 101:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 4, 21 };
+				int spawnY[] = { 12,12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 102:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 4, 21 };
+				int spawnY[] = { 12, 12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 201:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 4 , 21 };
+				int spawnY[] = { 12, 12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 202:
+		{
+			//出現確率
+			if (r < 10)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 4,  22 };
+				int spawnY[] = { 12, 12 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 1000:
+		{
+			//出現確率
+			if (r < 0)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 5, 6, 7, 8 };
+				int spawnY[] = { 5, 6, 7, 8 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		break;
+		case 2000:
+		{
+			//出現確率
+			if (r < 0)
+			{
+				// 出現候補座標（タイル単位）
+				int spawnX[] = { 5, 6, 7, 8 };
+				int spawnY[] = { 5, 6, 7, 8 };
+
+				//出現場所候補最大値
+				int count = sizeof(spawnX) / sizeof(spawnX[0]);
+				int idx = rand() % count;
+
+				float x = spawnX[idx] * 64.0f;
+				float y = spawnY[idx] * 64.0f;
+
+				new Enemy(x, y);
+				currentState = EnemyState::Chase;
+				Chasetimer = 0;
+			}
+		}
+		}
+	}
+	if (Chasetimer > 30)
+	{
+		Common* common = FindGameObject<Common>();
+		int x = common->GetwarpOutX();
+		int y = common->GetwarpOutY();
+		if (x > 0 && y > 0)
+		{
+			new Enemy(x, y, 60);
+		}
+	}
 }
 
 MainMap::~MainMap()
@@ -74,6 +389,25 @@ MainMap::~MainMap()
 
 void MainMap::Update()
 {
+	if (currentState == EnemyState::Chase) {
+		DrawString(100, 700, "chase", GetColor(255, 255, 255));
+		Chasetimer++;                // カウント
+		if (Chasetimer > 900) {      // 15秒後 (60FPS想定)
+			currentState = EnemyState::Interval;
+			Chasetimer = 0;          // タイマーリセット
+			DrawString(100, 700, "interval1", GetColor(255, 0, 0));
+		}
+	}
+	if (currentState == EnemyState::Interval) {
+		DrawString(100, 700, "interval2", GetColor(255, 255, 255));
+		Intervaltimer++;                // カウント
+		if (Intervaltimer > 600) {      // 10秒後 (60FPS想定)
+			currentState = EnemyState::Idle;
+			Intervaltimer = 0;          // タイマーリセット
+			DrawString(100, 700, "idle", GetColor(255, 0, 0));
+		}
+	}
+
 	Player* player = FindGameObject<Player>();
 	float px = player->GetPlayerPositionX();
 	float py = player->GetPlayerPositionY();
@@ -979,6 +1313,7 @@ bool MainMap::Warp(int Px, int Py)
 
 	Fader* fader = FindGameObject<Fader>();
 	Common* common = FindGameObject<Common>();
+	common->SetWarpOut(-1, -1);
 	//maps[y][x]においてxは+をすると左側に寄り、-をすると右側による。yは+をすると上に寄り、-をすると下に寄る
 	// ==================================================
 	// １階から２階への階段
@@ -997,7 +1332,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1013,7 +1350,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1029,7 +1368,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1048,7 +1389,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1064,7 +1407,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1080,7 +1425,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1099,7 +1446,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1115,7 +1464,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1134,7 +1485,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1150,7 +1503,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1169,7 +1524,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1185,7 +1542,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1201,7 +1560,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1217,7 +1578,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1236,7 +1599,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1252,7 +1617,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1268,7 +1635,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1284,7 +1653,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1303,7 +1674,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1319,7 +1692,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1335,7 +1710,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 21;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1351,7 +1728,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(3);//行先
 				warpOutX = BgSize * 22;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1370,7 +1749,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1386,7 +1767,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1402,7 +1785,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1418,7 +1803,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1437,7 +1824,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(4);//行先
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1453,7 +1842,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(4);//行先
 				warpOutX = BgSize * 9;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1472,7 +1863,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1488,7 +1881,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1507,7 +1902,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1523,7 +1920,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1539,7 +1938,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1555,7 +1956,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(5);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1578,7 +1981,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1594,7 +1999,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1610,7 +2017,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1626,7 +2035,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1647,7 +2058,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 
@@ -1664,7 +2077,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1680,7 +2095,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 18;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1696,7 +2113,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(6);	//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1717,7 +2136,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1733,7 +2154,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1749,7 +2172,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1765,7 +2190,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1784,7 +2211,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1800,7 +2229,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1816,7 +2247,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1832,7 +2265,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(101);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1851,7 +2286,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1867,7 +2304,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1883,7 +2322,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1899,7 +2340,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1918,7 +2361,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1934,7 +2379,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1950,7 +2397,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1966,7 +2415,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(102);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -1985,7 +2436,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2001,7 +2454,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2017,7 +2472,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2033,7 +2490,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1000);//行先
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2052,7 +2511,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2068,7 +2529,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2084,7 +2547,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2100,7 +2565,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(201);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2119,7 +2586,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2135,7 +2604,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2151,7 +2622,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2167,7 +2640,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2186,7 +2661,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2202,7 +2679,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2218,7 +2697,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2234,7 +2715,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(202);//行先
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2253,7 +2736,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2269,7 +2754,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2285,7 +2772,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
@@ -2301,7 +2790,9 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(2000);//行先
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
 				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
 				return true;
 			}
 		}
