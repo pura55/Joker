@@ -39,7 +39,7 @@ FloorMap::FloorMap(int floor)
 
 FloorMap::~FloorMap()
 {
-
+	DeleteGraph(FloorImage);
 }
 
 void FloorMap::Update()

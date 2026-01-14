@@ -384,7 +384,31 @@ MainMap::MainMap(int stage)
 
 MainMap::~MainMap()
 {
-
+	DeleteGraph(GoldBoss);
+	DeleteGraph(FloorImage);
+	DeleteGraph(ArtImage);
+	DeleteGraph(BodyModelImage);
+	DeleteGraph(ChoiceImage);
+	DeleteGraph(MusicImage);
+	DeleteGraph(PianoImage);
+	DeleteGraph(Pierrot2);
+	DeleteGraph(ChairImage);
+	DeleteGraph(SofaImage);
+	DeleteGraph(STImage1);
+	DeleteGraph(STImage2);
+	DeleteGraph(STImage3);
+	DeleteGraph(STImage4);
+	DeleteGraph(STImage5);
+	DeleteGraph(STImage6);
+	DeleteGraph(STImage7);
+	DeleteGraph(STImage8);
+	DeleteGraph(ScienceChairImage);
+	DeleteGraph(LockerImage);
+	DeleteGraph(ScienceTableImage);
+	DeleteGraph(STChairImage);
+	DeleteGraph(StaffChairImage);
+	DeleteGraph(ExtentionImage);
+	DeleteGraph(NapoImage);
 }
 
 void MainMap::Update()

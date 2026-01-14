@@ -22,7 +22,7 @@ TextBox::TextBox()
 
 TextBox::~TextBox()
 {
-
+	DeleteGraph(BoxImage);
 }
 
 void TextBox::Update()

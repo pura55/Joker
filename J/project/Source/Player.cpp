@@ -17,7 +17,7 @@ Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 
 Player::~Player() 
 {
-
+	DeleteGraph(CharacterImage);
 }
 
 void Player::Update()

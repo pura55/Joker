@@ -27,7 +27,7 @@ Enemy::Enemy(float x, float y, int waitFrame)
 
 Enemy::~Enemy()
 {
-	
+	DeleteGraph(CharacterImage);
 }
 
 void Enemy::Update()
