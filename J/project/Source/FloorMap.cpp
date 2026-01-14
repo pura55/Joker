@@ -84,6 +84,14 @@ void FloorMap::Draw()
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 3, BgSize * 0, BgSize, BgSize, FloorImage, 1);
 			}
+			if (floormaps[y][x] == 20)//ï«â∫
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 1, BgSize * 1, BgSize, BgSize, FloorImage, 1);
+			}
+			if (floormaps[y][x] == 30)//ï«è„
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 0, BgSize * 1, BgSize, BgSize, FloorImage, 1);
+			}
 		}
 	}
 }

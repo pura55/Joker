@@ -56,6 +56,7 @@ private://画像
 	int StaffChairImage;
 	int ExtentionImage;//！マーク
 	int NapoImage;//ナポリタンの画像
+	int DoorImage;//屋上ドア
 
 public:
 	int StageNum;

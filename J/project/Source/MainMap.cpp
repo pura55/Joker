@@ -74,6 +74,7 @@ MainMap::MainMap(int stage)
 	StaffChairImage = LoadGraph("data/image/TeacherChair.png");
 	ExtentionImage = LoadGraph("data/image/ExBg.png");
 	NapoImage = LoadGraph("data/image/napo2.png");//ナポ
+	DoorImage = LoadGraph("data/image/door2.png");//屋上ドア
 	//new Enemy();
 
 	srand((unsigned int)time(nullptr));
@@ -816,6 +817,14 @@ void MainMap::Draw()
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 1, BgSize * 0, BgSize, BgSize * 4, LockerImage, 1);
 			}
+			if (maps[y][x] == 300 || maps[y][x] == 3101 || maps[y][x] == 3102 || maps[y][x] == 3103)//床
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 4, BgSize * 0, BgSize, BgSize, FloorImage, 1);
+			}
+			if (maps[y][x] == 320)//ロッカー
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 0, BgSize * 0, BgSize - 2, BgSize * 2, DoorImage, 1);
+			}
 			if (maps[y][x] == 3)//おそらく花瓶　×
 			{
 
@@ -851,7 +860,7 @@ void MainMap::Draw()
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 3, BgSize * 0, BgSize, BgSize, FloorImage, 1);
 			}
-			if (maps[y][x] == 100001)//上り階段
+			if (maps[y][x] == 100001 || maps[y][x] == 3001)//上り階段
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y + 8 - scrollY, BgSize * 0, 44, BgSize * 4, BgSize * 2, STImage3, 1);
 			}
@@ -1202,7 +1211,8 @@ int MainMap::HitCheckRight(int Px, int Py) //右の当たり判定
 		|| maps[y][x] == 11017 || maps[y][x] == 11018 || maps[y][x] == 11019 || maps[y][x] == 11020
 		|| maps[y][x] == 21013 || maps[y][x] == 21014 || maps[y][x] == 21015 || maps[y][x] == 21016
 		|| maps[y][x] == 21017 || maps[y][x] == 21018 || maps[y][x] == 21019 || maps[y][x] == 21020
-		|| maps[y][x] == 100001 || maps[y][x] == 200001)
+		|| maps[y][x] == 100001 || maps[y][x] == 200001
+		|| maps[y][x] == 3001 || maps[y][x] == 3002 || maps[y][x] == 3003 || maps[y][x] == 310)
 	{
 		return Px % 64 + 1;
 	}
@@ -1237,7 +1247,8 @@ int MainMap::HitCheckLeft(int Px, int Py)//右の当たり判定
 		|| maps[y][x] == 11017 || maps[y][x] == 11018 || maps[y][x] == 11019 || maps[y][x] == 11020
 		|| maps[y][x] == 21013 || maps[y][x] == 21014 || maps[y][x] == 21015 || maps[y][x] == 21016
 		|| maps[y][x] == 21017 || maps[y][x] == 21018 || maps[y][x] == 21019 || maps[y][x] == 21020
-		|| maps[y][x] == 100001 || maps[y][x] == 200001)
+		|| maps[y][x] == 100001 || maps[y][x] == 200001
+		|| maps[y][x] == 3001 || maps[y][x] == 3002 || maps[y][x] == 3003 || maps[y][x] == 310)
 	{
 		return 64 - Px % 64;
 	}
@@ -1272,7 +1283,8 @@ int MainMap::HitCheckUp(int Px, int Py) //上の当たり判定
 		|| maps[y][x] == 11017 || maps[y][x] == 11018 || maps[y][x] == 11019 || maps[y][x] == 11020
 		|| maps[y][x] == 21013 || maps[y][x] == 21014 || maps[y][x] == 21015 || maps[y][x] == 21016
 		|| maps[y][x] == 21017 || maps[y][x] == 21018 || maps[y][x] == 21019 || maps[y][x] == 21020
-		|| maps[y][x] == 100001 || maps[y][x] == 200001)
+		|| maps[y][x] == 100001 || maps[y][x] == 200001
+		|| maps[y][x] == 3001 || maps[y][x] == 3002 || maps[y][x] == 3003 || maps[y][x] == 310)
 	{
 		return 64 - Py % 64;
 	}
@@ -1307,7 +1319,8 @@ int MainMap::HitCheckDown(int Px, int Py) //下の当たり判定
 		|| maps[y][x] == 11017 || maps[y][x] == 11018 || maps[y][x] == 11019 || maps[y][x] == 11020
 		|| maps[y][x] == 21013 || maps[y][x] == 21014 || maps[y][x] == 21015 || maps[y][x] == 21016
 		|| maps[y][x] == 21017 || maps[y][x] == 21018 || maps[y][x] == 21019 || maps[y][x] == 21020
-		|| maps[y][x] == 100001 || maps[y][x] == 200001)
+		|| maps[y][x] == 100001 || maps[y][x] == 200001
+		|| maps[y][x] == 3001 || maps[y][x] == 3002 || maps[y][x] == 3003 || maps[y][x] == 310)
 	{
 		return Py % 64 + 1;
 	}
@@ -2823,9 +2836,136 @@ bool MainMap::Warp(int Px, int Py)
 				return true;
 			}
 		}
+		// ==================================================
+		// ２階廊下から屋上への階段
+		// ==================================================
+		//左
+		if (maps[y][x] == 3001)
+		{
+			DrawString(600, 5, "上る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3000);//行先
+				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		//中央
+		if (maps[y][x] == 3002)
+		{
+			DrawString(600, 5, "上る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3000);//行先
+				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		//右
+		if (maps[y][x] == 3003)
+		{
+			DrawString(600, 5, "上る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 3000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(3000);//行先
+				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		// ==================================================
+		// 屋上への階段から２階廊下
+		// ==================================================
+		//左
+		if (maps[y][x] == 3101)
+		{
+			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 54;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		//中央
+		if (maps[y][x] == 3102)
+		{
+			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 55;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		//右
+		if (maps[y][x] == 3103)
+		{
+			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				targetWarpStage = 2000;//行先
+				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+				floor->SetTargerWarpFloor(2000);//行先
+				warpOutX = BgSize * 56;//X軸のワープ後の出現座標
+				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+				Enemy::killAll();
+				common->SetLagIn_W();
+				common->SetWarpOut(warpOutX, warpOutY);
+				return true;
+			}
+		}
+		// ==================================================
+		// 屋上へ
+		// ==================================================
+		//左
+		if (maps[y][x] == 310)
+		{
+			DrawString(600, 5, "解放される", GetColor(255, 255, 255));
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				fader->FadeIn(inTime);
+				SceneManager::ChangeScene("CLEAR");
+				Enemy::killAll();
+				common->SetLagIn_W();
+				return true;
+			}
+		}
 		return false;
 	}
-
-
-}
-	
+}	
