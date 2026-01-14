@@ -46,6 +46,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_2;
 					common->SetLagIn_T();
 				}
@@ -57,6 +58,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_3;
 					common->SetLagIn_T();
 				}
@@ -68,6 +70,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					common->SetLagIn_T();
@@ -113,6 +116,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_1))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				switch (Q_AND_A)
 				{
 				case TextBox_State::STATE_JAPANESE:
@@ -139,6 +143,7 @@ void TextBox::Update()
 			}
 			else if (CheckHitKey(KEY_INPUT_2))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -149,6 +154,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -159,6 +165,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -170,6 +177,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -180,6 +188,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -190,6 +199,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -200,6 +210,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}
@@ -213,6 +224,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_2;
 					common->SetLagIn_T();
 				}
@@ -224,6 +236,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					SetFontSize(16);
@@ -238,6 +251,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				switch (Q_AND_A)
 				{
 				case TextBox_State::STATE_JAPANESE:
@@ -274,6 +288,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 				/*GameManager* GM = FindGameObject<GameManager>();
@@ -286,6 +301,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
@@ -305,6 +321,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
@@ -324,6 +341,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
@@ -343,6 +361,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				if (keyManager->GetSbjectKey())
 				{
 					MainState = TextBox_State::STATE_EX_GUIDE;
@@ -362,6 +381,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_ESCAPE_GUIDE;
 				common->SetLagIn_T();
 			}
@@ -375,6 +395,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_2;
 					common->SetLagIn_T();
 				}
@@ -386,6 +407,7 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					common->SetLagIn_T();
@@ -402,6 +424,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
 			}

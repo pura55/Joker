@@ -58,6 +58,9 @@ private://画像
 	int NapoImage;//ナポリタンの画像
 	int DoorImage;//屋上ドア
 
+private://sound
+	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");
+
 public:
 	int StageNum;
 	int scrollX;

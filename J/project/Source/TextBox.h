@@ -123,6 +123,9 @@ public://getter
 private://変数
 	int BoxImage;//mapの描画変数
 
+private://sound
+	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");
+
 private://state
 	TextBox_State MainState;//テキストボックスの状態
 	TextBox_State Q_AND_A;  //問題の状態

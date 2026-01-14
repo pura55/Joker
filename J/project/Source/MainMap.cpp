@@ -410,6 +410,7 @@ MainMap::~MainMap()
 	DeleteGraph(StaffChairImage);
 	DeleteGraph(ExtentionImage);
 	DeleteGraph(NapoImage);
+	DeleteSoundMem(NEXT_TEXT_SOUND);
 }
 
 void MainMap::Update()
@@ -461,6 +462,7 @@ void MainMap::Update()
 				   {
 					   if (CheckHitKey(KEY_INPUT_SPACE))
 					   {
+						   PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 						   textBox->SetExtra();//“Á•Ê–â‘è
 						   common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 					   }
@@ -493,6 +495,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetScience();//—‰È
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -520,6 +523,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetJapanese();//‘Œê
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -548,6 +552,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetMath();//Z”
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -575,6 +580,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetSociety();//Ğ‰ï
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -610,6 +616,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetScienceHint();//—‰È‚Ìƒqƒ“ƒg
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -639,6 +646,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetSocietyHint();//Ğ‰ï‚Ìƒqƒ“ƒg
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -654,6 +662,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetJapaneseHint();//‘Œê‚Ìƒqƒ“ƒg
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~	
 						}
@@ -682,6 +691,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetPri();//‰½‚à‚È‚¢
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -708,6 +718,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetArt();//‰½‚à‚È‚¢
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -736,6 +747,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetMathHint();//Z”‚Ìƒqƒ“ƒg
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
@@ -763,6 +775,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetCls();//‰½‚à‚È‚¢
 							common->SetLagIn_T();//˜A‘±‰Ÿ‚µ‚İ–h~
 						}
