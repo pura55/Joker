@@ -82,6 +82,7 @@ private:
 	//Common* common;
 	static int Chasetimer;
 	static int Intervaltimer;
+	static int OfficeEnemytimer;
 
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ

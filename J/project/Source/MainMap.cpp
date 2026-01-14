@@ -16,6 +16,7 @@ vector<vector<int>> maps;
 
 int MainMap::Chasetimer = 0;
 int MainMap::Intervaltimer = 0;
+int MainMap::OfficeEnemytimer = 0;
 
 enum class EnemyState
 {
@@ -87,7 +88,7 @@ MainMap::MainMap(int stage)
 		case 1:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 10 && OfficeEnemytimer > 60)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 7, 10, 17, 20, 23 };
@@ -432,6 +433,11 @@ void MainMap::Update()
 			Intervaltimer = 0;          // タイマーリセット
 			DrawString(100, 700, "idle", GetColor(255, 0, 0));
 		}
+	}
+
+	if (OfficeEnemytimer <= 70)
+	{
+		OfficeEnemytimer++;
 	}
 
 	Player* player = FindGameObject<Player>();

@@ -15,4 +15,5 @@ public:
 	void Draw() override;
 private:
 	int TitleBg;
+	static int Blinkcount;
 };
