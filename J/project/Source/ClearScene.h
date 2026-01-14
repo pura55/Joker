@@ -8,5 +8,7 @@ public:
 	~ClearScene();
 	void Update() override;
 	void Draw() override;
+private:
+	int ClearBg;
 };
 

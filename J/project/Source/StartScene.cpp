@@ -17,6 +17,7 @@ StartScene::~StartScene()
 
 void StartScene::Update()
 {
+	SetFontSize(20);
 	if (CheckHitKey(KEY_INPUT_P)) {
 		SceneManager::ChangeScene("PLAY");
 	}

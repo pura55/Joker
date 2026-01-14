@@ -2899,7 +2899,7 @@ bool MainMap::Warp(int Px, int Py)
 		//左
 		if (maps[y][x] == 3101)
 		{
-			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			DrawString(600, 700, "地獄に戻る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				fader->FadeIn(inTime);
@@ -2917,7 +2917,7 @@ bool MainMap::Warp(int Px, int Py)
 		//中央
 		if (maps[y][x] == 3102)
 		{
-			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			DrawString(600, 700, "地獄に戻る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				fader->FadeIn(inTime);
@@ -2935,7 +2935,7 @@ bool MainMap::Warp(int Px, int Py)
 		//右
 		if (maps[y][x] == 3103)
 		{
-			DrawString(600, 5, "地獄に戻る", GetColor(255, 255, 255));
+			DrawString(600, 700, "地獄に戻る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				fader->FadeIn(inTime);
