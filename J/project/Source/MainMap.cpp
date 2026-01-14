@@ -825,8 +825,7 @@ void MainMap::Draw()
 				maps[y][x] == 1015 || maps[y][x] == 1016 || maps[y][x] == 1017 || maps[y][x] == 1018 ||
 				maps[y][x] == 1019 || maps[y][x] == 1020 || maps[y][x] == 2011 || maps[y][x] == 2012 ||
 				maps[y][x] == 2013 || maps[y][x] == 2014 || maps[y][x] == 2015 || maps[y][x] == 2016 ||
-				maps[y][x] == 2017 || maps[y][x] == 2018 || maps[y][x] == 2019 || maps[y][x] == 2020 ||
-				maps[y][x] == 1105 || maps[y][x] == 1106 || maps[y][x] == 1107 || maps[y][x] == 1108)
+				maps[y][x] == 2017 || maps[y][x] == 2018 || maps[y][x] == 2019 || maps[y][x] == 2020 )
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 3, BgSize * 0, BgSize, BgSize, FloorImage, 1);
 			}
@@ -834,6 +833,10 @@ void MainMap::Draw()
 			if (maps[y][x] == 1101 || maps[y][x] == 1102 || maps[y][x] == 1103 || maps[y][x] == 1104)
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 0, BgSize * 0, BgSize, BgSize, FloorImage, 1);
+			}
+			if (maps[y][x] == 1105 || maps[y][x] == 1106 || maps[y][x] == 1107 || maps[y][x] == 1108)
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 2, BgSize * 0, BgSize, BgSize, FloorImage, 1);
 			}
 			//âÊñ â∫ïîî‡ópã≥é∫è∞
 			if (maps[y][x] == 2101 || maps[y][x] == 2102 || maps[y][x] == 2103 || maps[y][x] == 2104 ||

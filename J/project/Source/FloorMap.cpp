@@ -74,7 +74,7 @@ void FloorMap::Draw()
 			}
 			if (floormaps[y][x] == 1)//òLâ∫è∞
 			{
-				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 2, BgSize * 0, BgSize, BgSize, FloorImage, 1);
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 3, BgSize * 0, BgSize, BgSize, FloorImage, 1);
 			}
 			if (floormaps[y][x] == 0)//ìñÇΩÇËîªíËÇ†ÇËãÛîí
 			{

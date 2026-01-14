@@ -69,6 +69,12 @@
     <ClCompile Include="Source\Common.cpp" />
     <ClCompile Include="Source\GameManager.cpp" />
     <ClCompile Include="Source\KeyManager.cpp" />
+    <ClCompile Include="Source\StartScene.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ClearScene.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -152,6 +158,12 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\GameManager.h" />
     <ClInclude Include="Source\KeyManager.h" />
+    <ClInclude Include="Source\StartScene.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ClearScene.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
