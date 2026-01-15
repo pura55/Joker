@@ -33,12 +33,8 @@ void Player::Update()
 		return;
 	}
 	GameManager* gameManager = FindGameObject<GameManager>();
-	//Enemy* enemy = FindGameObject<Enemy>();
-	//if (enemy->Ishit(PlayerX, PlayerY))
-	//{
-	// gameManager->SetGameOver();
-	// return ;
-	//}
+	Enemy* enemy = FindGameObject<Enemy>();
+	MainMap* appear = FindGameObject<MainMap>();
 
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
@@ -168,4 +164,18 @@ void Player::Draw()
 	}
 
 	DrawRectGraph(PlayerX - scX,PlayerY - scY, 64 * MovementsPattern, 96 * DirChara, 64, 96, CharacterImage, TRUE);
+}
+
+bool Player::IsHit(float ex, float ey)
+{
+	Enemy* enemy = FindGameObject<Enemy>();
+	//プレイヤーの座標はpx,py
+	float dx = PlayerX - ex;
+	float dy = PlayerY - ey;
+	float sum = sqrt(dx * dx + dy * dy);
+	if (sum < 30)
+	{
+		return true;
+	}
+	return false;
 }

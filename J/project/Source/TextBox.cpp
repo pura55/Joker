@@ -18,6 +18,8 @@ TextBox::TextBox()
 	//FindGameObject
 	common = FindGameObject<Common>();
 	keyManager = FindGameObject<KeyManager>();
+
+	SetFontSize(16);
 	
 }
 

@@ -28,6 +28,7 @@ public://getter
     int GetTargetWarpFloor() const { return targetWarpFloor; }
 	int GetWarpOutX() const { return warpOutX; }
 	int GetWarpOutY() const { return warpOutY; }
+	int GetAppear() const { return appear; }
 
 
 private://‰æ‘œ
@@ -69,6 +70,7 @@ public:
 	int targetWarpFloor;
 	int warpOutX = 0;
 	int warpOutY = 0;
+	bool appear;
 
 public://I—p‚Ì•Ï”
 	int MarkX_Q = 0;

@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "MainMap.h"
+#include "Fader.h"
 
 bool Enemy::followReserved = false;
 float Enemy::followX = 0.0f;
@@ -44,6 +45,13 @@ void Enemy::Update()
 
 	Player* player = FindGameObject<Player>();
 	VECTOR3 pPos = player->GetPosition();
+
+	Fader* fader = FindGameObject<Fader>();
+	if (player->IsHit(EnemyX, EnemyY))
+	{
+		fader->FadeIn(1.0f);
+		SceneManager::ChangeScene("GAMEOVER");
+	}
 
 	if (fabs(pPos.x - EnemyX) > 5.0f && HitJudge)
 	{
@@ -164,18 +172,7 @@ void Enemy::Draw()
 	DrawRectGraph(EnemyX - scX, EnemyY - scY, 64 * MovementsPattern, 96 * DirChara, 64, 96, CharacterImage, TRUE);
 }
 
-bool Enemy::Ishit(float px, float py)
-{
-	//プレイヤーの座標はpx,py
-	float dx = px - (EnemyX);
-	float dy = py - (EnemyY);
-	float sum = sqrt(dx * dx + dy * dy);
-	if (sum < 30)
-	{
-		return true;
-	}
-	return false;
-}
+
 
 void Enemy::ReserveFollowSpawn(float x, float y, int waitFrame)
 {

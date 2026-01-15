@@ -16,7 +16,6 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN)) {
-		SetFontSize(16);
 		SceneManager::ChangeScene("PLAY");
 	}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {

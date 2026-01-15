@@ -1,7 +1,10 @@
 #include "GameOverScene.h"
+#include "Fader.h"
 
 GameOverScene::GameOverScene()
 {
+	Fader* fader = FindGameObject<Fader>();
+	fader->FadeIn(2.0f);
 	GameOverBg = LoadGraph("data/image/gameover.jpg");
 }
 

@@ -10,7 +10,7 @@ public:
 	~Enemy();
 	void Update()override;
 	void Draw()override;
-	bool Ishit(float px, float py);
+    bool Ishit(float px, float py);
 
 	static void ReserveFollowSpawn(float x, float y, int waitFrame);
 

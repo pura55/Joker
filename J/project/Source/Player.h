@@ -9,6 +9,7 @@ public:
 	void Update()override;
 	void Draw()override;
 	void SetPlay(bool flag = true) { onPlay = flag; }
+	bool IsHit(float ex, float ey);
 
 public://getter
 	int GetPlayerPositionX() const { return PlayerX; }

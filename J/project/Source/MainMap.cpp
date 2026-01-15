@@ -47,6 +47,7 @@ MainMap::MainMap(int stage)
 	}
 	delete csv;
 
+	appear = false;
 	StageNum = stage;
 	ExFlag_Q = false;
 	ExFlag_Another = false;
@@ -82,8 +83,10 @@ MainMap::MainMap(int stage)
 	srand((unsigned int)time(nullptr));
 
 	int r = rand() % 100;
+	
 	if (currentState == EnemyState::Idle)
 	{
+		appear = false;
 		switch (StageNum)
 		{
 		case 1:
@@ -373,6 +376,15 @@ MainMap::MainMap(int stage)
 		}
 		}
 	}
+	else if(currentState == EnemyState::Chase)
+	{
+		appear = true;
+	}
+	else if (currentState == EnemyState::Interval)
+	{
+		appear = false;
+	}
+
 	if (Chasetimer > 30)
 	{
 		Common* common = FindGameObject<Common>();
