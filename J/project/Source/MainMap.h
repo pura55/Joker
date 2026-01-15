@@ -61,6 +61,12 @@ private://‰æ‘œ
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");
+	const int KEY_ROCK_SOUND = LoadSoundMem("data/sound/keydoor.mp3");
+	const int KEY_UNROCK_SOUND = LoadSoundMem("data/sound/keyopen.mp3");
+	const int DOOR_OPEN_ONE_SOUND = LoadSoundMem("data/sound/openonedoor.mp3");
+	const int DOOR_OPEN_TWO_SOUND = LoadSoundMem("data/sound/opentwodoor.mp3");
+	const int BOOK_OPEN_SOUND = LoadSoundMem("data/sound/Bookopen.mp3");
+
 
 public:
 	int StageNum;

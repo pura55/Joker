@@ -52,6 +52,7 @@ MainMap::MainMap(int stage)
 	ExFlag_Q = false;
 	ExFlag_Another = false;
 
+	//âÊëúëfçﬁì«Ç›çûÇ›
 	GoldBoss= LoadGraph("data/image/bigboss.png");//ëú
 	FloorImage = LoadGraph("data/image/artboad.png");//ëäëÚÇ®éËêªÇÃè∞ï«èî
 	ArtImage = LoadGraph("data/image/Artrooms.png");//ÉAÅ[Égån
@@ -399,6 +400,8 @@ MainMap::MainMap(int stage)
 
 MainMap::~MainMap()
 {
+	////âÊëúÅEâπê∫ëfçﬁÇÃdelete////
+	//âÊëú
 	DeleteGraph(GoldBoss);
 	DeleteGraph(FloorImage);
 	DeleteGraph(ArtImage);
@@ -424,7 +427,12 @@ MainMap::~MainMap()
 	DeleteGraph(StaffChairImage);
 	DeleteGraph(ExtentionImage);
 	DeleteGraph(NapoImage);
+	//âπê∫
 	DeleteSoundMem(NEXT_TEXT_SOUND);
+	DeleteSoundMem(KEY_ROCK_SOUND);
+	DeleteSoundMem(KEY_UNROCK_SOUND);
+	DeleteSoundMem(DOOR_OPEN_ONE_SOUND);
+	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
 }
 
 void MainMap::Update()
@@ -481,7 +489,7 @@ void MainMap::Update()
 				   {
 					   if (CheckHitKey(KEY_INPUT_SPACE))
 					   {
-						   PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+						   PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 						   textBox->SetExtra();//ì¡ï ñ‚ëË
 						   common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 					   }
@@ -514,7 +522,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetScience();//óùâ»
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -542,7 +550,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetJapanese();//çëåÍ
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -571,7 +579,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetMath();//éZêî
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -599,7 +607,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetSociety();//é–âÔ
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -635,7 +643,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetScienceHint();//óùâ»ÇÃÉqÉìÉg
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -665,7 +673,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetSocietyHint();//é–âÔÇÃÉqÉìÉg
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -681,7 +689,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetJapaneseHint();//çëåÍÇÃÉqÉìÉg
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~	
 						}
@@ -766,7 +774,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetMathHint();//éZêîÇÃÉqÉìÉg
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -822,7 +830,7 @@ void MainMap::Update()
 					{
 						if (CheckHitKey(KEY_INPUT_SPACE))
 						{
-							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							PlaySoundMem(KEY_ROCK_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetEscapeWait();//íEèoë“ã@
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
@@ -1542,6 +1550,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "êEàıé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1560,6 +1569,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "êEàıé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1581,6 +1591,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1599,6 +1610,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1620,6 +1632,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "óùâ»é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1638,6 +1651,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "óùâ»é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1656,6 +1670,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "óùâ»é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1674,6 +1689,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "óùâ»é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1695,6 +1711,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1713,6 +1730,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1731,6 +1749,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1749,6 +1768,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1770,6 +1790,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "ê}èëé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1788,6 +1809,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "ê}èëé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1806,6 +1828,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "ê}èëé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1824,6 +1847,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "ê}èëé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1845,6 +1869,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1863,6 +1888,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1881,6 +1907,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1899,6 +1926,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1920,6 +1948,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "çZí∑é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 4;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1938,6 +1967,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "çZí∑é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 4;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1959,6 +1989,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1977,6 +2008,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1998,6 +2030,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "âπäyé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2016,6 +2049,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "âπäyé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2034,6 +2068,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "âπäyé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2052,6 +2087,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "âπäyé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2077,6 +2113,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2095,6 +2132,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2113,6 +2151,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2131,6 +2170,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2154,6 +2194,7 @@ bool MainMap::Warp(int Px, int Py)
 
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2173,6 +2214,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "î¸èpé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2191,6 +2233,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "î¸èpé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2209,6 +2252,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "î¸èpé∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2232,6 +2276,7 @@ bool MainMap::Warp(int Px, int Py)
 
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2250,6 +2295,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2268,6 +2314,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2286,6 +2333,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2307,6 +2355,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2325,6 +2374,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2343,6 +2393,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2361,6 +2412,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2382,6 +2434,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2400,6 +2453,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2418,6 +2472,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2436,6 +2491,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2457,6 +2513,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2475,6 +2532,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2493,6 +2551,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2511,6 +2570,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2532,6 +2592,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2550,6 +2611,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2568,6 +2630,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2586,6 +2649,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2607,6 +2671,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2625,6 +2690,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2643,6 +2709,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2661,6 +2728,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2682,6 +2750,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2700,6 +2769,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2718,6 +2788,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2736,6 +2807,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2757,6 +2829,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2775,6 +2848,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2793,6 +2867,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2811,6 +2886,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "ã≥é∫Ç…ì¸ÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2832,6 +2908,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2850,6 +2927,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2868,6 +2946,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2886,6 +2965,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "òLâ∫Ç…èoÇÈ", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//çsêÊ
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3023,6 +3103,7 @@ bool MainMap::Warp(int Px, int Py)
 				DrawString(600, 5, "âï˙Ç≥ÇÍÇÈ", GetColor(255, 255, 255));
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					PlaySoundMem(KEY_UNROCK_SOUND, DX_PLAYTYPE_BACK);
 					fader->FadeIn(inTime);
 					SceneManager::ChangeScene("CLEAR");
 					Enemy::killAll();

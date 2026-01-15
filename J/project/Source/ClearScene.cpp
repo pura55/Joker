@@ -7,6 +7,8 @@ ClearScene::ClearScene()
 
 ClearScene::~ClearScene()
 {
+	//‰æ‘œE‰¹º‘fŞ‚Ìdelete
+	DeleteGraph(ClearBg);
 }
 
 void ClearScene::Update()

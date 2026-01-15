@@ -11,8 +11,10 @@ int Enemy::followTimer = 0;
 
 Enemy::Enemy(float x, float y)
 {
+	//‰æ‘œ‚Ì“Ç‚İ‚İ
 	CharacterImage = LoadGraph("data/image/teacher.png");
 
+	//‰Šú‰»
 	EnemyX = x;
 	EnemyY = y;
 	MovementsPattern = 0;
@@ -28,6 +30,7 @@ Enemy::Enemy(float x, float y, int waitFrame)
 
 Enemy::~Enemy()
 {
+	//‰æ‘œE‰¹º‘fŞ‚Ìdelete
 	DeleteGraph(CharacterImage);
 }
 

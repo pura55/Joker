@@ -130,6 +130,9 @@ private://変数
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");
+	const int QUESTION_RIGHT_SOUND = LoadSoundMem("data/sound/Right.mp3");
+	const int QUESTION_WRONG_SOUND = LoadSoundMem("data/sound/Notright.mp3");
+	const int CHOICES_DESIDE_SOUND = LoadSoundMem("data/sound/deside.mp3");
 
 private://state
 	TextBox_State MainState;//テキストボックスの状態

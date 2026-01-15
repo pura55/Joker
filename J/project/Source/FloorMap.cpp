@@ -39,6 +39,7 @@ FloorMap::FloorMap(int floor)
 
 FloorMap::~FloorMap()
 {
+	//‰æ‘œE‰¹º‘fŞ‚Ìdelete
 	DeleteGraph(FloorImage);
 }
 

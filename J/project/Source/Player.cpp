@@ -19,6 +19,7 @@ Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 Player::~Player() 
 {
 	DeleteGraph(CharacterImage);
+	DeleteGraph(PLAYER_WALK_SOUND);
 }
 
 void Player::Update()
@@ -38,7 +39,6 @@ void Player::Update()
 
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
-
 		DirChara = 0;
 		PlayerX += speed; //座標を変数分ずらして移動する
 

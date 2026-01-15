@@ -26,6 +26,9 @@ private:
 	float PlayerY; //プレイヤーのY座標
 	bool onPlay; //プレイ中のフラッグ
 
+private://sound
+	const int PLAYER_WALK_SOUND = LoadSoundMem("data/sound/walk.mp3");
+
 
 private://定数変数
 	const float speed = 8.2f;
