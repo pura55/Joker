@@ -4,17 +4,19 @@
 #include "FloorMap.h"
 #include "TextBox.h"
 #include "KeyManager.h"
+#include "GameManager.h"
 
 
 
 
 PlayScene::PlayScene()
 {
-	new KeyManager();
-	new FloorMap(1);//初期フロア
-	new MainMap(1);//初期マップ
-	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生成
-	new TextBox();
+	//new KeyManager();
+	//new FloorMap(1);//初期フロア
+	//new MainMap(1);//初期マップ
+	//new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生成
+	//new TextBox();
+	new GameManager();
 	
 	// ()の中にcsvの数字入れれば読み込みます
 	

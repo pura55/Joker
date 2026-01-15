@@ -11,8 +11,9 @@ TextBox::TextBox()
 	assert(BoxImage > 0);
 
 	//変数初期化
-	MainState = TextBox_State::STATE_END;
-	TalkState = TextBox_State::STATE_END;
+	MainState = TextBox_State::STATE_PRO;
+	TalkState = TextBox_State::STATE_STRING_1;
+	proEnd = false;
 
 	//FindGameObject
 	common = FindGameObject<Common>();
@@ -49,6 +50,7 @@ void TextBox::Update()
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_2;
 					common->SetLagIn_T();
+					proEnd = false;
 				}
 			}
 			break;
@@ -61,6 +63,7 @@ void TextBox::Update()
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					TalkState = TextBox_State::STATE_STRING_3;
 					common->SetLagIn_T();
+					proEnd = false;
 				}
 			}
 			break;
@@ -73,6 +76,7 @@ void TextBox::Update()
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
+					void SetStateEnd();
 					common->SetLagIn_T();
 				}
 			}
@@ -206,6 +210,17 @@ void TextBox::Update()
 		}
 		break;
 	case TextBox_State::STATE_ART_ROOM://すかし
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+	case TextBox_State::STATE_ESCAPE_WAIT:
 		if (common->GetLagCheck())
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
@@ -539,6 +554,10 @@ void TextBox::Draw()
 	case TextBox_State::STATE_CLASS_ROOM://何もないとき
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(450, 580, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_ESCAPE_WAIT:
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(450, 580, "「屋上の扉は固く閉ざされている」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_PRINCIPAL_OFFICE://ナポ
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);

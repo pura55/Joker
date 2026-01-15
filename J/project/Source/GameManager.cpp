@@ -5,10 +5,13 @@
 #include "Fader.h"
 #include "Player.h"
 #include "TextBox.h"
+#include "KeyManager.h"
 
 GameManager::GameManager()
 {
-	state = GAME_STATE::STATE_INIT;
+	MainState = GAME_STATE::STATE_INIT;
+	SubState = GAME_STATE::STATE_CONTINUE;
+	textBox = FindGameObject<TextBox>();
 }
 
 GameManager::~GameManager()
@@ -17,46 +20,74 @@ GameManager::~GameManager()
 
 void GameManager::Update()
 {
-	switch(state)
+	switch(MainState)
 	{
 	case GAME_STATE::STATE_INIT:
 		if (GameManager::Init() == GAME_STATE::STATE_END)
 		{
-			state = GAME_STATE::STATE_PRO;
+			MainState = GAME_STATE::STATE_PRO;
 		}
 		break;
 	case GAME_STATE::STATE_PRO:
 		if (GameManager::Pro() == GAME_STATE::STATE_END)
 		{
-			state = GAME_STATE::STATE_GAMESTART;
+			SubState = GAME_STATE::STATE_CONTINUE;
+			MainState = GAME_STATE::STATE_GAME_CHECK;
 		}
 		break;
-	case GAME_STATE::STATE_GAMESTART:
-		if (GameManager::GameStart() == GAME_STATE::STATE_END)
+	case GAME_STATE::STATE_GAME_CHECK:
+		switch (GameCheck())
 		{
-			state = GAME_STATE::STATE_GAMEOVER;
-		}
-		break;
-	case GAME_STATE::STATE_GAMEOVER:
+	    case GAME_STATE::STATE_GAME_OVER:
+		     MainState = GAME_STATE::STATE_GAME_OVER;
+		     break;
+	}
+	break;
+
+	case GAME_STATE::STATE_GAME_OVER:
 		if (GameManager::gameOver() == GAME_STATE::STATE_END)
 		{
-			//blank
+			MainState = GAME_STATE::STATE_END;
 		}
-		//GO();
+		break;
+	default:
 		break;
 	}
 }
 
 void GameManager::Draw()
 {
+	switch (MainState)
+	{
+	case GAME_STATE::STATE_INIT:
+		DrawString(0, 100, "STATE INIT", TRUE);
+		break;
+	case GAME_STATE::STATE_PRO:
+		DrawString(0, 100, "STATE PRO", TRUE);
+		break;
+	case GAME_STATE::STATE_GAME_CHECK:
+		DrawString(0, 100, "STATE CHECK", TRUE);
+		break;
+
+	case GAME_STATE::STATE_GAME_OVER:
+		DrawString(0, 100, "STATE GAMEOVER", TRUE);
+		break;
+	case GAME_STATE::STATE_GAME_CLEAR:
+		DrawString(0, 100, "STATE GAMECLEAR", TRUE);
+		break;
+	default:
+		break;
+	}
 }
 
 GAME_STATE GameManager::Init()//初期設定
 {
-		//new FloorMap(1);//初期フロア
-		//new MainMap(1);//初期マップ
-		//new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生成
-	
+	new FloorMap(1);//初期フロア
+	new MainMap(1);//初期マップ
+	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生
+	new KeyManager();
+	new TextBox();
+
 	// ()の中にcsvの数字入れれば読み込みます
 
 	// 以下MainMap&FloorMapのcsvの数字
@@ -69,13 +100,28 @@ GAME_STATE GameManager::Init()//初期設定
 
 GAME_STATE GameManager::Pro()
 {
-	//new TextBox();
-	return GAME_STATE::STATE_END;
+	switch (SubState)
+	{
+	case GAME_STATE::STATE_END:
+		return GAME_STATE::STATE_END;
+		break;
+	case GAME_STATE::STATE_CONTINUE:
+		return GAME_STATE::STATE_CONTINUE;
+		break;
+	}
 }
 
-GAME_STATE GameManager::GameStart()
+GAME_STATE GameManager::GameCheck()
 {
-	return GAME_STATE::STATE_END;
+	switch (SubState)
+	{
+	case GAME_STATE::STATE_GAME_OVER:
+		return GAME_STATE::STATE_GAME_OVER;
+		break;
+	case GAME_STATE::STATE_CONTINUE:
+		return GAME_STATE::STATE_CONTINUE;
+		break;
+	}
 }
 
 GAME_STATE GameManager::gameClear()
@@ -85,7 +131,6 @@ GAME_STATE GameManager::gameClear()
 
 GAME_STATE GameManager::gameOver()
 {
-    //各cppでDestroyMe()
-	//new GameOver();
+	SceneManager::ChangeScene("GAMEOVER");
 	return GAME_STATE::STATE_END;
 }

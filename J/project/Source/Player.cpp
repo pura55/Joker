@@ -4,6 +4,7 @@
 #include "Warp.h"
 #include "FloorMap.h"
 #include "Fader.h"
+#include "GameManager.h"
 
 Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 {
@@ -31,6 +32,13 @@ void Player::Update()
 	{
 		return;
 	}
+	GameManager* gameManager = FindGameObject<GameManager>();
+	//Enemy* enemy = FindGameObject<Enemy>();
+	//if (enemy->Ishit(PlayerX, PlayerY))
+	//{
+	// gameManager->SetGameOver();
+	// return ;
+	//}
 
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{

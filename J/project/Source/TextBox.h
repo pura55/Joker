@@ -50,6 +50,9 @@ enum class TextBox_State
 	STATE_STRING_3,
 	STATE_STRING_4,
 
+	//’Eo‚ğ~‚ß‚é
+	STATE_ESCAPE_WAIT,
+
 	//³‰ğ
 	STATE_TRUE,    
 	//•s³‰ğ
@@ -118,10 +121,12 @@ public://setter
 		TalkState = TextBox_State::STATE_STRING_1;
 	}//Z’·º
 
-public://getter
+	//’EoŒû
+	void SetEscapeWait() { MainState = TextBox_State::STATE_ESCAPE_WAIT; }//‰®ã
 
 private://•Ï”
 	int BoxImage;//map‚Ì•`‰æ•Ï”
+	bool proEnd;
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");

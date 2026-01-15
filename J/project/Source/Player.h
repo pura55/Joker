@@ -25,6 +25,7 @@ private:
 	float PlayerY; //プレイヤーのY座標
 	bool onPlay; //プレイ中のフラッグ
 
+
 private://定数変数
 	const float speed = 8.2f;
 };

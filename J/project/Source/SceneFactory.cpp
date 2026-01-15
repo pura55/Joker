@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include "StartScene.h"
 #include "ClearScene.h"
+#include "GameOverScene.h"
 
 SceneBase* SceneFactory::CreateFirst()
 {
@@ -18,10 +19,10 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	{
 		return new TitleScene();
 	}
-	if (name == "START")
+	/*if (name == "START")
 	{
 		return new StartScene();
-	}
+	}*/
 	if (name == "PLAY")
 	{
 		return new PlayScene();
@@ -29,6 +30,10 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	if (name == "CLEAR")
 	{
 		return new ClearScene();
+	}
+	if (name == "GAMEOVER")
+	{
+		return new GameOverScene();
 	}
 	MessageBox(NULL, ("éüÇÃÉVÅ[ÉìÇÕÇ†ÇËÇ‹ÇπÇÒ\n" + name).c_str(), "SceneFactory", MB_ICONERROR | MB_OK);
 	assert(false);

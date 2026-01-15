@@ -7,6 +7,7 @@
 #include "Common.h"
 #include "TextBox.h"
 #include "KeyManager.h"
+#include "GameManager.h"
 #include <vector>
 #include <iostream>
 
@@ -791,6 +792,34 @@ void MainMap::Update()
 			
 		}
 		break;
+	case 3000:// âÆè„
+		MarkX_Another = 64 * 5 + 18;
+		MarkY_Another = 64 * 3;
+		if (keyManager->GetExKey())
+		{
+			ExFlag_Another = false;
+		}
+		else
+		{
+			ExFlag_Another = true;
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							textBox->SetEscapeWait();//íEèoë“ã@
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+
+		}
+		break;
 
 	default:
 		ExFlag_Another = false;
@@ -1370,6 +1399,8 @@ bool MainMap::Warp(int Px, int Py)
 		return true;
 	}
 
+	GameManager* gameManager = FindGameObject<GameManager>();
+	KeyManager* keyManager = FindGameObject<KeyManager>();
 	Fader* fader = FindGameObject<Fader>();
 	Common* common = FindGameObject<Common>();
 	common->SetWarpOut(-1, -1);
@@ -2973,16 +3004,19 @@ bool MainMap::Warp(int Px, int Py)
 		// âÆè„Ç÷
 		// ==================================================
 		//ç∂
-		if (maps[y][x] == 310)
+		if (keyManager->GetExKey())
 		{
-			DrawString(600, 5, "âï˙Ç≥ÇÍÇÈ", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 310)
 			{
-				fader->FadeIn(inTime);
-				SceneManager::ChangeScene("CLEAR");
-				Enemy::killAll();
-				common->SetLagIn_W();
-				return true;
+				DrawString(600, 5, "âï˙Ç≥ÇÍÇÈ", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					fader->FadeIn(inTime);
+					SceneManager::ChangeScene("CLEAR");
+					Enemy::killAll();
+					common->SetLagIn_W();
+					return true;
+				}
 			}
 		}
 		return false;

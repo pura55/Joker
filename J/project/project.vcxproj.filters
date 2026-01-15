@@ -75,6 +75,7 @@
     <ClCompile Include="Source\ClearScene.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameOverScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Source\ClearScene.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameOverScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
