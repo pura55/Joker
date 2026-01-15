@@ -41,14 +41,16 @@ void GameManager::Update()
 	    case GAME_STATE::STATE_GAME_OVER:
 		     MainState = GAME_STATE::STATE_GAME_OVER;
 		     break;
-	}
+		case GAME_STATE::STATE_GAME_CLEAR:
+			MainState = GAME_STATE::STATE_GAME_CLEAR;
+			break;
+	    }
 	break;
-
+	case GAME_STATE::STATE_GAME_CLEAR:
+		SceneManager::ChangeScene("CLEAR");
+		break;
 	case GAME_STATE::STATE_GAME_OVER:
-		if (GameManager::gameOver() == GAME_STATE::STATE_END)
-		{
-			MainState = GAME_STATE::STATE_END;
-		}
+		SceneManager::ChangeScene("GAMEOVER");
 		break;
 	default:
 		break;
@@ -57,27 +59,6 @@ void GameManager::Update()
 
 void GameManager::Draw()
 {
-	switch (MainState)
-	{
-	case GAME_STATE::STATE_INIT:
-		DrawString(0, 100, "STATE INIT", TRUE);
-		break;
-	case GAME_STATE::STATE_PRO:
-		DrawString(0, 100, "STATE PRO", TRUE);
-		break;
-	case GAME_STATE::STATE_GAME_CHECK:
-		DrawString(0, 100, "STATE CHECK", TRUE);
-		break;
-
-	case GAME_STATE::STATE_GAME_OVER:
-		DrawString(0, 100, "STATE GAMEOVER", TRUE);
-		break;
-	case GAME_STATE::STATE_GAME_CLEAR:
-		DrawString(0, 100, "STATE GAMECLEAR", TRUE);
-		break;
-	default:
-		break;
-	}
 }
 
 GAME_STATE GameManager::Init()//èâä˙ê›íË
@@ -100,15 +81,9 @@ GAME_STATE GameManager::Init()//èâä˙ê›íË
 
 GAME_STATE GameManager::Pro()
 {
-	switch (SubState)
-	{
-	case GAME_STATE::STATE_END:
-		return GAME_STATE::STATE_END;
-		break;
-	case GAME_STATE::STATE_CONTINUE:
-		return GAME_STATE::STATE_CONTINUE;
-		break;
-	}
+	TextBox* textBox = FindGameObject<TextBox>();
+	textBox->SetPro();
+	return GAME_STATE::STATE_END;
 }
 
 GAME_STATE GameManager::GameCheck()

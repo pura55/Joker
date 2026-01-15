@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "MainMap.h"
 #include "Fader.h"
+#include "GameManager.h"
 
 bool Enemy::followReserved = false;
 float Enemy::followX = 0.0f;
@@ -46,12 +47,14 @@ void Enemy::Update()
 		}
 	}
 
+	GameManager* gameManager = FindGameObject<GameManager>();
 	Player* player = FindGameObject<Player>();
 	VECTOR3 pPos = player->GetPosition();
-
 	Fader* fader = FindGameObject<Fader>();
+
 	if (player->IsHit(EnemyX, EnemyY))
 	{
+		gameManager->SetGameOver();
 		fader->FadeIn(1.0f);
 		SceneManager::ChangeScene("GAMEOVER");
 	}

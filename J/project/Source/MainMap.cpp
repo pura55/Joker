@@ -845,6 +845,34 @@ void MainMap::Update()
 		ExFlag_Another = false;
 		break;
 	}
+
+	if (keyManager->GetExKey())
+	{
+		if (StageNum == 3000)
+		{
+		MarkX_Another = 64 * 5 + 18;
+		MarkY_Another = 64 * 3;
+			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
+			{
+				DrawString(600, 5, "‰ð•ú‚³‚ê‚é", GetColor(255, 255, 255));
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							PlaySoundMem(KEY_UNROCK_SOUND, DX_PLAYTYPE_BACK);
+							textBox->SetEscapeText();
+							common->SetLagIn_T();//˜A‘±‰Ÿ‚µž‚Ý–hŽ~
+							Enemy::killAll();
+						
+						}
+					}
+				}
+			}
+			
+		}
+	}
 	
 }
 
@@ -3096,22 +3124,7 @@ bool MainMap::Warp(int Px, int Py)
 		// ‰®ã‚Ö
 		// ==================================================
 		//¶
-		if (keyManager->GetExKey())
-		{
-			if (maps[y][x] == 310)
-			{
-				DrawString(600, 5, "‰ð•ú‚³‚ê‚é", GetColor(255, 255, 255));
-				if (CheckHitKey(KEY_INPUT_SPACE))
-				{
-					PlaySoundMem(KEY_UNROCK_SOUND, DX_PLAYTYPE_BACK);
-					fader->FadeIn(inTime);
-					SceneManager::ChangeScene("CLEAR");
-					Enemy::killAll();
-					common->SetLagIn_W();
-					return true;
-				}
-			}
-		}
+		
 		return false;
 	}
 }	

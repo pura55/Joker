@@ -1,5 +1,6 @@
 #include "TextBox.h"
 #include "Player.h"
+#include "GameManager.h"
 #include <assert.h>
 
 
@@ -31,6 +32,7 @@ TextBox::~TextBox()
 	DeleteSoundMem(QUESTION_RIGHT_SOUND);
 	DeleteSoundMem(QUESTION_WRONG_SOUND);
 	DeleteSoundMem(CHOICES_DESIDE_SOUND);
+	DeleteSoundMem(DOOR_OPEN_ONE_SOUND);
 }
 
 void TextBox::Update()
@@ -43,6 +45,7 @@ void TextBox::Update()
 	}
 
 	Common* common = FindGameObject<Common>();
+	GameManager* gameManager = FindGameObject<GameManager>();
 	//メインの状態
 	switch (MainState)
 	{
@@ -452,6 +455,18 @@ void TextBox::Update()
 			}
 		}
 		break;
+	case TextBox_State:: STATE_ESCAPE_TIME:
+		
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				PlaySoundMem(DOOR_OPEN_ONE_SOUND, DX_PLAYTYPE_BACK);
+				gameManager->SetGameClear();
+				common->SetLagIn_T();
+			}
+		}
+		break;
 	case TextBox_State::STATE_END://STATE終了
 		player->SetPlay(true);
 		break;
@@ -656,13 +671,12 @@ void TextBox::Draw()
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(480, HintY, "「屋上へ向かって脱出しよう！」", GetColor(255, 255, 255), 1);
 		break;
-	default:
+	case TextBox_State::STATE_ESCAPE_TIME://脱出時
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「屋上の扉の鍵を開けた」", GetColor(255, 255, 255), 1);
 		break;
+	
 	}
-}
-
-void TextBox::TextPro()
-{
 }
 
 void TextBox::QuestionJapanese()

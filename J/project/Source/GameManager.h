@@ -26,7 +26,6 @@ public:
 	//setter
 	void SetGameOver() { SubState = GAME_STATE::STATE_GAME_OVER; }
 	void SetGameClear() { SubState = GAME_STATE::STATE_GAME_CLEAR; }
-	void SetStateEnd() { SubState = GAME_STATE::STATE_END; }
 
 public:
 	GAME_STATE Init();

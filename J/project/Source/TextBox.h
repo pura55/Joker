@@ -38,7 +38,11 @@ enum class TextBox_State
 	//場所
 	STATE_CLASS_ROOM,   //教室
 	STATE_ART_ROOM,     //美術室
-	STATE_PRINCIPAL_OFFICE,
+	STATE_PRINCIPAL_OFFICE,//校長室
+
+	//場面
+	STATA_FIND_PRINCIPAL, //校長発見時
+	STATE_ESCAPE_TIME,    //脱出時
 
 	//案内
 	STATE_EX_GUIDE,    //特別問題の場所を示唆
@@ -68,7 +72,6 @@ public:
 	~TextBox();
 	void Update()override;
 	void Draw()override;
-	void TextPro(); //プロローグ
 
 	//問題の正誤判定関数
 	void QuestionJapanese();    //国語の問題判定
@@ -78,6 +81,13 @@ public:
 	void QuestionExtra();       //特別問題の正誤判定
 
 public://setter
+
+	//プロローグ
+	void SetPro() 
+	{ 
+		MainState = TextBox_State::STATE_PRO; 
+		TalkState = TextBox_State::STATE_STRING_1;
+	}
 
 	//問題
 	void SetJapanese()//国語の問題をセット
@@ -124,6 +134,9 @@ public://setter
 	//脱出口
 	void SetEscapeWait() { MainState = TextBox_State::STATE_ESCAPE_WAIT; }//屋上
 
+	//場面
+	void SetEscapeText() { MainState = TextBox_State::STATE_ESCAPE_TIME; }
+
 private://変数
 	int BoxImage;//mapの描画変数
 	bool proEnd;
@@ -133,6 +146,7 @@ private://sound
 	const int QUESTION_RIGHT_SOUND = LoadSoundMem("data/sound/Right.mp3");
 	const int QUESTION_WRONG_SOUND = LoadSoundMem("data/sound/Notright.mp3");
 	const int CHOICES_DESIDE_SOUND = LoadSoundMem("data/sound/deside.mp3");
+	const int DOOR_OPEN_ONE_SOUND = LoadSoundMem("data/sound/openonedoor.mp3");
 
 private://state
 	TextBox_State MainState;//テキストボックスの状態
