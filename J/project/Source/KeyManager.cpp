@@ -2,6 +2,7 @@
 
 KeyManager::KeyManager()
 {
+	SetDrawOrder(-5000);
 	jpKey = false;
 	mtKey = false;
 	sciKey = false;
