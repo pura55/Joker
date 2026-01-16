@@ -31,4 +31,7 @@ private:
 	bool socKey;     //ŽÐ‰ï‚ÌŒ®
 	bool exKey;	     //“Á•Ê–â‘è‚ÌŒ®
 	bool subjectKey; //4‹³‰È‚ÌŒ®
+
+private:
+	const int WINDOW_BOX = LoadGraph("data/image/windowBOX.jpg");
 };

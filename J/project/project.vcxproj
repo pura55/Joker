@@ -160,6 +160,7 @@
     <ClInclude Include="Source\Fader.h" />
     <ClInclude Include="Source\FloorMap.h" />
     <ClInclude Include="Source\GameManager.h" />
+    <ClInclude Include="Source\GameOverScene.h" />
     <ClInclude Include="Source\KeyManager.h" />
     <ClInclude Include="Source\MainMap.h" />
     <ClInclude Include="Source\Player.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Source\Fader.cpp" />
     <ClCompile Include="Source\FloorMap.cpp" />
     <ClCompile Include="Source\GameManager.cpp" />
+    <ClCompile Include="Source\GameOverScene.cpp" />
     <ClCompile Include="Source\KeyManager.cpp" />
     <ClCompile Include="Source\MainMap.cpp" />
     <ClCompile Include="Source\Player.cpp" />

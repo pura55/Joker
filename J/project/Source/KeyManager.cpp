@@ -12,6 +12,7 @@ KeyManager::KeyManager()
 
 KeyManager::~KeyManager()
 {
+	DeleteGraph(WINDOW_BOX);
 }
 
 void KeyManager::Update()
@@ -24,4 +25,9 @@ void KeyManager::Update()
 
 void KeyManager::Draw()
 {
+	if (CheckHitKey(KEY_INPUT_TAB))
+	{
+		DrawRectGraph(415, 60, 0, 0, 450, 600, WINDOW_BOX, TRUE);
+        
+	}
 }
