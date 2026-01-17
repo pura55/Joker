@@ -1,6 +1,19 @@
 #pragma once
 #include "../Library/GameObject.h"
 
+enum class WINDOW
+{
+	//初期化
+	STATE_INIT = 0,
+
+	//ウィンドウのオン・オフ
+	STATE_ON = 1,
+	STATE_OFF = 2,
+
+	//タスク
+	STATE_TASK_FINISH
+};
+
 class KeyManager : public GameObject
 {
 public:
@@ -8,6 +21,8 @@ public:
 	~KeyManager() ;
 	void Update() override;
 	void Draw() override;
+	void ChangeColor();
+	void Line();
 
 public://setter
 	void SetJpKey() { jpKey = true; }   //国語の回答が正解
@@ -25,6 +40,7 @@ public://getter
 	bool GetSbjectKey() const { return subjectKey; }
 
 private:
+	//鍵
 	bool jpKey;      //国語の鍵
 	bool mtKey;	     //算数の鍵
 	bool sciKey;     //理科の鍵
@@ -32,6 +48,29 @@ private:
 	bool exKey;	     //特別問題の鍵
 	bool subjectKey; //4教科の鍵
 
+	bool showWindow; //ウィンドウを表示する
+
+	//色
+	int RGB_JP;
+	int RGB_MT;
+	int RGB_SOC;
+	int RGB_SCI;
+	int RGB_EX;
+	int RGB_ESC;
+
+	WINDOW state;
+	WINDOW string;
+
 private:
+	//画像
 	const int WINDOW_BOX = LoadGraph("data/image/windowBOX.jpg");
+
+	//定数
+		//タスクの座標
+	const int taskPosX = 454;
+	const int taskPosY = 200;
+	const int taskSpaceY = 80;
+	const int lineSpaceY = 8;
+	const int lineFront = 24;
+	const int lineBack = 8;
 };

@@ -14,6 +14,7 @@ Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 	MovementsPattern = 0;
 	MovementsCount = 0;
 	DirChara = 2;
+	onPlay = true;
 }
 
 Player::~Player() 
