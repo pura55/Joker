@@ -164,6 +164,7 @@
     <ClInclude Include="Source\KeyManager.h" />
     <ClInclude Include="Source\MainMap.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Principal.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Source\MainMap.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
+    <ClCompile Include="Source\Principal.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\StartScene.cpp" />
     <ClCompile Include="Source\TextBox.cpp" />
