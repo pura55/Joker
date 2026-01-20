@@ -28,6 +28,7 @@ private:
 	int MovementsPattern; //動作のパターン
 	int MovementsCount; //動作のカウント
 	int DirChara;
+	int Xdir;
 	bool HitJudge;
 
 	//回避

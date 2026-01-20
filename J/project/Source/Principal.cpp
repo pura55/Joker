@@ -16,6 +16,7 @@ Principal::Principal(float x, float y)
 	MovementsCount = 0;
 	DirChara = 3;
 	HitJudge = true;
+	Xdir = 1;
 
 	//追加
 	avoidTimer = 0.0f;
@@ -126,10 +127,12 @@ void Principal::Update()
 		if (moveX > 0)
 		{
 			DirChara = 1;
+			Xdir = 0;
 		}
 		if (moveX < 0)
 		{
-			DirChara = 0;
+			DirChara = 1;
+			Xdir = 1;
 		}
 
 		MovementsCount += 1; //キャラクターの動作の処理
@@ -154,11 +157,13 @@ void Principal::Update()
 		BossY += moveY;
 		if (moveY > 0)
 		{
-			DirChara = 3;
+			DirChara = 0;
+			Xdir = 0;
 		}
 		if (moveY < 0)
 		{
 			DirChara = 2;
+			Xdir = 0;
 		}
 
 		MovementsCount += 1; //キャラクターの動作の処理
@@ -294,5 +299,5 @@ void Principal::Draw()
 		scX = mainmap->GetScrollX();
 		scY = mainmap->GetScrollY();
 	}
-	DrawRectGraph(BossX - scX, BossY - scY, 192 * MovementsPattern, 256 * DirChara, 192, 256, BossImage, TRUE);
+	DrawRectGraph(BossX - scX, BossY - scY, 192 * MovementsPattern, 256 * DirChara, 192, 256, BossImage, 1, Xdir, 0);
 }
