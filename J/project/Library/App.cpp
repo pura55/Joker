@@ -20,8 +20,8 @@ void AppUpdate()
 void AppDraw()
 {
 	Time::Refresh();
-	ObjectManager::Draw();
 	SceneManager::Draw();
+	ObjectManager::Draw();
 }
 
 void AppRelease()

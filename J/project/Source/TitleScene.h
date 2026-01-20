@@ -15,5 +15,8 @@ public:
 	void Draw() override;
 private:
 	int TitleBg;
+	float Timer;
+	bool changeFlag;
+	bool IsChange;
 	static int Blinkcount;
 };
