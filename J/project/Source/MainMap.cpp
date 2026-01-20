@@ -1290,10 +1290,10 @@ int MainMap::HitCheckRight(int Px, int Py) //‰E‚Ì“–‚½‚è”»’è
 	if (x >= maps[y].size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */|| maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
-		|| maps[y][x] == 61 || maps[y][x] == 65 || maps[y][x] == 66
-		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
+		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
+		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98||maps[y][x] == 99
@@ -1326,10 +1326,10 @@ int MainMap::HitCheckLeft(int Px, int Py)//‰E‚Ì“–‚½‚è”»’è
 	if (x >= maps[y].size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
-		|| maps[y][x] == 61 || maps[y][x] == 65 || maps[y][x] == 66
-		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
+		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
+		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
@@ -1362,10 +1362,10 @@ int MainMap::HitCheckUp(int Px, int Py) //ã‚Ì“–‚½‚è”»’è
 	if (y >= maps.size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
-		|| maps[y][x] == 61 || maps[y][x] == 65 || maps[y][x] == 66
-		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
+		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
+		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
@@ -1398,10 +1398,10 @@ int MainMap::HitCheckDown(int Px, int Py) //‰º‚Ì“–‚½‚è”»’è
 	if (y >= maps.size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		|| maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
-		|| maps[y][x] == 61 || maps[y][x] == 65 || maps[y][x] == 66
-		|| maps[y][x] == 51 || maps[y][x] == 53 || maps[y][x] == 54 || maps[y][x] == 55
+		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
+		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
 		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
