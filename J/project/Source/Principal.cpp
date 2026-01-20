@@ -20,8 +20,8 @@ Principal::Principal(float x, float y)
 
 	//’Ç‰Á
 	avoidTimer = 0.0f;
-	state = MoveAxis::CHASE;
-	moveAxis = MoveAxis::X;
+	state = MoveAxisBoss::CHASE;
+	moveAxis = MoveAxisBoss::X;
 }
 
 Principal::~Principal()
@@ -55,15 +55,15 @@ void Principal::Update()
 	float moveY = 0.0f;
 
 	//ƒ`ƒFƒCƒX
-	if (state == MoveAxis::CHASE)
+	if (state == MoveAxisBoss::CHASE)
 	{
 		//xŽ²‚ÆyŽ²‚Ì·‚ð}‚é
 		if (fabs(dx) > fabs(dy))
-			moveAxis = MoveAxis::X;
+			moveAxis = MoveAxisBoss::X;
 		else
-			moveAxis = MoveAxis::Y;
+			moveAxis = MoveAxisBoss::Y;
 
-		if (moveAxis == MoveAxis::X)
+		if (moveAxis == MoveAxisBoss::X)
 		{
 			moveX = (dx > 0) ? speed : -speed;
 		}
@@ -85,13 +85,13 @@ void Principal::Update()
 		if (max(push1_R, push2_R) || max(push1_L, push2_L) || max(push1_U, push2_U) || max(push1_D, push2_D))
 		{
 			//‰ñ”ð‚Ö‘JˆÚ
-			state = MoveAxis::AVOID;
+			state = MoveAxisBoss::AVOID;
 			avoidTimer = 0.3f;
 
 			//‰ñ”ðŽ²‚Í’Ç”öŽ²‚Æ‹t
-			moveAxis = (moveAxis == MoveAxis::X) ? MoveAxis::Y : MoveAxis::X;
+			moveAxis = (moveAxis == MoveAxisBoss::X) ? MoveAxisBoss::Y : MoveAxisBoss::X;
 
-			if (moveAxis == MoveAxis::X)
+			if (moveAxis == MoveAxisBoss::X)
 			{
 				moveX = (dx > 0) ? speed : -speed;
 			}
@@ -106,7 +106,7 @@ void Principal::Update()
 		avoidTimer -= Time::DeltaTime();
 
 		//‰ñ”ð’†‚ÍŽ²‚ðŒÅ’è
-		if (moveAxis == MoveAxis::X)
+		if (moveAxis == MoveAxisBoss::X)
 		{
 			moveX = (dx > 0) ? speed : -speed;
 		}
@@ -117,7 +117,7 @@ void Principal::Update()
 
 		if (avoidTimer <= 0.0f)
 		{
-			state = MoveAxis::CHASE;
+			state = MoveAxisBoss::CHASE;
 		}
 	}
 

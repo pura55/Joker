@@ -1,7 +1,7 @@
 #pragma once
 #include "../Library/GameObject.h"
 
-enum class MoveAxis
+enum class MoveAxisBoss
 {
 	//移動軸
 	X,
@@ -32,8 +32,8 @@ private:
 	bool HitJudge;
 
 	//回避
-	MoveAxis  state;  //エネミーの状態
-	MoveAxis moveAxis;//移動軸
+	MoveAxisBoss  state;  //エネミーの状態
+	MoveAxisBoss moveAxis;//移動軸
 	float avoidTimer; //回避時間
 
 private:

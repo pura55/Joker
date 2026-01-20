@@ -1,6 +1,7 @@
 #include "TextBox.h"
 #include "Player.h"
 #include "GameManager.h"
+#include "Fader.h"
 #include <assert.h>
 
 
@@ -46,6 +47,7 @@ void TextBox::Update()
 
 	Common* common = FindGameObject<Common>();
 	GameManager* gameManager = FindGameObject<GameManager>();
+	Fader* fader = FindGameObject<Fader>();
 	//ƒƒCƒ“‚Ìó‘Ô
 	switch (MainState)
 	{
@@ -462,6 +464,7 @@ void TextBox::Update()
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				PlaySoundMem(DOOR_OPEN_ONE_SOUND, DX_PLAYTYPE_BACK);
+				fader->FadeOut(3.0f);
 				gameManager->SetGameClear();
 				common->SetLagIn_T();
 			}

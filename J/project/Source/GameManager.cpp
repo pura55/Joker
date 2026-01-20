@@ -6,12 +6,16 @@
 #include "Player.h"
 #include "TextBox.h"
 #include "KeyManager.h"
+#include "Enemy.h"
 
 GameManager::GameManager()
 {
+	//init
 	MainState = GAME_STATE::STATE_INIT;
 	SubState = GAME_STATE::STATE_CONTINUE;
 	textBox = FindGameObject<TextBox>();
+	clearLag = 0.0f;
+	clearFlag = false;
 }
 
 GameManager::~GameManager()
@@ -41,13 +45,35 @@ void GameManager::Update()
 	    case GAME_STATE::STATE_GAME_OVER:
 		     MainState = GAME_STATE::STATE_GAME_OVER;
 		     break;
+		case GAME_STATE::STATE_LAST_GAME:
+			MainState = GAME_STATE::STATE_LAST_GAME;
+			break;
 		case GAME_STATE::STATE_GAME_CLEAR:
 			MainState = GAME_STATE::STATE_GAME_CLEAR;
 			break;
 	    }
 	break;
+	case GAME_STATE::STATE_LAST_GAME:
+		switch (GameCheck())
+		{
+		case GAME_STATE::STATE_LAST_GAME:
+			MainState = GAME_STATE::STATE_LAST_GAME;
+			break;
+		case GAME_STATE::STATE_GAME_CLEAR:
+			MainState = GAME_STATE::STATE_GAME_CLEAR;
+			break;
+		}
+		break;
 	case GAME_STATE::STATE_GAME_CLEAR:
-		SceneManager::ChangeScene("CLEAR");
+		clearLag += Time::DeltaTime();
+		if (clearLag > 3.0f)
+		{
+			clearFlag = true;
+		}
+		if (clearFlag)
+		{
+			SceneManager::ChangeScene("CLEAR");
+		}
 		break;
 	case GAME_STATE::STATE_GAME_OVER:
 		SceneManager::ChangeScene("GAMEOVER");
@@ -63,12 +89,12 @@ void GameManager::Draw()
 
 GAME_STATE GameManager::Init()//初期設定
 {
-	new FloorMap(1);//初期フロア
-	new MainMap(1);//初期マップ
+	new FloorMap(2);//初期フロア
+	new MainMap(2);//初期マップ
 	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //初期プレイヤー生
 	new KeyManager();
 	new TextBox();
-
+	new Enemy(400,400);
 	// ()の中にcsvの数字入れれば読み込みます
 
 	// 以下MainMap&FloorMapのcsvの数字
@@ -92,6 +118,22 @@ GAME_STATE GameManager::GameCheck()
 	{
 	case GAME_STATE::STATE_GAME_OVER:
 		return GAME_STATE::STATE_GAME_OVER;
+		break;
+	case GAME_STATE::STATE_LAST_GAME:
+		return GAME_STATE::STATE_LAST_GAME;
+		break;
+	case GAME_STATE::STATE_CONTINUE:
+		return GAME_STATE::STATE_CONTINUE;
+		break;
+	}
+}
+
+GAME_STATE GameManager::LastGame()
+{
+	switch (SubState)
+	{
+	case GAME_STATE::STATE_GAME_CLEAR:
+		return GAME_STATE::STATE_GAME_CLEAR;
 		break;
 	case GAME_STATE::STATE_CONTINUE:
 		return GAME_STATE::STATE_CONTINUE;

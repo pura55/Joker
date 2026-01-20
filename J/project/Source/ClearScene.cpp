@@ -1,8 +1,11 @@
 #include "ClearScene.h"
+#include "Fader.h"
 
 ClearScene::ClearScene()
 {
 	ClearBg = LoadGraph("data/image/gameclear.jpg");
+	Fader* fader = FindGameObject<Fader>();
+	fader->FadeIn(2.0f);
 }
 
 ClearScene::~ClearScene()
