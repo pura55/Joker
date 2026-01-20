@@ -7,7 +7,7 @@
 
 TextBox::TextBox()
 {
-	SetDrawOrder(-5000);
+	SetDrawOrder(-1000);
 	//‰æ‘œ“Ç‚Ýž‚Ý
 	BoxImage = LoadGraph("Data/image/TextBox.png");
 	assert(BoxImage > 0);
@@ -38,6 +38,7 @@ TextBox::~TextBox()
 
 void TextBox::Update()
 {
+
 	Player* player = FindGameObject<Player>();
 	//mainState‚ªENDˆÈŠO‚¾‚Á‚½‚çƒvƒŒƒCƒ„[‚Ì“®‚«‚ðŽ~‚ß‚é
 	if (MainState != TextBox_State::STATE_END)//true‚Æfalse‚ÌÕ“Ë‚ð–h‚®
@@ -88,7 +89,6 @@ void TextBox::Update()
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
-					void SetStateEnd();
 					common->SetLagIn_T();
 				}
 			}

@@ -28,6 +28,8 @@ public:
 	void SetGameOver() { SubState = GAME_STATE::STATE_GAME_OVER; }
 	void SetGameClear() { SubState = GAME_STATE::STATE_GAME_CLEAR; }
 
+public://getter
+	bool GetPlayFirst()const { return playFirst; }
 public:
 	GAME_STATE Init();
 	GAME_STATE Pro();
@@ -44,4 +46,5 @@ private:
 private:
 	float clearLag;
 	bool clearFlag;
+	bool playFirst;
 };

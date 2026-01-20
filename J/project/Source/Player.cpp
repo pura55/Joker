@@ -25,16 +25,43 @@ Player::~Player()
 
 void Player::Update()
 {
+	GameManager* gameManager = FindGameObject<GameManager>();
+
+	if (gameManager->GetPlayFirst())
+	{
+		MainMap* mainmap = FindGameObject<MainMap>();
+		if (mainmap)
+		{
+			int scX = mainmap->GetScrollX();
+			if (PlayerX - scX >= 700) mainmap->SetScrollX(PlayerX - 700);
+			if (PlayerX - scX <= 500) mainmap->SetScrollX(PlayerX - 500);
+			int scY = mainmap->GetScrollY();
+			if (PlayerY - scY >= 350) mainmap->SetScrollY(PlayerY - 350);
+			if (PlayerY - scY <= 200) mainmap->SetScrollY(PlayerY - 200);
+		}
+		FloorMap* floormap = FindGameObject<FloorMap>();
+		if (floormap)
+		{
+			int scX = floormap->GetScrollX();
+			if (PlayerX - scX >= 700) floormap->SetScrollX(PlayerX - 700);
+			if (PlayerX - scX <= 500) floormap->SetScrollX(PlayerX - 500);
+			int scY = floormap->GetScrollY();
+			if (PlayerY - scY >= 350) floormap->SetScrollY(PlayerY - 350);
+			if (PlayerY - scY <= 200) floormap->SetScrollY(PlayerY - 200);
+		}
+		return;
+	}
+
 	if (!onPlay)//プレイヤー操作時以外の硬直
 	{
 		return;
 	}
+
 	Fader* fader = FindGameObject<Fader>();
 	if (!fader->GetRigor())//ワープ時の硬直
 	{
 		return;
 	}
-	GameManager* gameManager = FindGameObject<GameManager>();
 	Enemy* enemy = FindGameObject<Enemy>();
 	MainMap* appear = FindGameObject<MainMap>();
 

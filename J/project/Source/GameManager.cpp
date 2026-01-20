@@ -11,11 +11,14 @@
 GameManager::GameManager()
 {
 	//init
+	Fader* fader = FindGameObject<Fader>();
+	fader->FadeIn(2.0f);
 	MainState = GAME_STATE::STATE_INIT;
 	SubState = GAME_STATE::STATE_CONTINUE;
 	textBox = FindGameObject<TextBox>();
 	clearLag = 0.0f;
 	clearFlag = false;
+	playFirst = true;
 }
 
 GameManager::~GameManager()
@@ -40,6 +43,7 @@ void GameManager::Update()
 		}
 		break;
 	case GAME_STATE::STATE_GAME_CHECK:
+		playFirst = false;
 		switch (GameCheck())
 		{
 	    case GAME_STATE::STATE_GAME_OVER:
@@ -94,7 +98,7 @@ GAME_STATE GameManager::Init()//‰Šúİ’è
 	new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //‰ŠúƒvƒŒƒCƒ„[¶
 	new KeyManager();
 	new TextBox();
-	new Enemy(400,400);
+	//new Enemy(400,400);
 	// ()‚Ì’†‚Écsv‚Ì”š“ü‚ê‚ê‚Î“Ç‚İ‚İ‚Ü‚·
 
 	// ˆÈ‰ºMainMap&FloorMap‚Ìcsv‚Ì”š
