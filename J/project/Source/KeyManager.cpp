@@ -60,6 +60,7 @@ void KeyManager::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_TAB))
 				{
+					//	showWindow = true;
 					SetFontSize(32);
 					state = WINDOW::STATE_ON;
 					common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
@@ -74,6 +75,7 @@ void KeyManager::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_TAB))
 				{
+					//	showWindow = true;
 					SetFontSize(32);
 					state = WINDOW::STATE_ON;
 					common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
@@ -87,6 +89,7 @@ void KeyManager::Update()
 			if (CheckHitKey(KEY_INPUT_TAB))
 			{
 				SetFontSize(16);
+				//	showWindow = false;
 				if (exKey)
 				{
 					state = WINDOW::STATE_TASK_FINISH;

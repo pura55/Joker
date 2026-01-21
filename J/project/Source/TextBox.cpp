@@ -457,7 +457,38 @@ void TextBox::Update()
 			}
 		}
 		break;
-	case TextBox_State:: STATE_ESCAPE_TIME:
+	case TextBox_State::STATA_FIND_PRINCIPAL://校長発見時
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					TalkState = TextBox_State::STATE_STRING_2;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		case TextBox_State::STATE_STRING_2:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					MainState = TextBox_State::STATE_END;
+					TalkState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		break;
+	case TextBox_State:: STATE_ESCAPE_TIME://脱出時
 		
 		if (common->GetLagCheck())
 		{
@@ -468,6 +499,48 @@ void TextBox::Update()
 				gameManager->SetGameClear();
 				common->SetLagIn_T();
 			}
+		}
+		break;
+	case TextBox_State::STATE_AFTER_ESCAPE://脱出後
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					TalkState = TextBox_State::STATE_STRING_2;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		case TextBox_State::STATE_STRING_2:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					TalkState = TextBox_State::STATE_STRING_3;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		case TextBox_State::STATE_STRING_3:
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					MainState = TextBox_State::STATE_END;
+					TalkState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
+			}
+			break;
+		default:
+			break;
 		}
 		break;
 	case TextBox_State::STATE_END://STATE終了
@@ -664,7 +737,7 @@ void TextBox::Draw()
 			DrawString(395, HintY, "「すべての回答を集めた！　脱出するために屋上のカギを探そう」", GetColor(255, 255, 255), 1);
 			break;
 		case TextBox_State::STATE_STRING_2:
-			DrawString(490, HintY, "めぼしい場所は職員室だろうか...", GetColor(255,255,255), 1);
+			DrawString(490, HintY, "「めぼしい場所は職員室だろうか...」", GetColor(255,255,255), 1);
 			break;
 		default :
 			break;
@@ -674,11 +747,41 @@ void TextBox::Draw()
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(480, HintY, "「屋上へ向かって脱出しよう！」", GetColor(255, 255, 255), 1);
 		break;
+	case TextBox_State::STATA_FIND_PRINCIPAL://校長発見時
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			DrawString(490, HintY, "「あれは・・・校長!?」", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_2:
+			DrawString(480, HintY, "「捕まる前に屋上から脱出しないと!」", GetColor(255, 255, 255), 1);
+			break;
+		default:
+			break;
+		}
+		break;
 	case TextBox_State::STATE_ESCAPE_TIME://脱出時
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(490, HintY, "「屋上の扉の鍵を開けた」", GetColor(255, 255, 255), 1);
 		break;
-	
+	case TextBox_State::STATE_AFTER_ESCAPE:
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		switch (TalkState)
+		{
+		case TextBox_State::STATE_STRING_1:
+			DrawString(490, HintY, "「congratulation!」", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_2:
+			DrawString(490, HintY, "「学校から脱出した」", GetColor(255, 255, 255), 1);
+			break;
+		case TextBox_State::STATE_STRING_3:
+			DrawString(490, HintY, "「テストの回答を盗み出すことができた！」", GetColor(255, 255, 255), 1);
+			break;
+		default:
+			break;
+		}
+		break;
 	}
 }
 

@@ -48,14 +48,17 @@ enum class TextBox_State
 	STATE_EX_GUIDE,    //特別問題の場所を示唆
 	STATE_ESCAPE_GUIDE,//屋上からの脱出を示唆
 
+	//脱出を止める
+	STATE_ESCAPE_WAIT,
+
+	//脱出後
+	STATE_AFTER_ESCAPE,
+
 	//同じ内容の文章で複数文章がある場合使用する
 	STATE_STRING_1,
 	STATE_STRING_2,
 	STATE_STRING_3,
 	STATE_STRING_4,
-
-	//脱出を止める
-	STATE_ESCAPE_WAIT,
 
 	//正解
 	STATE_TRUE,    
