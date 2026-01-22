@@ -14,6 +14,7 @@ TitleScene::TitleScene()
 	IsChange = false;
 	Common* common = FindGameObject<Common>();
 	common->StopHeavenMusic();
+	common->StopHellMusic();
 	MainMap* mainmap = FindGameObject<MainMap>();
 	mainmap->ResetEnemyState();
 }
