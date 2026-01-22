@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "Fader.h"
 #include "Common.h"
+#include "MainMap.h"
 
 int TitleScene::Blinkcount = 0;
 
