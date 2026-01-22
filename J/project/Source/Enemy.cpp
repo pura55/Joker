@@ -59,8 +59,7 @@ void Enemy::Update()
 	if (player->IsHit(EnemyX, EnemyY))
 	{
 		gameManager->SetGameOver();
-		fader->FadeIn(1.0f);
-		SceneManager::ChangeScene("GAMEOVER");
+		fader->FadeOut(1.0f);
 	}
 
 	////after////

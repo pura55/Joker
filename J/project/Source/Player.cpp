@@ -4,6 +4,7 @@
 #include "Warp.h"
 #include "FloorMap.h"
 #include "Fader.h"
+#include "Common.h"
 #include "GameManager.h"
 
 Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
@@ -64,9 +65,14 @@ void Player::Update()
 	}
 	Enemy* enemy = FindGameObject<Enemy>();
 	MainMap* appear = FindGameObject<MainMap>();
+	Common* common = FindGameObject<Common>();
 
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
+		if (common->GetPlayWlak())
+		{
+			common->PlayWalkSound();
+		}
 		DirChara = 0;
 		PlayerX += speed; //座標を変数分ずらして移動する
 
@@ -85,6 +91,10 @@ void Player::Update()
 	}
 	else if (CheckHitKey(KEY_INPUT_A)) //Aキーを押したときの判定
 	{
+		if (common->GetPlayWlak())
+		{
+			common->PlayWalkSound();
+		}
 		DirChara = 1;
 		PlayerX -= speed;
 
@@ -104,6 +114,10 @@ void Player::Update()
 	}
 	else if (CheckHitKey(KEY_INPUT_S)) //Sキーを押したときの判定
 	{
+		if (common->GetPlayWlak())
+		{
+			common->PlayWalkSound();
+		}
 		DirChara = 2;
 		PlayerY += speed; //座標を変数分ずらして移動する
 
@@ -122,6 +136,10 @@ void Player::Update()
 	}
 	else if (CheckHitKey(KEY_INPUT_W)) //Wキーを押したときの判定
 	{
+		if (common->GetPlayWlak())
+		{
+			common->PlayWalkSound();
+		}
 		DirChara = 3;
 		PlayerY -= speed;
 
@@ -137,6 +155,10 @@ void Player::Update()
 		int push1 = ObjectHit->HitCheckUp(PlayerX + 14, PlayerY + 51);
 		int push2 = ObjectHit->HitCheckUp(PlayerX + 50, PlayerY + 51);
 		PlayerY += max(push1, push2);
+	}
+	else
+	{
+		common->StopWalkSound();
 	}
 	// スクロール
 	MainMap* mainmap = FindGameObject<MainMap>();

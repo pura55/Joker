@@ -1588,7 +1588,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "職員室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1612,7 +1612,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "職員室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1638,7 +1638,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1662,7 +1662,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1689,7 +1689,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1713,7 +1713,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1737,7 +1737,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1761,7 +1761,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "理科室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1788,7 +1788,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1812,7 +1812,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1836,7 +1836,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1860,7 +1860,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1887,7 +1887,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1911,7 +1911,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1935,7 +1935,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1959,7 +1959,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "図書室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 3;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -1986,7 +1986,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2010,7 +2010,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2034,7 +2034,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2058,7 +2058,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2085,7 +2085,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "校長室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 4;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2109,7 +2109,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "校長室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 4;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2136,7 +2136,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2160,7 +2160,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2187,7 +2187,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2211,7 +2211,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2235,7 +2235,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2259,7 +2259,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "音楽室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 5;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2290,7 +2290,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2314,7 +2314,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2338,7 +2338,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2362,7 +2362,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2391,7 +2391,7 @@ bool MainMap::Warp(int Px, int Py)
 
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2416,7 +2416,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2440,7 +2440,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2464,7 +2464,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "美術室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 6;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2493,7 +2493,7 @@ bool MainMap::Warp(int Px, int Py)
 
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2517,7 +2517,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2541,7 +2541,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2565,7 +2565,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2592,7 +2592,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2616,7 +2616,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2640,7 +2640,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2664,7 +2664,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 101;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2691,7 +2691,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2715,7 +2715,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2739,7 +2739,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2763,7 +2763,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2790,7 +2790,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2814,7 +2814,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2838,7 +2838,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2862,7 +2862,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 102;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2889,7 +2889,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2913,7 +2913,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2937,7 +2937,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2961,7 +2961,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 1000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -2988,7 +2988,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3012,7 +3012,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3036,7 +3036,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3060,7 +3060,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 201;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3087,7 +3087,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3111,7 +3111,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3135,7 +3135,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3159,7 +3159,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3186,7 +3186,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3210,7 +3210,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3234,7 +3234,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3258,7 +3258,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 700, "教室に入る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 202;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3285,7 +3285,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3309,7 +3309,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3333,7 +3333,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
@@ -3357,7 +3357,7 @@ bool MainMap::Warp(int Px, int Py)
 			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
-				PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+				common->PlayOpenDoorSound();
 				fader->FadeIn(inTime);
 				targetWarpStage = 2000;//行先
 				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();

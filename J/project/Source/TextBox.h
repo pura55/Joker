@@ -63,9 +63,10 @@ enum class TextBox_State
 	//正解
 	STATE_TRUE,    
 	//不正解
-	STATE_FALSE           
+	STATE_FALSE,           
 
-	//STATE_BLANK,       //使うかもしれないから残す
+	//ゲーム終了
+	STATE_FINISH
 };
 
 class TextBox : public GameObject

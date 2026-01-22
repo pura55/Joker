@@ -495,6 +495,7 @@ void TextBox::Update()
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
 				PlaySoundMem(DOOR_OPEN_ONE_SOUND, DX_PLAYTYPE_BACK);
+				MainState = TextBox_State::STATE_FINISH;
 				fader->FadeOut(3.0f);
 				gameManager->SetGameClear();
 				common->SetLagIn_T();

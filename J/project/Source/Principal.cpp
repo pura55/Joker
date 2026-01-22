@@ -67,7 +67,7 @@ void Principal::Update()
 	if (player->IsHit(BossX + 192/2, BossY + 256/2))
 	{
 		gameManager->SetGameOver();
-		fader->FadeIn(1.0f);
+		fader->FadeOut(1.0f);
 		SceneManager::ChangeScene("GAMEOVER");
 	}
 

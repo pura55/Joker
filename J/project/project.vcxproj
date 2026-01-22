@@ -170,6 +170,7 @@
     <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Source\StartScene.h" />
     <ClInclude Include="Source\TextBox.h" />
+    <ClInclude Include="Source\TextBoxClear.h" />
     <ClInclude Include="Source\TitleScene.h" />
     <ClInclude Include="Source\Warp.h" />
   </ItemGroup>
@@ -204,6 +205,7 @@
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\StartScene.cpp" />
     <ClCompile Include="Source\TextBox.cpp" />
+    <ClCompile Include="Source\TextBoxClear.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
     <ClCompile Include="Source\Warp.cpp" />
   </ItemGroup>

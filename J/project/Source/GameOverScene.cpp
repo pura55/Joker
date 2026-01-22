@@ -4,8 +4,9 @@
 GameOverScene::GameOverScene()
 {
 	Fader* fader = FindGameObject<Fader>();
-	fader->FadeIn(2.0f);
+	fader->FadeIn(3.0f);
 	GameOverBg = LoadGraph("data/image/gameover.jpg");
+	Blinkcount = 0;
 }
 
 GameOverScene::~GameOverScene()
@@ -18,11 +19,22 @@ void GameOverScene::Update()
 	if (CheckHitKey(KEY_INPUT_O)) {
 		SceneManager::ChangeScene("TITLE");
 	}
+
+	Blinkcount++;
+	if (Blinkcount > 120)
+	{
+		Blinkcount = 0;
+	}
 }
 
 void GameOverScene::Draw()
 {
 	DrawGraph(0, 0, GameOverBg, TRUE);
 	DrawString(0, 0, "GAME OVER SCENE", GetColor(255, 255, 255));
-	DrawString(100, 400, "Push [O]Key To Title", GetColor(255, 255, 255));
+	if (Blinkcount > 60)
+	{
+		SetFontSize(60);
+		DrawString(600, 500, "Push [O]Key To Title", GetColor(255, 255, 255));
+	}
+	SetFontSize(16);
 }

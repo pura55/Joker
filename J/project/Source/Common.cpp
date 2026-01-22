@@ -9,7 +9,11 @@ Common::Common()
 	//初期化
 	ClearTime = 0.0f;
 	TimeLag = 0.0f;
+	walkTime = 0.0f;
+	openTime = 0.0f;
 	lagCheck = true;
+	playWalkFlag = true;
+	playOpenFlag = true;
 	firstSpawn = true;
 	firstMove = true;
 	firstText = true;
@@ -23,6 +27,8 @@ Common::~Common()
 {
 	DeleteSoundMem(HEAVEN_MUSIC);
 	DeleteSoundMem(HELL_MUSIC);
+	DeleteSoundMem(WALK_SOUND);
+	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
 }
 
 void Common::Update()
@@ -33,6 +39,7 @@ void Common::Update()
 	ImGui::End()*/;
 
 	TextBox* textBox = FindGameObject<TextBox>();
+	//校長先生出現時のスポーン・テキスト・プレイサウンド
 	if (!firstSpawn)
 	{
 		if (firstText)
@@ -50,6 +57,32 @@ void Common::Update()
 			}
 		}
 	}
+    
+	//1.0f経ったら歩くサウンドをストップする
+	if (!playWalkFlag)
+	{
+		walkTime += Time::DeltaTime();
+		if (walkTime >= 1.0f)
+		{
+			StopSoundMem(WALK_SOUND);
+			playWalkFlag = true;
+			walkTime = 0.0f;
+		}
+	}
+
+	//
+	if (!playOpenFlag)
+	{
+		openTime += Time::DeltaTime();
+		if (openTime >= 1.2f)
+		{
+			StopSoundMem(DOOR_OPEN_TWO_SOUND);
+			playOpenFlag = true;
+			openTime = 0.0f;
+		}
+	}
+	
+
 	//ワープした時のラグ
 	if (!lagCheck)
 	{
@@ -104,4 +137,27 @@ void Common::PlayHellMusic()
 void Common::StopHellMusic()
 {
 	StopSoundMem(HELL_MUSIC);
+}
+
+void Common::PlayWalkSound()
+{
+	if (playWalkFlag)
+	{
+		PlaySoundMem(WALK_SOUND, DX_PLAYTYPE_BACK);
+		playWalkFlag = false;
+	}
+}
+
+void Common::StopWalkSound()
+{
+	StopSoundMem(WALK_SOUND);
+}
+
+void Common::PlayOpenDoorSound()
+{
+	if (playOpenFlag)
+	{
+		PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
+		playOpenFlag = false;
+	}
 }

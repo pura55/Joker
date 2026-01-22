@@ -12,6 +12,7 @@ TitleScene::TitleScene()
 	Timer = 0.0f;
 	changeFlag = false;
 	IsChange = false;
+	pushKey = true;
 	Common* common = FindGameObject<Common>();
 	common->StopHeavenMusic();
 	common->StopHellMusic();
@@ -26,9 +27,14 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	Fader* fader = FindGameObject<Fader>();
-	if (CheckHitKey(KEY_INPUT_RETURN)) {
-		changeFlag = true;
-		fader->FadeOut(3.0f);
+	if (pushKey)
+	{
+		if (CheckHitKey(KEY_INPUT_SPACE)) 
+		{
+			changeFlag = true;
+			pushKey = false;
+			fader->FadeOut(3.0f);
+		}
 	}
 	if (changeFlag)
 	{
@@ -64,6 +70,6 @@ void TitleScene::Draw()
 	if (Blinkcount > 60)
 	{
 		SetFontSize(60);
-		DrawString(600, 500, "Push Enter To Play ", GetColor(255, 255, 255));
+		DrawString(600, 500, "Push [SPACE] To Play ", GetColor(255, 255, 255));
 	}
 }

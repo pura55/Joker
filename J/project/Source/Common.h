@@ -16,10 +16,14 @@ public:
 	void WarpLag();
 	void TextLag();
 
-	void PlayHeavenMusic();
-	void StopHeavenMusic();
-	void PlayHellMusic();
-	void StopHellMusic();
+	void PlayHeavenMusic();  //先生チェイス用BGMを再生
+	void StopHeavenMusic();  //先生チェイス用BGMを停止
+	void PlayHellMusic();    //校長先生チェイス用BGMを再生
+	void StopHellMusic();    //校長先生チェイス用BGMを停止
+	void PlayWalkSound();    //プレイヤーwalk用ジングルを再生
+	void StopWalkSound();    //プレイヤーwalk用ジングルを停止
+	void PlayOpenDoorSound();//ドアを開けるジングルを再生
+	//void StopOpenDoorSound();//ドアを開けるジングルを停止
 
 public://setter
 	void SetLagIn_W()
@@ -39,12 +43,17 @@ public://getter
 	bool GetLagCheck() const { return lagCheck; }
 	bool GetFirstSpawn() const { return firstSpawn; }
 	bool GetFirstMove() const { return firstMove; }
+	bool GetPlayWlak() const { return playWalkFlag; }
 
 public:
 	float ClearTime;
 	float TimeLag;//タイムラグ
+	float walkTime;//効果音を止める時間
+	float openTime;//効果音を止める時間
 	bool lagCheck;//spaceを連続でおさない
 	bool noDead;
+	bool playWalkFlag; //歩くサウンドの判定
+	bool playOpenFlag; //ドアを開けるサウンドの判定
 
 
 	//校長先生用
@@ -56,8 +65,12 @@ public:
 private:
 	int warpOutX = 0;
 	int warpOutY = 0;
+
+private:
 	const int HELL_MUSIC = LoadSoundMem("data/sound/bossMusic.mp3");
 	const int HEAVEN_MUSIC = LoadSoundMem("data/sound/NormalMusic.mp3");
+	const int WALK_SOUND = LoadSoundMem("data/sound/walk.mp3");
+	const int DOOR_OPEN_TWO_SOUND = LoadSoundMem("data/sound/opentwodoor.mp3");
 
 public:
 	void SetWarpOut(int x, int y) {

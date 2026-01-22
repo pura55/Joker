@@ -18,5 +18,6 @@ private:
 	float Timer;
 	bool changeFlag;
 	bool IsChange;
+	bool pushKey;
 	static int Blinkcount;
 };
