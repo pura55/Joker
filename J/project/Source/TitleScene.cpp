@@ -11,6 +11,10 @@ TitleScene::TitleScene()
 	Timer = 0.0f;
 	changeFlag = false;
 	IsChange = false;
+	Common* common = FindGameObject<Common>();
+	common->StopHeavenMusic();
+	MainMap* mainmap = FindGameObject<MainMap>();
+	mainmap->ResetEnemyState();
 }
 
 TitleScene::~TitleScene()

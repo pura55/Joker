@@ -96,7 +96,7 @@ MainMap::MainMap(int stage)
 		case 1:
 		{
 			//出現確率
-			if (r < 100 && OfficeEnemytimer > 60)
+			if (r < 40 && OfficeEnemytimer > 60)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 7, 10, 17, 20, 23 };
@@ -113,7 +113,7 @@ MainMap::MainMap(int stage)
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
 				common->PlayHeavenMusic();
-				if (r < 70)
+				if (r < 55)
 				{
 					new Enemy(64 * 7, 64 * 4);
 					new Enemy(64 * 7, 64 * 9);
@@ -140,7 +140,7 @@ MainMap::MainMap(int stage)
 		case 2:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 12, 22, 22 };
@@ -163,7 +163,7 @@ MainMap::MainMap(int stage)
 		case 3:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 14, 17, 23, 25 };
@@ -186,7 +186,7 @@ MainMap::MainMap(int stage)
 		case 4:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 5, 6, 7, 8 };
@@ -210,7 +210,7 @@ MainMap::MainMap(int stage)
 		case 5:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 11, 18 };
@@ -233,7 +233,7 @@ MainMap::MainMap(int stage)
 		case 6:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 19 };
@@ -256,7 +256,7 @@ MainMap::MainMap(int stage)
 		case 101:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4, 21 };
@@ -279,7 +279,7 @@ MainMap::MainMap(int stage)
 		case 102:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4, 21 };
@@ -302,7 +302,7 @@ MainMap::MainMap(int stage)
 		case 201:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4 , 21 };
@@ -325,7 +325,7 @@ MainMap::MainMap(int stage)
 		case 202:
 		{
 			//出現確率
-			if (r < 10)
+			if (r < 40)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4,  22 };
@@ -345,51 +345,6 @@ MainMap::MainMap(int stage)
 			}
 		}
 		break;
-		case 1000:
-		{
-			//出現確率
-			if (r < 0)
-			{
-				// 出現候補座標（タイル単位）
-				int spawnX[] = { 5, 6, 7, 8 };
-				int spawnY[] = { 5, 6, 7, 8 };
-
-				//出現場所候補最大値
-				int count = sizeof(spawnX) / sizeof(spawnX[0]);
-				int idx = rand() % count;
-
-				float x = spawnX[idx] * 64.0f;
-				float y = spawnY[idx] * 64.0f;
-
-				new Enemy(x, y);
-				currentState = EnemyState::Chase;
-				Chasetimer = 0;
-				common->PlayHeavenMusic();
-			}
-		}
-		break;
-		case 2000:
-		{
-			//出現確率
-			if (r < 0)
-			{
-				// 出現候補座標（タイル単位）
-				int spawnX[] = { 5, 6, 7, 8 };
-				int spawnY[] = { 5, 6, 7, 8 };
-
-				//出現場所候補最大値
-				int count = sizeof(spawnX) / sizeof(spawnX[0]);
-				int idx = rand() % count;
-
-				float x = spawnX[idx] * 64.0f;
-				float y = spawnY[idx] * 64.0f;
-
-				new Enemy(x, y);
-				currentState = EnemyState::Chase;
-				Chasetimer = 0;
-				common->PlayHeavenMusic();
-			}
-		}
 		}
 	}
 	else if(currentState == EnemyState::Chase)
@@ -464,7 +419,7 @@ void MainMap::Update()
 	if (currentState == EnemyState::Interval) {
 		DrawString(100, 700, "interval2", GetColor(255, 255, 255));
 		Intervaltimer++;                // カウント
-		if (Intervaltimer > 600) {      // 10秒後 (60FPS想定)
+		if (Intervaltimer > 1200) {      // 10秒後 (60FPS想定)
 			currentState = EnemyState::Idle;
 			Intervaltimer = 0;          // タイマーリセット
 			DrawString(100, 700, "idle", GetColor(255, 0, 0));
@@ -3597,4 +3552,12 @@ void MainMap::AppearBoss(int Px, int Py)
 		//	common->StopHeavenMusic();
 		//}
 	}
+}
+
+void MainMap::ResetEnemyState()
+{
+	currentState = EnemyState::Idle;
+	Chasetimer = 0;
+	Intervaltimer = 0;
+	OfficeEnemytimer = 0;
 }

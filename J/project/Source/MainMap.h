@@ -21,6 +21,7 @@ public:
 	void SetStageNum(int stage) { StageNum = stage; } //ステージの番号をセットする関数
 	bool Warp(int Px, int Py);//ワープポイントの関数
 	void AppearBoss(int Px, int Py);
+	void ResetEnemyState();
 
 public://getter
     int GetScrollX() const { return scrollX; }
