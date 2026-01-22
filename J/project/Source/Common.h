@@ -15,6 +15,11 @@ public:
 	void WarpLag();
 	void TextLag();
 
+	void PlayHeavenMusic();
+	void StopHeavenMusic();
+	void PlayHellMusic();
+	void StopHellMusic();
+
 public://setter
 	void SetLagIn_W()
 	{
@@ -39,6 +44,8 @@ public:
 private:
 	int warpOutX = 0;
 	int warpOutY = 0;
+	const int HELL_MUSIC = LoadSoundMem("data/sound/bossMusic.mp3");
+
 public:
 	void SetWarpOut(int x, int y) {
 		warpOutX = x; warpOutY = y;

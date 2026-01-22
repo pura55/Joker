@@ -56,3 +56,23 @@ void Common::TextLag()
 		TimeLag = 0.0f;
 	}
 }
+
+void Common::PlayHeavenMusic()
+{
+	PlaySoundMem(HELL_MUSIC, DX_PLAYTYPE_BACK);
+}
+
+void Common::StopHeavenMusic()
+{
+	StopSoundMem(HELL_MUSIC);
+}
+
+void Common::PlayHellMusic()
+{
+	PlaySoundMem(HELL_MUSIC, DX_PLAYTYPE_BACK);
+}
+
+void Common::StopHellMusic()
+{
+	StopSoundMem(HELL_MUSIC);
+}

@@ -81,6 +81,8 @@ MainMap::MainMap(int stage)
 	DoorImage = LoadGraph("data/image/door2.png");//屋上ドア
 	//new Enemy();
 
+	Common* common = FindGameObject<Common>();
+
 	srand((unsigned int)time(nullptr));
 
 	int r = rand() % 100;
@@ -93,7 +95,7 @@ MainMap::MainMap(int stage)
 		case 1:
 		{
 			//出現確率
-			if (r < 10 && OfficeEnemytimer > 60)
+			if (r < 100 && OfficeEnemytimer > 60)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 7, 10, 17, 20, 23 };
@@ -109,6 +111,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 				if (r < 70)
 				{
 					new Enemy(64 * 7, 64 * 4);
@@ -152,6 +155,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -174,6 +178,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -197,6 +202,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -219,6 +225,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -241,6 +248,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -263,6 +271,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -285,6 +294,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -307,6 +317,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -329,6 +340,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -351,6 +363,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		break;
@@ -373,6 +386,7 @@ MainMap::MainMap(int stage)
 				new Enemy(x, y);
 				currentState = EnemyState::Chase;
 				Chasetimer = 0;
+				common->PlayHeavenMusic();
 			}
 		}
 		}
@@ -1473,6 +1487,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1491,6 +1509,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1509,6 +1531,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1530,6 +1556,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1548,6 +1578,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1566,6 +1600,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1588,6 +1626,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1607,6 +1649,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1629,6 +1675,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1648,6 +1698,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1670,6 +1724,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1689,6 +1747,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1708,6 +1770,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1727,6 +1793,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1749,6 +1819,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1768,6 +1842,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1787,6 +1865,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1806,6 +1888,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1828,6 +1914,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1847,6 +1937,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1866,6 +1960,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1885,6 +1983,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1907,6 +2009,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1926,6 +2032,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1945,6 +2055,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1964,6 +2078,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -1986,6 +2104,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2005,6 +2127,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2027,6 +2153,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2046,6 +2176,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2068,6 +2202,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2087,6 +2225,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2106,6 +2248,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2125,6 +2271,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2151,6 +2301,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2170,6 +2324,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2189,6 +2347,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2208,6 +2370,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2232,6 +2398,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 
@@ -2252,6 +2422,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2271,6 +2445,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2290,6 +2468,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2314,6 +2496,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2333,6 +2519,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2352,6 +2542,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2371,6 +2565,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2393,6 +2591,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2412,6 +2614,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2431,6 +2637,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2450,6 +2660,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2472,6 +2686,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2491,6 +2709,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2510,6 +2732,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2529,6 +2755,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2551,6 +2781,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2570,6 +2804,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2589,6 +2827,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2608,6 +2850,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2630,6 +2876,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2649,6 +2899,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2668,6 +2922,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2687,6 +2945,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2709,6 +2971,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2728,6 +2994,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2747,6 +3017,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2766,6 +3040,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2788,6 +3066,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2807,6 +3089,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2826,6 +3112,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2845,6 +3135,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2867,6 +3161,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2886,6 +3184,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2905,6 +3207,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2924,6 +3230,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2946,6 +3256,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2965,6 +3279,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -2984,6 +3302,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3003,6 +3325,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3024,6 +3350,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3042,6 +3372,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3060,6 +3394,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3081,6 +3419,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3099,6 +3441,10 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
@@ -3117,14 +3463,26 @@ bool MainMap::Warp(int Px, int Py)
 				Enemy::killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
+				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				{
+					common->StopHeavenMusic();
+				}
 				return true;
 			}
 		}
 		// ==================================================
-		// 屋上へ
+		// ムキムキ襲来
 		// ==================================================
-		//左
-		
-		return false;
+		if (maps[y][x] == 114514)
+		{
+			//common->SetLagIn_W();
+			//new Enemy(320, 576);
+			//common->PlayHeavenMusic();
+			//if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+			//{
+			//	common->StopHeavenMusic();
+			//}
+		}
+	return false;
 	}
 }	
