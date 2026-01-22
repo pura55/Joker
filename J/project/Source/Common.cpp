@@ -1,4 +1,5 @@
 #include "Common.h"
+#include "TextBox.h"
 #include "../ImGui/imgui.h"
 
 Common::Common()
@@ -9,9 +10,19 @@ Common::Common()
 	ClearTime = 0.0f;
 	TimeLag = 0.0f;
 	lagCheck = true;
+	firstSpawn = true;
+	firstMove = true;
+	firstText = true;
+	firstPlaySound = true;
 
 	warpOutX = -1;
 	warpOutY = -1;
+}
+
+Common::~Common()
+{
+	DeleteSoundMem(HEAVEN_MUSIC);
+	DeleteSoundMem(HELL_MUSIC);
 }
 
 void Common::Update()
@@ -21,6 +32,24 @@ void Common::Update()
 	ImGui::Checkbox("NoDead", &noDead);
 	ImGui::End()*/;
 
+	TextBox* textBox = FindGameObject<TextBox>();
+	if (!firstSpawn)
+	{
+		if (firstText)
+		{
+			textBox->SetFindPri();
+			firstText = false;
+		}
+
+		if (!firstMove)
+		{
+			if (firstPlaySound)
+			{
+				PlayHellMusic();
+				firstPlaySound = false;
+			}
+		}
+	}
 	//ÉèÅ[ÉvÇµÇΩéûÇÃÉâÉO
 	if (!lagCheck)
 	{
@@ -59,12 +88,12 @@ void Common::TextLag()
 
 void Common::PlayHeavenMusic()
 {
-	PlaySoundMem(HELL_MUSIC, DX_PLAYTYPE_BACK);
+	PlaySoundMem(HEAVEN_MUSIC, DX_PLAYTYPE_BACK);
 }
 
 void Common::StopHeavenMusic()
 {
-	StopSoundMem(HELL_MUSIC);
+	StopSoundMem(HEAVEN_MUSIC);
 }
 
 void Common::PlayHellMusic()

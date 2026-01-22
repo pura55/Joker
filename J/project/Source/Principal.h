@@ -20,6 +20,7 @@ public:
 	~Principal();
 	void Update() override;
 	void Draw() override;
+	void killAll();
 
 private:
 	int BossImage;

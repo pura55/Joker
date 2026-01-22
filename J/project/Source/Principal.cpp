@@ -3,6 +3,7 @@
 #include "MainMap.h"
 #include "Player.h"
 #include "Fader.h"
+#include "Common.h"
 
 Principal::Principal(float x, float y)
 {
@@ -14,7 +15,7 @@ Principal::Principal(float x, float y)
 	BossY = y;
 	MovementsPattern = 0;
 	MovementsCount = 0;
-	DirChara = 3;
+	DirChara = 2;
 	HitJudge = true;
 	Xdir = 1;
 
@@ -35,6 +36,33 @@ void Principal::Update()
 	GameManager* gameManager = FindGameObject<GameManager>();
 	Player* player = FindGameObject<Player>();
 	Fader* fader = FindGameObject<Fader>();
+	Common* common = FindGameObject<Common>();
+	TextBox* textBox = FindGameObject<TextBox>();
+
+	if (common->GetFirstMove())
+	{
+		player->SetPlay(false);
+		if (BossY >= 300.0f)//中心まで行ったら静止
+		{
+			BossY -= speed;
+			DirChara = 2;
+			Xdir = 0;
+
+			MovementsCount += 1; //キャラクターの動作の処理
+			if (MovementsCount >= 15) {
+
+				MovementsPattern = (MovementsPattern + 1) % 3 + 0;
+				DirChara = 2;
+				MovementsCount = 0;
+			}
+		}
+		else//プレイヤーを向く
+		{
+			DirChara = 1;
+			Xdir = 0;
+		}
+		return;
+	}
 
 	if (player->IsHit(BossX + 192/2, BossY + 256/2))
 	{
@@ -300,4 +328,13 @@ void Principal::Draw()
 		scY = mainmap->GetScrollY();
 	}
 	DrawRectGraph(BossX - scX, BossY - scY, 192 * MovementsPattern, 256 * DirChara, 192, 256, BossImage, 1, Xdir, 0);
+}
+
+void Principal::killAll()
+{
+	auto enemies = FindGameObjects<Principal>();
+	for (auto e : enemies)
+	{
+		e->DestroyMe();
+	}
 }

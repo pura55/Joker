@@ -41,7 +41,7 @@ enum class TextBox_State
 	STATE_PRINCIPAL_OFFICE,//Z’·º
 
 	//ê–Ê
-	STATA_FIND_PRINCIPAL, //Z’·”­Œ©
+	STATE_FIND_PRINCIPAL, //Z’·”­Œ©
 	STATE_ESCAPE_TIME,    //’Eo
 
 	//ˆÄ“à
@@ -137,8 +137,16 @@ public://setter
 	//’EoŒû
 	void SetEscapeWait() { MainState = TextBox_State::STATE_ESCAPE_WAIT; }//‰®ã
 
+	//Z’·”­Œ©
+	void SetFindPri()
+	{
+		MainState = TextBox_State::STATE_FIND_PRINCIPAL;
+		TalkState = TextBox_State::STATE_STRING_1;
+	}
 	//ê–Ê
 	void SetEscapeText() { MainState = TextBox_State::STATE_ESCAPE_TIME; }
+
+	
 
 private://•Ï”
 	int BoxImage;//map‚Ì•`‰æ•Ï”

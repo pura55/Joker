@@ -457,8 +457,7 @@ void TextBox::Update()
 			}
 		}
 		break;
-	case TextBox_State::STATA_FIND_PRINCIPAL://çZí∑î≠å©éû
-		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+	case TextBox_State::STATE_FIND_PRINCIPAL://çZí∑î≠å©éû
 		switch (TalkState)
 		{
 		case TextBox_State::STATE_STRING_1:
@@ -478,6 +477,7 @@ void TextBox::Update()
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					common->SetFirstMove();
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					common->SetLagIn_T();
@@ -747,7 +747,7 @@ void TextBox::Draw()
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(480, HintY, "ÅuâÆè„Ç÷å¸Ç©Ç¡ÇƒíEèoÇµÇÊÇ§ÅIÅv", GetColor(255, 255, 255), 1);
 		break;
-	case TextBox_State::STATA_FIND_PRINCIPAL://çZí∑î≠å©éû
+	case TextBox_State::STATE_FIND_PRINCIPAL://çZí∑î≠å©éû
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		switch (TalkState)
 		{

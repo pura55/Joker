@@ -8,6 +8,7 @@
 #include "TextBox.h"
 #include "KeyManager.h"
 #include "GameManager.h"
+#include "Principal.h"
 #include <vector>
 #include <iostream>
 
@@ -475,13 +476,21 @@ void MainMap::Update()
 		OfficeEnemytimer++;
 	}
 
+	KeyManager* keyManager = FindGameObject<KeyManager>();
+	Common* common = FindGameObject<Common>();
 	Player* player = FindGameObject<Player>();
 	float px = player->GetPlayerPositionX();
 	float py = player->GetPlayerPositionY();
 
+	if (keyManager->GetExKey())
+	{
+		if (common->GetFirstSpawn())
+		{
+			AppearBoss(px, py);
+		}
+	}
+	
 	TextBox* textBox = FindGameObject<TextBox>();
-	Common* common = FindGameObject<Common>();
-	KeyManager* keyManager = FindGameObject<KeyManager>();
 
 	switch (StageNum)//textboxへの遷移（問題）
 	{
@@ -1304,7 +1313,7 @@ int MainMap::HitCheckRight(int Px, int Py) //右の当たり判定
 	if (x >= maps[y].size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */|| maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 || maps[y][x] == 42 */ || maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
@@ -1340,7 +1349,7 @@ int MainMap::HitCheckLeft(int Px, int Py)//右の当たり判定
 	if (x >= maps[y].size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41  || maps[y][x] == 42 */|| maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
@@ -1376,7 +1385,7 @@ int MainMap::HitCheckUp(int Px, int Py) //上の当たり判定
 	if (y >= maps.size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41  || maps[y][x] == 42 */|| maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
@@ -1412,7 +1421,7 @@ int MainMap::HitCheckDown(int Px, int Py) //下の当たり判定
 	if (y >= maps.size())
 		return 0;
 	else if (maps[y][x] == 0 || maps[y][x] == 20 || maps[y][x] == 8
-		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41 */ || maps[y][x] == 42 || maps[y][x] == 43 || maps[y][x] == 44
+		/* || maps[y][x] == 7 || maps[y][x] == 40 || maps[y][x] == 41  || maps[y][x] == 42 */|| maps[y][x] == 43 || maps[y][x] == 44
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
@@ -1465,6 +1474,8 @@ bool MainMap::Warp(int Px, int Py)
 	KeyManager* keyManager = FindGameObject<KeyManager>();
 	Fader* fader = FindGameObject<Fader>();
 	Common* common = FindGameObject<Common>();
+	Principal* principal = FindGameObject<Principal>();
+
 	common->SetWarpOut(-1, -1);
 	//maps[y][x]においてxは+をすると左側に寄り、-をすると右側による。yは+をすると上に寄り、-をすると下に寄る
 	// ==================================================
@@ -1485,6 +1496,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1507,6 +1519,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1529,6 +1542,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1554,6 +1568,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1576,6 +1591,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1598,6 +1614,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1624,6 +1641,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1646,7 +1664,7 @@ bool MainMap::Warp(int Px, int Py)
 				floor->SetTargerWarpFloor(1);//行先
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
+				Enemy::killAll();				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1673,6 +1691,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1696,6 +1715,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1722,6 +1742,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1745,6 +1766,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1768,6 +1790,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1791,6 +1814,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1817,6 +1841,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1840,6 +1865,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1863,6 +1889,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1886,6 +1913,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1912,6 +1940,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1935,6 +1964,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1958,6 +1988,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 21;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -1981,6 +2012,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 22;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2007,6 +2039,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2030,6 +2063,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2053,6 +2087,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2076,6 +2111,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2102,6 +2138,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 8;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2125,6 +2162,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 9;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2151,6 +2189,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2174,6 +2213,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2200,6 +2240,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2223,6 +2264,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2246,6 +2288,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2269,6 +2312,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2299,6 +2343,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2322,6 +2367,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2345,6 +2391,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2368,6 +2415,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2396,6 +2444,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2420,6 +2469,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2443,6 +2493,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 18;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2466,6 +2517,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 18;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2494,6 +2546,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2517,6 +2570,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2540,6 +2594,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2563,6 +2618,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2589,6 +2645,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2612,6 +2669,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2635,6 +2693,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2658,6 +2717,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2684,6 +2744,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2707,6 +2768,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2730,6 +2792,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2753,6 +2816,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2779,6 +2843,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2802,6 +2867,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2825,6 +2891,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2848,6 +2915,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2874,6 +2942,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2897,6 +2966,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2920,6 +2990,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2943,6 +3014,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2969,6 +3041,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -2992,6 +3065,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3015,6 +3089,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3038,6 +3113,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3064,6 +3140,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3087,6 +3164,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3110,6 +3188,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3133,6 +3212,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3159,6 +3239,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3182,6 +3263,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3205,6 +3287,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 19;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3228,6 +3311,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 20;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3254,6 +3338,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3277,6 +3362,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3300,6 +3386,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3323,6 +3410,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3348,6 +3436,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 4;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3370,6 +3459,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3392,6 +3482,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3417,6 +3508,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 54;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3439,6 +3531,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 55;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3461,6 +3554,7 @@ bool MainMap::Warp(int Px, int Py)
 				warpOutX = BgSize * 56;//X軸のワープ後の出現座標
 				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
 				Enemy::killAll();
+				principal->killAll();
 				common->SetLagIn_W();
 				common->SetWarpOut(warpOutX, warpOutY);
 				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
@@ -3473,16 +3567,34 @@ bool MainMap::Warp(int Px, int Py)
 		// ==================================================
 		// ムキムキ襲来
 		// ==================================================
-		if (maps[y][x] == 114514)
-		{
-			//common->SetLagIn_W();
-			//new Enemy(320, 576);
-			//common->PlayHeavenMusic();
-			//if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
-			//{
-			//	common->StopHeavenMusic();
-			//}
-		}
+		//if (maps[y][x] == 114514)
+		//{
+		//	//common->SetLagIn_W();
+		//	//new Enemy(320, 576);
+		//	//common->PlayHeavenMusic();
+		//	//if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+		//	//{
+		//	//	common->StopHeavenMusic();
+		//	//}
+		//}
 	return false;
 	}
-}	
+}
+void MainMap::AppearBoss(int Px, int Py)
+{
+	int x = (Px + BgSize / 2) / 64;
+	int y = (Py + (BgSize + 32) / 2) / 64;
+
+	Common* common = FindGameObject<Common>();
+
+	if (maps[y][x] == 114514)
+	{
+		new Principal(320, 576);
+		common->SetFirstSpawn();
+		//common->PlayHeavenMusic();
+		//if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+		//{
+		//	common->StopHeavenMusic();
+		//}
+	}
+}

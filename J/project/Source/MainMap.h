@@ -20,6 +20,7 @@ public:
 	void SetScrollY(int sy) { scrollY = sy; }
 	void SetStageNum(int stage) { StageNum = stage; } //ステージの番号をセットする関数
 	bool Warp(int Px, int Py);//ワープポイントの関数
+	void AppearBoss(int Px, int Py);
 
 public://getter
     int GetScrollX() const { return scrollX; }
