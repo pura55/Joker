@@ -79,7 +79,7 @@ public:
 	int warpOutX = 0;
 	int warpOutY = 0;
 	bool appear;
-	int SpawnRate = 0;//敵の出現確率
+	int SpawnRate = 0;//敵の出現確率　今のところ40
 
 public://！用の変数
 	int MarkX_Q = 0;
@@ -89,11 +89,13 @@ public://！用の変数
 	bool ExFlag_Q;
 	bool ExFlag_Another;
 	
+	
 private:
 	//Common* common;
 	static int Chasetimer;
 	static int Intervaltimer;
 	static int OfficeEnemytimer;
+	static int Principaltimer;
 
 private://定数
 	const int BgSize = 64;//マップ素材の基本の大きさ

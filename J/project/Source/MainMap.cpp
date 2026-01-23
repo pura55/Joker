@@ -14,11 +14,14 @@
 
 using namespace std;
 
+std::vector<Enemy*> prin;
+
 vector<vector<int>> maps;
 
 int MainMap::Chasetimer = 0;
 int MainMap::Intervaltimer = 0;
 int MainMap::OfficeEnemytimer = 0;
+int MainMap::Principaltimer = 0;
 
 enum class EnemyState
 {
@@ -26,7 +29,13 @@ enum class EnemyState
 	Idle, // 待機
 	Interval //インターバル
 };
+enum class PrincipalCheck
+{
+	True,
+	False
+};
 EnemyState currentState = EnemyState::Idle;
+PrincipalCheck PriState = PrincipalCheck::False;
 
 MainMap::MainMap(int stage)
 {
@@ -425,6 +434,14 @@ void MainMap::Update()
 			DrawString(100, 700, "idle", GetColor(255, 0, 0));
 		}
 	}
+	if (PriState == PrincipalCheck::True)
+	{
+		DrawString(100, 650, "ムキムキエネミーTRUE", GetColor(255, 255, 255));
+	}
+	if (PriState == PrincipalCheck::False)
+	{
+		DrawString(100, 650, "ムキムキエネミーFALSE", GetColor(255, 255, 255));
+	}
 
 	if (OfficeEnemytimer <= 70)
 	{
@@ -445,6 +462,129 @@ void MainMap::Update()
 		}
 	}
 	
+	if (PriState == PrincipalCheck::True)
+	{
+		switch (StageNum)
+		{
+		case 4:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e11 = new Enemy(8 * 64, 3 * 64 + 16);
+				prin.push_back(e11);
+				Enemy* e12 = new Enemy(9 * 64, 3 * 64 + 16);
+				prin.push_back(e12);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		case 5:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e21 = new Enemy(4 * 64, 18 * 64);
+				prin.push_back(e21);
+				Enemy* e22 = new Enemy(5 * 64, 18 * 64);
+				prin.push_back(e22);
+				Enemy* e23 = new Enemy(16 * 64, 18 * 64);
+				prin.push_back(e23);
+				Enemy* e24 = new Enemy(17 * 64, 18 * 64);
+				prin.push_back(e24);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		case 6:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e31 = new Enemy(6 * 64, 18 * 64);
+				prin.push_back(e31);
+				Enemy* e32 = new Enemy(7 * 64, 18 * 64);
+				prin.push_back(e32);
+				Enemy* e33 = new Enemy(18 * 64, 18 * 64);
+				prin.push_back(e33);
+				Enemy* e34 = new Enemy(19 * 64, 18 * 64);
+				prin.push_back(e34);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		case 201:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e41 = new Enemy(5 * 64, 3 * 64 + 16);
+				prin.push_back(e41);
+				Enemy* e42 = new Enemy(6 * 64, 3 * 64 + 16);
+				prin.push_back(e42);
+				Enemy* e43 = new Enemy(19 * 64, 3 * 64 + 16);
+				prin.push_back(e43);
+				Enemy* e44 = new Enemy(20 * 64, 3 * 64 + 16);
+				prin.push_back(e44);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		case 202:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e51 = new Enemy(5 * 64, 3 * 64 + 16);
+				prin.push_back(e51);
+				Enemy* e52 = new Enemy(6 * 64, 3 * 64 + 16);
+				prin.push_back(e52);
+				Enemy* e53 = new Enemy(19 * 64, 3 * 64 + 16);
+				prin.push_back(e53);
+				Enemy* e54 = new Enemy(20 * 64, 3 * 64 + 16);
+				prin.push_back(e54);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		case 1000:
+		{
+			Principaltimer++;
+			if (Principaltimer == 140)
+			{
+				Enemy* e101 = new Enemy(5 * 64, 3 * 64 + 16);
+				prin.push_back(e101);
+				Enemy* e102 = new Enemy(6 * 64, 3 * 64 + 16);
+				prin.push_back(e102);
+				Enemy* e103 = new Enemy(7 * 64, 3 * 64 + 16);
+				prin.push_back(e103);
+				Enemy* e104 = new Enemy(5 * 64, 8 * 64);
+				prin.push_back(e104);
+				Enemy* e105 = new Enemy(6 * 64, 8 * 64);
+				prin.push_back(e105);
+				Enemy* e106 = new Enemy(13 * 64, 3 * 64 + 16);
+				prin.push_back(e106);
+				Enemy* e107 = new Enemy(14 * 64, 3 * 64 + 16);
+				prin.push_back(e107);
+				Enemy* e108 = new Enemy(25 * 64, 3 * 64 + 16);
+				prin.push_back(e108);
+				Enemy* e109 = new Enemy(26 * 64, 3 * 64 + 16);
+				prin.push_back(e109);
+				Enemy* e110 = new Enemy(16 * 64, 8 * 64);
+				prin.push_back(e110);
+				Enemy* e111 = new Enemy(17 * 64, 8 * 64);
+				prin.push_back(e111);
+				Enemy* e112 = new Enemy(28 * 64, 8 * 64);
+				prin.push_back(e112);
+				Enemy* e113 = new Enemy(19 * 64, 8 * 64);
+				prin.push_back(e113);
+				Principaltimer = 120;
+			}
+		}
+		break;
+		}
+	}
+
 	TextBox* textBox = FindGameObject<TextBox>();
 
 	switch (StageNum)//textboxへの遷移（問題）
@@ -1439,72 +1579,75 @@ bool MainMap::Warp(int Px, int Py)
 	//左
 	if (common->GetLagCheck())
 	{
-		if (maps[y][x] == 100001)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 100001)
 			{
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//中央
-		if (maps[y][x - 1] == 100001)
-		{
-			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//中央
+			if (maps[y][x - 1] == 100001)
 			{
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右
-		if (maps[y][x - 2] == 100001)
-		{
-			DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右
+			if (maps[y][x - 2] == 100001)
 			{
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 7;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "２階に上がる", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 7;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -2131,51 +2274,54 @@ bool MainMap::Warp(int Px, int Py)
 		// 校長室から廊下
 		// ==================================================
 		//左扉
-		if (maps[y][x] == 21011)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 21011)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 5;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 5;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右扉
-		if (maps[y][x] == 21012)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右扉
+			if (maps[y][x] == 21012)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 6;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 6;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -2285,99 +2431,102 @@ bool MainMap::Warp(int Px, int Py)
 			switch()
 		}*/
 		//左　左扉
-		if (maps[y][x] == 2101)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 2101)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 13;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 13;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//左　右扉
-		if (maps[y][x] == 2102)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//左　右扉
+			if (maps[y][x] == 2102)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 14;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 14;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　左扉
-		if (maps[y][x] == 2103)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　左扉
+			if (maps[y][x] == 2103)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 25;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 25;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　右扉
-		if (maps[y][x] == 2104)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　右扉
+			if (maps[y][x] == 2104)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 26;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 26;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -2486,101 +2635,104 @@ bool MainMap::Warp(int Px, int Py)
 		// 美術室から廊下
 		// ==================================================
 		//左　左扉
-		if (maps[y][x] == 2105)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+			if (maps[y][x] == 2105)
+			{
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
 
 
-			if (CheckHitKey(KEY_INPUT_SPACE))
-			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 36;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 36;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//左　右扉
-		if (maps[y][x] == 2106)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//左　右扉
+			if (maps[y][x] == 2106)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 37;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 37;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　左扉
-		if (maps[y][x] == 2107)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　左扉
+			if (maps[y][x] == 2107)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 48;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 48;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　右扉
-		if (maps[y][x] == 2108)
-		{
-			DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　右扉
+			if (maps[y][x] == 2108)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 49;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 700, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 49;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 3 + 16;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -3082,99 +3234,102 @@ bool MainMap::Warp(int Px, int Py)
 		// 教室から廊下　２－１
 		// ==================================================
 		//左　左扉
-		if (maps[y][x] == 21013)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 21013)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 16;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 16;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//左　右扉
-		if (maps[y][x] == 21014)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//左　右扉
+			if (maps[y][x] == 21014)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 17;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 17;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　左扉
-		if (maps[y][x] == 21015)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　左扉
+			if (maps[y][x] == 21015)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 28;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 28;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　右扉
-		if (maps[y][x] == 21016)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　右扉
+			if (maps[y][x] == 21016)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 29;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 29;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -3280,99 +3435,102 @@ bool MainMap::Warp(int Px, int Py)
 		// 教室から廊下　２－２
 		// ==================================================
 		//左　左扉
-		if (maps[y][x] == 21017)
+		if (PriState == PrincipalCheck::False)
 		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			if (maps[y][x] == 21017)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 40;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 40;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//左　右扉
-		if (maps[y][x] == 21018)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//左　右扉
+			if (maps[y][x] == 21018)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 41;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 41;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　左扉
-		if (maps[y][x] == 21019)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　左扉
+			if (maps[y][x] == 21019)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 52;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 52;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
-		}
-		//右　右扉
-		if (maps[y][x] == 21020)
-		{
-			DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			//右　右扉
+			if (maps[y][x] == 21020)
 			{
-				common->PlayOpenDoorSound();
-				fader->FadeIn(inTime);
-				targetWarpStage = 2000;//行先
-				FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
-				floor->SetTargerWarpFloor(2000);//行先
-				warpOutX = BgSize * 53;//X軸のワープ後の出現座標
-				warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
-				Enemy::killAll();
-				principal->killAll();
-				common->SetLagIn_W();
-				common->SetWarpOut(warpOutX, warpOutY);
-				if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+				DrawString(600, 5, "廊下に出る", GetColor(255, 255, 255));
+				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					common->StopHeavenMusic();
+					common->PlayOpenDoorSound();
+					fader->FadeIn(inTime);
+					targetWarpStage = 2000;//行先
+					FloorMap* floor = ObjectManager::FindGameObject<FloorMap>();
+					floor->SetTargerWarpFloor(2000);//行先
+					warpOutX = BgSize * 53;//X軸のワープ後の出現座標
+					warpOutY = BgSize * 8;//Y軸のワープ後の出現座標
+					Enemy::killAll();
+					principal->killAll();
+					common->SetLagIn_W();
+					common->SetWarpOut(warpOutX, warpOutY);
+					if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
+					{
+						common->StopHeavenMusic();
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		// ==================================================
@@ -3546,6 +3704,7 @@ void MainMap::AppearBoss(int Px, int Py)
 	{
 		new Principal(320, 576);
 		common->SetFirstSpawn();
+		PriState = PrincipalCheck::True;
 		//common->PlayHeavenMusic();
 		//if (currentState == EnemyState::Idle || currentState == EnemyState::Interval)
 		//{
@@ -3557,7 +3716,9 @@ void MainMap::AppearBoss(int Px, int Py)
 void MainMap::ResetEnemyState()
 {
 	currentState = EnemyState::Idle;
+	PriState = PrincipalCheck::False;
 	Chasetimer = 0;
 	Intervaltimer = 0;
 	OfficeEnemytimer = 0;
+	Principaltimer = 0;
 }
