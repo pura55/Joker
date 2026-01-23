@@ -2,8 +2,13 @@
 #include "Player.h"
 #include "GameManager.h"
 #include "Fader.h"
+#include "Enemy.h"
+#include "Common.h"
 #include <assert.h>
+#include <vector>
 
+std::vector<Enemy*> enemies;
+int TextBox::Spawntimer = 0;
 
 TextBox::TextBox()
 {
@@ -38,6 +43,25 @@ TextBox::~TextBox()
 
 void TextBox::Update()
 {
+	//ナポ問題ミス時敵召喚
+	if (CheckState == Extra_Check::STATE_EXTRA_TRUE)
+	{
+		DrawString(100, 675, "ナポエネミーTRUE", GetColor(255, 255, 255));
+		Spawntimer++;
+		if (Spawntimer == 20)
+		{
+			Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
+			enemies.push_back(e1);
+			Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
+			enemies.push_back(e2);
+			Spawntimer = 0;
+		}
+	}
+
+	if (CheckState == Extra_Check::STATE_EXTRA_FALSE)
+	{
+		DrawString(100, 675, "ナポエネミーFALSE", GetColor(255, 255, 255));
+	}
 
 	Player* player = FindGameObject<Player>();
 	//mainStateがEND以外だったらプレイヤーの動きを止める
@@ -588,7 +612,7 @@ void TextBox::Draw()
 		break;
 	case TextBox_State::STATE_MATH://算数
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(500, 570, "３＊４ー２＝？", GetColor(255, 255, 255), 1);
+		DrawString(500, 570, "３×４ー２＝？", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 1, "１．６", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 2, "２．１０", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 3, "３．１４", GetColor(255, 255, 255), 1);
@@ -918,12 +942,16 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
+			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_2))//不正解
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
+			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_3))//正解
@@ -936,6 +964,8 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
+			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}
 	}

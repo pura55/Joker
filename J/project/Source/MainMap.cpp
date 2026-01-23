@@ -96,7 +96,7 @@ MainMap::MainMap(int stage)
 		case 1:
 		{
 			//出現確率
-			if (r < 40 && OfficeEnemytimer > 60)
+			if (r < SpawnRate && OfficeEnemytimer > 60)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 7, 10, 17, 20, 23 };
@@ -140,7 +140,7 @@ MainMap::MainMap(int stage)
 		case 2:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 12, 22, 22 };
@@ -163,7 +163,7 @@ MainMap::MainMap(int stage)
 		case 3:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 14, 17, 23, 25 };
@@ -186,7 +186,7 @@ MainMap::MainMap(int stage)
 		case 4:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 5, 6, 7, 8 };
@@ -210,7 +210,7 @@ MainMap::MainMap(int stage)
 		case 5:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 11, 18 };
@@ -233,7 +233,7 @@ MainMap::MainMap(int stage)
 		case 6:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 6, 19 };
@@ -256,7 +256,7 @@ MainMap::MainMap(int stage)
 		case 101:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4, 21 };
@@ -279,7 +279,7 @@ MainMap::MainMap(int stage)
 		case 102:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4, 21 };
@@ -302,7 +302,7 @@ MainMap::MainMap(int stage)
 		case 201:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4 , 21 };
@@ -325,7 +325,7 @@ MainMap::MainMap(int stage)
 		case 202:
 		{
 			//出現確率
-			if (r < 40)
+			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
 				int spawnX[] = { 4,  22 };
