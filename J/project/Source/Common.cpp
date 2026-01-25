@@ -31,6 +31,24 @@ Common::~Common()
 	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
 }
 
+void Common::INIT()
+{
+	ClearTime = 0.0f;
+	TimeLag = 0.0f;
+	walkTime = 0.0f;
+	openTime = 0.0f;
+	lagCheck = true;
+	playWalkFlag = true;
+	playOpenFlag = true;
+	firstSpawn = true;
+	firstMove = true;
+	firstText = true;
+	firstPlaySound = true;
+
+	warpOutX = -1;
+	warpOutY = -1;
+}
+
 void Common::Update()
 {
 	/*ImGui::Begin("Common");

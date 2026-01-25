@@ -6,6 +6,7 @@
 #include "KeyManager.h"
 #include "GameManager.h"
 #include "Fader.h"
+#include "Common.h"
 
 PlayScene::PlayScene()
 {
@@ -15,6 +16,8 @@ PlayScene::PlayScene()
 	//new Player(64 * 5 + 64 * 4, 64 * 3 + 64 * 1);  //‰ŠúƒvƒŒƒCƒ„[¶¬
 	//new TextBox();
 
+	Common* common = FindGameObject<Common>();
+	common->INIT();
 	new GameManager();
 	
 	// ()‚Ì’†‚Écsv‚Ì”š“ü‚ê‚ê‚Î“Ç‚İ‚İ‚Ü‚·

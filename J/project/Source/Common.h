@@ -12,6 +12,7 @@ class Common : public GameObject
 public:
 	Common();
 	~Common();
+	void INIT();
 	void Update() override;
 	void WarpLag();
 	void TextLag();
