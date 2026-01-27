@@ -29,8 +29,8 @@ private:
 	int MovementsPattern; //動作のパターン
 	int MovementsCount; //動作のカウント
 	int DirChara;
-	int Xdir;
-	bool HitJudge;
+	int Xdir;           //X軸の方向
+	bool HitJudge;      
 
 	//回避
 	MoveAxisBoss  state;  //エネミーの状態

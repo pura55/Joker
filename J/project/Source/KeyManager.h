@@ -66,7 +66,7 @@ private:
 	const int WINDOW_BOX = LoadGraph("data/image/windowBOX.jpg");
 
 	//定数
-		//タスクの座標
+	//タスクの座標
 	const int taskPosX = 454;
 	const int taskPosY = 200;
 	const int taskSpaceY = 80;
