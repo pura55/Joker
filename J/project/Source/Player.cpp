@@ -63,101 +63,29 @@ void Player::Update()
 	{
 		return;
 	}
-	Enemy* enemy = FindGameObject<Enemy>();
-	MainMap* appear = FindGameObject<MainMap>();
+
 	Common* common = FindGameObject<Common>();
 
+	//動作
 	if (CheckHitKey(KEY_INPUT_D)) //Dキーを押したときの判定
 	{
-		if (common->GetPlayWlak())
-		{
-			common->PlayWalkSound();
-		}
-		DirChara = 0;
-		PlayerX += speed; //座標を変数分ずらして移動する
-
-		MovementsCount += 1; //キャラクターの動作の処理
-		if (MovementsCount >= 16) {
-
-			MovementsPattern = (MovementsPattern + 1) % 4 + 0;
-
-			MovementsCount = 0;
-		}
-
-		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 91);
-		int push2 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 63);
-		PlayerX -= max(push1, push2);
+		MoveRight();
 	}
 	else if (CheckHitKey(KEY_INPUT_A)) //Aキーを押したときの判定
 	{
-		if (common->GetPlayWlak())
-		{
-			common->PlayWalkSound();
-		}
-		DirChara = 1;
-		PlayerX -= speed;
-
-		MovementsCount += 1;
-		if (MovementsCount >= 16)
-		{
-
-			MovementsPattern = (MovementsPattern + 1) % 4 + 0;
-
-			MovementsCount = 0;
-		}
-
-		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 91);
-		int push2 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 63);
-		PlayerX += max(push1, push2);
+		MoveLeft();
 	}
-	else if (CheckHitKey(KEY_INPUT_S)) //Sキーを押したときの判定
+	else if (CheckHitKey(KEY_INPUT_W)) //Sキーを押したときの判定
 	{
-		if (common->GetPlayWlak())
-		{
-			common->PlayWalkSound();
-		}
-		DirChara = 2;
-		PlayerY += speed; //座標を変数分ずらして移動する
-
-		MovementsCount += 1;
-		if (MovementsCount >= 16) {
-
-			MovementsPattern = (MovementsPattern + 1) % 4 + 0;
-
-			MovementsCount = 0;
-		}
-
-		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckDown(PlayerX + 14, PlayerY + 92);
-		int push2 = ObjectHit->HitCheckDown(PlayerX + 50, PlayerY + 92);
-		PlayerY -= max(push1, push2);
+		MoveUp();
 	}
-	else if (CheckHitKey(KEY_INPUT_W)) //Wキーを押したときの判定
+	else if (CheckHitKey(KEY_INPUT_S)) //Wキーを押したときの判定
 	{
-		if (common->GetPlayWlak())
-		{
-			common->PlayWalkSound();
-		}
-		DirChara = 3;
-		PlayerY -= speed;
-
-		MovementsCount += 1;
-		if (MovementsCount >= 16) {
-
-			MovementsPattern = (MovementsPattern + 1) % 4 + 0;
-
-			MovementsCount = 0;
-		}
-
-		MainMap* ObjectHit = FindGameObject<MainMap>();
-		int push1 = ObjectHit->HitCheckUp(PlayerX + 14, PlayerY + 51);
-		int push2 = ObjectHit->HitCheckUp(PlayerX + 50, PlayerY + 51);
-		PlayerY += max(push1, push2);
+		MoveDown();
 	}
 	else
 	{
+		//歩いてないときは効果音を止める
 		common->StopWalkSound();
 	}
 	// スクロール
@@ -216,9 +144,105 @@ void Player::Draw()
 	DrawRectGraph(PlayerX - scX,PlayerY - scY, 64 * MovementsPattern, 96 * DirChara, 64, 96, CharacterImage, TRUE);
 }
 
+void Player::MoveRight()
+{
+	Common* common = FindGameObject<Common>();
+	if (common->GetPlayWlak())
+	{
+		common->PlayWalkSound();
+	}
+	DirChara = 0;
+	PlayerX += speed; //座標を変数分ずらして移動する
+
+	MovementsCount += 1; //キャラクターの動作の処理
+	if (MovementsCount >= 16) {
+
+		MovementsPattern = (MovementsPattern + 1) % 4 + 0;
+
+		MovementsCount = 0;
+	}
+
+	MainMap* ObjectHit = FindGameObject<MainMap>();
+	int push1 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 91);
+	int push2 = ObjectHit->HitCheckRight(PlayerX + 50, PlayerY + 63);
+	PlayerX -= max(push1, push2);
+}
+
+void Player::MoveLeft()
+{
+	Common* common = FindGameObject<Common>();
+	if (common->GetPlayWlak())
+	{
+		common->PlayWalkSound();
+	}
+	DirChara = 1;
+	PlayerX -= speed;
+
+	MovementsCount += 1;
+	if (MovementsCount >= 16)
+	{
+
+		MovementsPattern = (MovementsPattern + 1) % 4 + 0;
+
+		MovementsCount = 0;
+	}
+
+	MainMap* ObjectHit = FindGameObject<MainMap>();
+	int push1 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 91);
+	int push2 = ObjectHit->HitCheckLeft(PlayerX + 14, PlayerY + 63);
+	PlayerX += max(push1, push2);
+}
+
+void Player::MoveUp()
+{
+	Common* common = FindGameObject<Common>();
+	if (common->GetPlayWlak())
+	{
+		common->PlayWalkSound();
+	}
+	DirChara = 3;
+	PlayerY -= speed;
+
+	MovementsCount += 1;
+	if (MovementsCount >= 16) {
+
+		MovementsPattern = (MovementsPattern + 1) % 4 + 0;
+
+		MovementsCount = 0;
+	}
+
+	MainMap* ObjectHit = FindGameObject<MainMap>();
+	int push1 = ObjectHit->HitCheckUp(PlayerX + 14, PlayerY + 51);
+	int push2 = ObjectHit->HitCheckUp(PlayerX + 50, PlayerY + 51);
+	PlayerY += max(push1, push2);
+}
+
+void Player::MoveDown()
+{
+	Common* common = FindGameObject<Common>();
+	if (common->GetPlayWlak())
+	{
+		common->PlayWalkSound();
+	}
+	DirChara = 2;
+	PlayerY += speed; //座標を変数分ずらして移動する
+
+	MovementsCount += 1;
+	if (MovementsCount >= 16) {
+
+		MovementsPattern = (MovementsPattern + 1) % 4 + 0;
+
+		MovementsCount = 0;
+	}
+
+	MainMap* ObjectHit = FindGameObject<MainMap>();
+	int push1 = ObjectHit->HitCheckDown(PlayerX + 14, PlayerY + 92);
+	int push2 = ObjectHit->HitCheckDown(PlayerX + 50, PlayerY + 92);
+	PlayerY -= max(push1, push2);
+}
+
 bool Player::IsHit(float ex, float ey)
 {
-	Enemy* enemy = FindGameObject<Enemy>();
 	//プレイヤーの座標はpx,py
 	float dx = PlayerX - ex;
 	float dy = PlayerY - ey;
