@@ -48,6 +48,7 @@ void ClearScene::Update()
 		{
 			mainState = STATE::CLEAR;
 		}
+		break;
 	case STATE::CLEAR:
 		if (CheckHitKey(KEY_INPUT_O)) {
 			SceneManager::ChangeScene("TITLE");
@@ -93,6 +94,8 @@ STATE ClearScene::InIt()
 	textBox->SetAfterEscape();*/
 	TextBoxClear* textBox = FindGameObject<TextBoxClear>();
 	textBox->SetAfterEscape();
+	Common* common = FindGameObject<Common>();
+	common->PlayClearMusic();
 	return STATE::END;
 }
 

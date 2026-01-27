@@ -29,6 +29,8 @@ Common::~Common()
 	DeleteSoundMem(HELL_MUSIC);
 	DeleteSoundMem(WALK_SOUND);
 	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
+	DeleteSoundMem(START_SOUND);
+	DeleteSoundMem(CLEAR_MUSIC);
 }
 
 void Common::INIT()
@@ -178,4 +180,19 @@ void Common::PlayOpenDoorSound()
 		PlaySoundMem(DOOR_OPEN_TWO_SOUND, DX_PLAYTYPE_BACK);
 		playOpenFlag = false;
 	}
+}
+
+void Common::PlayStartSound()
+{
+	PlaySoundMem(START_SOUND, DX_PLAYTYPE_BACK);
+}
+
+void Common::PlayClearMusic()
+{
+	PlaySoundMem(CLEAR_MUSIC, DX_PLAYTYPE_LOOP);
+}
+
+void Common::StopClearMusic()
+{
+	StopSoundMem(CLEAR_MUSIC);
 }

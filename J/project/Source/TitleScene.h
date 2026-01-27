@@ -14,10 +14,13 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
-	int TitleBg;
 	float Timer;
 	bool changeFlag;
 	bool IsChange;
 	bool pushKey;
 	static int Blinkcount;
+
+private:
+	//ƒ^ƒCƒgƒ‹‰æ‘œ
+	const int TitleBg = LoadGraph("data/image/title.jpg");
 };

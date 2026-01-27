@@ -8,7 +8,6 @@ int TitleScene::Blinkcount = 0;
 TitleScene::TitleScene()
 {
 	new Common();
-	TitleBg = LoadGraph("data/image/title.jpg");
 	Timer = 0.0f;
 	changeFlag = false;
 	IsChange = false;
@@ -16,6 +15,7 @@ TitleScene::TitleScene()
 	Common* common = FindGameObject<Common>();
 	common->StopHeavenMusic();
 	common->StopHellMusic();
+	common->StopClearMusic();
 	MainMap* mainmap = FindGameObject<MainMap>();
 	mainmap->ResetEnemyState();
 }
@@ -27,12 +27,14 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	Fader* fader = FindGameObject<Fader>();
+	Common* common = FindGameObject<Common>();
 	if (pushKey)
 	{
 		if (CheckHitKey(KEY_INPUT_SPACE)) 
 		{
 			changeFlag = true;
 			pushKey = false;
+			common->PlayStartSound();
 			fader->FadeOut(3.0f);
 		}
 	}

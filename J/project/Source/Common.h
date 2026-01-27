@@ -24,7 +24,10 @@ public:
 	void PlayWalkSound();    //プレイヤーwalk用ジングルを再生
 	void StopWalkSound();    //プレイヤーwalk用ジングルを停止
 	void PlayOpenDoorSound();//ドアを開けるジングルを再生
+	void PlayStartSound();//スタートジングルを再生
 	//void StopOpenDoorSound();//ドアを開けるジングルを停止
+	void PlayClearMusic(); //クリアBGMを再生
+	void StopClearMusic(); //クリアBGMを停止
 
 public://setter
 	void SetLagIn_W()
@@ -68,10 +71,17 @@ private:
 	int warpOutY = 0;
 
 private:
-	const int HELL_MUSIC = LoadSoundMem("data/sound/bossMusic.mp3");
+	//BGM
+	const int HELL_MUSIC = LoadSoundMem("data/sound/top1.mp3");
 	const int HEAVEN_MUSIC = LoadSoundMem("data/sound/NormalMusic.mp3");
+	//歩く効果音
 	const int WALK_SOUND = LoadSoundMem("data/sound/walk.mp3");
+	//ドア開ける効果音
 	const int DOOR_OPEN_TWO_SOUND = LoadSoundMem("data/sound/opentwodoor.mp3");
+	//Start音
+	const int START_SOUND = LoadSoundMem("data/sound/start.mp3");
+	//ClearBGM
+	const int CLEAR_MUSIC = LoadSoundMem("data/sound/clearmusic.mp3");
 
 public:
 	void SetWarpOut(int x, int y) {
