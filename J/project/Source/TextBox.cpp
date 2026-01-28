@@ -35,7 +35,7 @@ TextBox::~TextBox()
 	//‰æ‘œE‰¹º‘fÞ‚Ìdelete
 	DeleteGraph(BoxImage);
 	DeleteSoundMem(NEXT_TEXT_SOUND);
-	DeleteSoundMem(QUESTION_RIGHT_SOUND);
+	DeleteSoundMem(QUESTION_CORRECT_SOUND);
 	DeleteSoundMem(QUESTION_WRONG_SOUND);
 	DeleteSoundMem(CHOICES_DESIDE_SOUND);
 	DeleteSoundMem(DOOR_OPEN_ONE_SOUND);
@@ -828,7 +828,7 @@ void TextBox::QuestionJapanese()
 		}
 		if (CheckHitKey(KEY_INPUT_3))//³‰ð
 		{
-			PlaySoundMem(QUESTION_RIGHT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -853,7 +853,7 @@ void TextBox::QuestionMathematics()
 		}
 		if (CheckHitKey(KEY_INPUT_2))//³‰ð
 		{
-			PlaySoundMem(QUESTION_RIGHT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -878,7 +878,7 @@ void TextBox::QuestionScience()
 	{
 		if (CheckHitKey(KEY_INPUT_1))//³‰ð
 		{
-			PlaySoundMem(QUESTION_RIGHT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -927,7 +927,7 @@ void TextBox::QuestionSociety()
 		}
 		if (CheckHitKey(KEY_INPUT_4))//³‰ð
 		{
-			PlaySoundMem(QUESTION_RIGHT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
@@ -956,7 +956,7 @@ void TextBox::QuestionExtra()
 		}
 		if (CheckHitKey(KEY_INPUT_3))//³‰ð
 		{
-			PlaySoundMem(QUESTION_RIGHT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}

@@ -162,7 +162,7 @@ private://ïœêî
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");
-	const int QUESTION_RIGHT_SOUND = LoadSoundMem("data/sound/Right.mp3");
+	const int QUESTION_CORRECT_SOUND = LoadSoundMem("data/sound/correct.mp3");
 	const int QUESTION_WRONG_SOUND = LoadSoundMem("data/sound/Notright.mp3");
 	const int CHOICES_DESIDE_SOUND = LoadSoundMem("data/sound/deside.mp3");
 	const int DOOR_OPEN_ONE_SOUND = LoadSoundMem("data/sound/openonedoor.mp3");
