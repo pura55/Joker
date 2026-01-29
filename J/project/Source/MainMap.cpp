@@ -15,7 +15,8 @@
 using namespace std;
 
 std::vector<Enemy*> prin;
-
+std::vector<Enemy*> enemies;
+int Spawntimer = 0;
 vector<vector<int>> maps;
 
 int MainMap::Chasetimer = 0;
@@ -61,6 +62,7 @@ MainMap::MainMap(int stage)
 	StageNum = stage;
 	ExFlag_Q = false;
 	ExFlag_Another = false;
+	Spawntimer = 0;
 
 	//画像素材読み込み
 	GoldBoss= LoadGraph("data/image/bigboss.png");//像
@@ -416,6 +418,7 @@ MainMap::~MainMap()
 
 void MainMap::Update()
 {
+
 	if (currentState == EnemyState::Chase) {
 		//DrawString(100, 700, "chase", GetColor(255, 255, 255));
 		Chasetimer++;                // カウント
@@ -462,6 +465,7 @@ void MainMap::Update()
 		}
 	}
 	
+
 	if (PriState == PrincipalCheck::True)
 	{
 		switch (StageNum)
@@ -586,6 +590,19 @@ void MainMap::Update()
 	}
 
 	TextBox* textBox = FindGameObject<TextBox>();
+
+	if (textBox->GetFalse())
+	{
+		Spawntimer++;
+		if (Spawntimer == 20)
+		{
+			Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
+			enemies.push_back(e1);
+			Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
+			enemies.push_back(e2);
+			Spawntimer = 0;
+		}
+	}
 
 	switch (StageNum)//textboxへの遷移（問題）
 	{

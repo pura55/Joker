@@ -69,12 +69,6 @@ enum class TextBox_State
 	STATE_FINISH
 };
 
-enum class Extra_Check
-{
-	STATE_EXTRA_TRUE,
-	STATE_EXTRA_FALSE
-};
-
 class TextBox : public GameObject
 {
 public:
@@ -153,12 +147,14 @@ public://setter
 	//ê–Ê
 	void SetEscapeText() { MainState = TextBox_State::STATE_ESCAPE_TIME; }
 
-	Extra_Check CheckState = Extra_Check::STATE_EXTRA_FALSE;
-	static int Spawntimer;
+public:
+	bool GetFalse() const { return False; }
+
 
 private://•Ï”
 	int BoxImage;//map‚Ì•`‰æ•Ï”
 	bool proEnd;
+	bool False;
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");

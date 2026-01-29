@@ -81,6 +81,7 @@ public:
 	bool appear;
 	int SpawnRate = 70;//敵の出現確率　今のところ70
 
+
 public://！用の変数
 	int MarkX_Q = 0;
 	int MarkY_Q = 0;

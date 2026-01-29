@@ -7,8 +7,7 @@
 #include <assert.h>
 #include <vector>
 
-std::vector<Enemy*> enemies;
-int TextBox::Spawntimer = 0;
+
 
 TextBox::TextBox()
 {
@@ -21,6 +20,7 @@ TextBox::TextBox()
 	MainState = TextBox_State::STATE_PRO;
 	TalkState = TextBox_State::STATE_STRING_1;
 	proEnd = false;
+	False = false;
 
 	//FindGameObject
 	common = FindGameObject<Common>();
@@ -43,25 +43,6 @@ TextBox::~TextBox()
 
 void TextBox::Update()
 {
-	//ナポ問題ミス時敵召喚
-	if (CheckState == Extra_Check::STATE_EXTRA_TRUE)
-	{
-		//DrawString(100, 675, "ナポエネミーTRUE", GetColor(255, 255, 255));
-		Spawntimer++;
-		if (Spawntimer == 20)
-		{
-			Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
-			enemies.push_back(e1);
-			Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
-			enemies.push_back(e2);
-			Spawntimer = 0;
-		}
-	}
-
-	if (CheckState == Extra_Check::STATE_EXTRA_FALSE)
-	{
-		//DrawString(100, 675, "ナポエネミーFALSE", GetColor(255, 255, 255));
-	}
 
 	Player* player = FindGameObject<Player>();
 	//mainStateがEND以外だったらプレイヤーの動きを止める
@@ -112,7 +93,6 @@ void TextBox::Update()
 				{
 					
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
-					fader->FadeOutToIn(4.0f);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					common->SetLagIn_T();
@@ -944,7 +924,7 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			False = true;
 			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}
@@ -952,7 +932,7 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			False = true;
 			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}
@@ -966,7 +946,7 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			CheckState = Extra_Check::STATE_EXTRA_TRUE;
+			False = true;
 			common->PlayHellMusic();
 			common->SetLagIn_T();
 		}

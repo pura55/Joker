@@ -12,7 +12,7 @@ GameManager::GameManager()
 {
 	//init
 	Fader* fader = FindGameObject<Fader>();
-	fader->FadeIn(2.0f);
+	fader->FadeIn(4.0f);
 	MainState = GAME_STATE::STATE_INIT;
 	SubState = GAME_STATE::STATE_CONTINUE;
 	textBox = FindGameObject<TextBox>();
