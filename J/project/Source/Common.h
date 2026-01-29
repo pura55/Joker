@@ -28,6 +28,7 @@ public:
 	//void StopOpenDoorSound();//ドアを開けるジングルを停止
 	void PlayClearMusic(); //クリアBGMを再生
 	void StopClearMusic(); //クリアBGMを停止
+	void PlayProJingle(); //クリアBGMを再生
 
 public://setter
 	void SetLagIn_W()
@@ -82,7 +83,8 @@ private:
 	const int START_SOUND = LoadSoundMem("data/sound/start.mp3");
 	//ClearBGM
 	const int CLEAR_MUSIC = LoadSoundMem("data/sound/clearmusic.mp3");
-
+	//ProJingle
+	const int PRO_JINGLE = LoadSoundMem("data/sound/chime.mp3");
 public:
 	void SetWarpOut(int x, int y) {
 		warpOutX = x; warpOutY = y;

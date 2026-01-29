@@ -63,21 +63,37 @@
       <Filter>PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Fader.cpp" />
-    <ClCompile Include="Source\TextBox.cpp" />
-    <ClCompile Include="Source\Warp.cpp" />
-    <ClCompile Include="Source\FloorMap.cpp" />
     <ClCompile Include="Source\Common.cpp" />
-    <ClCompile Include="Source\GameManager.cpp" />
-    <ClCompile Include="Source\KeyManager.cpp" />
     <ClCompile Include="Source\StartScene.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ClearScene.cpp">
+    <ClCompile Include="Source\Principal.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameOverScene.cpp" />
-    <ClCompile Include="Source\Principal.cpp" />
-    <ClCompile Include="Source\TextBoxClear.cpp" />
+    <ClCompile Include="Source\FloorMap.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextBox.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ClearScene.cpp">
+      <Filter>ClearScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextBoxClear.cpp">
+      <Filter>ClearScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameManager.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyManager.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Warp.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOverScene.cpp">
+      <Filter>GameOverScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -155,21 +171,37 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Fader.h" />
-    <ClInclude Include="Source\TextBox.h" />
-    <ClInclude Include="Source\Warp.h" />
-    <ClInclude Include="Source\FloorMap.h" />
     <ClInclude Include="Source\Common.h" />
-    <ClInclude Include="Source\GameManager.h" />
-    <ClInclude Include="Source\KeyManager.h" />
     <ClInclude Include="Source\StartScene.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ClearScene.h">
+    <ClInclude Include="Source\Principal.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameOverScene.h" />
-    <ClInclude Include="Source\Principal.h" />
-    <ClInclude Include="Source\TextBoxClear.h" />
+    <ClInclude Include="Source\FloorMap.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextBox.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ClearScene.h">
+      <Filter>ClearScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextBoxClear.h">
+      <Filter>ClearScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameManager.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyManager.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Warp.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameOverScene.h">
+      <Filter>GameOverScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -181,11 +213,17 @@
     <Filter Include="TitleScene">
       <UniqueIdentifier>{a52f9c67-9c6c-4376-8f4c-07a10ecbc3db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ClearScene">
+      <UniqueIdentifier>{54e88979-8d4a-44b5-b42f-311abf8cf0a7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="PlayScene">
       <UniqueIdentifier>{8123ada4-16d1-40da-a8f3-3f9e93aafb30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    <Filter Include="GameOverScene">
+      <UniqueIdentifier>{c9dbb264-19cb-4668-8d00-baa0c93b078f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

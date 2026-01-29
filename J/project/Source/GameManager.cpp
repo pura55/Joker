@@ -113,6 +113,8 @@ GAME_STATE GameManager::Pro()
 {
 	TextBox* textBox = FindGameObject<TextBox>();
 	textBox->SetPro();
+	Common* common = FindGameObject<Common>();
+	common->PlayProJingle();
 	return GAME_STATE::STATE_END;
 }
 

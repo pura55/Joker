@@ -31,6 +31,7 @@ Common::~Common()
 	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
 	DeleteSoundMem(START_SOUND);
 	DeleteSoundMem(CLEAR_MUSIC);
+	DeleteSoundMem(PRO_JINGLE);
 }
 
 void Common::INIT()
@@ -195,4 +196,9 @@ void Common::PlayClearMusic()
 void Common::StopClearMusic()
 {
 	StopSoundMem(CLEAR_MUSIC);
+}
+
+void Common::PlayProJingle()
+{
+	PlaySoundMem(PRO_JINGLE, DX_PLAYTYPE_BACK);
 }
