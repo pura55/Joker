@@ -43,5 +43,5 @@ private://sound
 
 
 private://’è”•Ï”
-	const float speed = 8.2f;
+	const float speed = 6.0f;
 };
