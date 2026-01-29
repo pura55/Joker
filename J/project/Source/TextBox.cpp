@@ -51,9 +51,14 @@ void TextBox::Update()
 		player->SetPlay(false);//プレイヤーの動きを止める
 	}
 
+	
 	Common* common = FindGameObject<Common>();
 	GameManager* gameManager = FindGameObject<GameManager>();
 	Fader* fader = FindGameObject<Fader>();
+	if (!fader->GetRigor())
+	{
+		return;
+	}
 	//メインの状態
 	switch (MainState)
 	{
