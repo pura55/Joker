@@ -47,7 +47,7 @@ private:
 	static int followTimer;
 
 private:
-	const float speed = 5.0f;
+	const float speed = 6.0f;
 	
 };
 
