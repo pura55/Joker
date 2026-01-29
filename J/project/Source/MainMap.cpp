@@ -200,8 +200,8 @@ MainMap::MainMap(int stage)
 			if (r < SpawnRate)
 			{
 				// 出現候補座標（タイル単位）
-				int spawnX[] = { 5, 6, 7, 8 };
-				int spawnY[] = { 5, 6, 7, 8 };
+				int spawnX[] = { 5, 6, 10, 11 };
+				int spawnY[] = { 5, 6, 10, 11 };
 
 				//出現場所候補最大値
 				int count = sizeof(spawnX) / sizeof(spawnX[0]);
