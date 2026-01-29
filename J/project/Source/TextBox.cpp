@@ -91,7 +91,6 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
-					
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
