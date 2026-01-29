@@ -13,6 +13,7 @@ public:
 	void FadeIn(float sec);
 	//フェードアウト
 	void FadeOut(float sec);
+	void FadeOutToIn(float sec);
 	bool Finished();
 	void SetColor(int r, int g, int b);
 
@@ -27,4 +28,5 @@ private:
 	float time;
 	float now;
 	bool rigor;
+	bool OutIn;
 };

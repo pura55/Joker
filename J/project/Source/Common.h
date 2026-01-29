@@ -28,7 +28,8 @@ public:
 	//void StopOpenDoorSound();//ドアを開けるジングルを停止
 	void PlayClearMusic(); //クリアBGMを再生
 	void StopClearMusic(); //クリアBGMを停止
-	void PlayProJingle(); //クリアBGMを再生
+	void PlayProJingle(); //プロローグジングルを再生
+	void StopProJingle(); //プロローグジングルを停止
 
 public://setter
 	void SetLagIn_W()

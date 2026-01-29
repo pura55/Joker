@@ -202,3 +202,8 @@ void Common::PlayProJingle()
 {
 	PlaySoundMem(PRO_JINGLE, DX_PLAYTYPE_BACK);
 }
+
+void Common::StopProJingle()
+{
+	StopSoundMem(PRO_JINGLE);
+}

@@ -110,7 +110,9 @@ void TextBox::Update()
 			{
 				if (CheckHitKey(KEY_INPUT_SPACE))
 				{
+					
 					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					fader->FadeOutToIn(4.0f);
 					MainState = TextBox_State::STATE_END;
 					TalkState = TextBox_State::STATE_END;
 					common->SetLagIn_T();

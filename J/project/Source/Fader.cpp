@@ -12,6 +12,7 @@ Fader::Fader()
 	now = 0;
 	rgb = 0; // 黒
 	rigor = true;
+	OutIn = false;
 }
 
 Fader::~Fader()
@@ -33,6 +34,14 @@ void Fader::Update()
 		alpha = endAlpha;
 	}
 	
+	//アウトインを同時に
+	if (OutIn)
+	{
+		if (time <= now)
+		{
+			FadeIn(time);
+		}
+	}
 }
 
 void Fader::Draw()
@@ -48,6 +57,7 @@ void Fader::FadeIn(float sec)
 	endAlpha = 0;
 	time = sec;
 	now = 0;
+	OutIn = false;
 }
 	
 
@@ -57,6 +67,16 @@ void Fader::FadeOut(float sec)
 	endAlpha = 255;
 	time = sec;
 	now = 0;
+	OutIn = false;
+}
+
+void Fader::FadeOutToIn(float sec)
+{
+	startAlpha = 0;
+	endAlpha = 255;
+	time = sec;
+	now = 0;
+	OutIn = true;
 }
 
 bool Fader::Finished()
