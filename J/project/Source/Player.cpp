@@ -253,3 +253,15 @@ bool Player::IsHit(float ex, float ey)
 	}
 	return false;
 }
+
+bool Player::BossIsHit(float ex, float ey)
+{
+	float dx = PlayerX - ex;
+	float dy = PlayerY - ey;
+	float sum = sqrt(dx * dx + dy * dy);
+	if (sum < 80)
+	{
+		return true;
+	}
+	return false;
+}
