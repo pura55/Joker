@@ -21,7 +21,7 @@ void GameOverScene::Update()
 	}
 
 	Blinkcount++;
-	if (Blinkcount > 120)
+	if (Blinkcount > 90)
 	{
 		Blinkcount = 0;
 	}
@@ -31,7 +31,7 @@ void GameOverScene::Draw()
 {
 	DrawGraph(0, 0, GameOverBg, TRUE);
 	DrawString(0, 0, "GAME OVER SCENE", GetColor(255, 255, 255));
-	if (Blinkcount > 60)
+	if (Blinkcount < 60)
 	{
 		SetFontSize(60);
 		DrawString(600, 500, "Push [O]Key To Title", GetColor(255, 255, 255));

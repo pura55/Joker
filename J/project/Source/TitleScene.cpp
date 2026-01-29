@@ -55,7 +55,7 @@ void TitleScene::Update()
 		SceneManager::Exit();
 	}
 	Blinkcount++;
-	if (Blinkcount > 120)
+	if (Blinkcount > 90)
 	{
 		Blinkcount = 0;
 	}
@@ -69,7 +69,7 @@ void TitleScene::Draw()
 	DrawString(0, 0, "TITLE SCENE", GetColor(255, 255, 255));
 	DrawGraph(0, 0, TitleBg, TRUE);
 	//DrawFormatString(100, 100, GetColor(255,255,255), "%4.1f", 1.0f / Time::DeltaTime()); //時間経過表してるファイル
-	if (Blinkcount > 60)
+	if (Blinkcount < 60)
 	{
 		SetFontSize(60);
 		DrawString(600, 500, "Push [SPACE] To Play ", GetColor(255, 255, 255));
