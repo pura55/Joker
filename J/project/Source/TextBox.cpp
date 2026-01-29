@@ -46,7 +46,7 @@ void TextBox::Update()
 	//ナポ問題ミス時敵召喚
 	if (CheckState == Extra_Check::STATE_EXTRA_TRUE)
 	{
-		DrawString(100, 675, "ナポエネミーTRUE", GetColor(255, 255, 255));
+		//DrawString(100, 675, "ナポエネミーTRUE", GetColor(255, 255, 255));
 		Spawntimer++;
 		if (Spawntimer == 20)
 		{
@@ -60,7 +60,7 @@ void TextBox::Update()
 
 	if (CheckState == Extra_Check::STATE_EXTRA_FALSE)
 	{
-		DrawString(100, 675, "ナポエネミーFALSE", GetColor(255, 255, 255));
+		//DrawString(100, 675, "ナポエネミーFALSE", GetColor(255, 255, 255));
 	}
 
 	Player* player = FindGameObject<Player>();

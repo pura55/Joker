@@ -417,30 +417,30 @@ MainMap::~MainMap()
 void MainMap::Update()
 {
 	if (currentState == EnemyState::Chase) {
-		DrawString(100, 700, "chase", GetColor(255, 255, 255));
+		//DrawString(100, 700, "chase", GetColor(255, 255, 255));
 		Chasetimer++;                // カウント
 		if (Chasetimer > 900) {      // 15秒後 (60FPS想定)
 			currentState = EnemyState::Interval;
 			Chasetimer = 0;          // タイマーリセット
-			DrawString(100, 700, "interval1", GetColor(255, 0, 0));
+			//DrawString(100, 700, "interval1", GetColor(255, 0, 0));
 		}
 	}
 	if (currentState == EnemyState::Interval) {
-		DrawString(100, 700, "interval2", GetColor(255, 255, 255));
+		//DrawString(100, 700, "interval2", GetColor(255, 255, 255));
 		Intervaltimer++;                // カウント
 		if (Intervaltimer > 1200) {      // 10秒後 (60FPS想定)
 			currentState = EnemyState::Idle;
 			Intervaltimer = 0;          // タイマーリセット
-			DrawString(100, 700, "idle", GetColor(255, 0, 0));
+			//DrawString(100, 700, "idle", GetColor(255, 0, 0));
 		}
 	}
 	if (PriState == PrincipalCheck::True)
 	{
-		DrawString(100, 650, "ムキムキエネミーTRUE", GetColor(255, 255, 255));
+		//DrawString(100, 650, "ムキムキエネミーTRUE", GetColor(255, 255, 255));
 	}
 	if (PriState == PrincipalCheck::False)
 	{
-		DrawString(100, 650, "ムキムキエネミーFALSE", GetColor(255, 255, 255));
+		//DrawString(100, 650, "ムキムキエネミーFALSE", GetColor(255, 255, 255));
 	}
 
 	if (OfficeEnemytimer <= 70)
