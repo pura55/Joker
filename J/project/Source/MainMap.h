@@ -22,6 +22,7 @@ public:
 	bool Warp(int Px, int Py);//ワープポイントの関数
 	void AppearBoss(int Px, int Py);
 	void ResetEnemyState();
+	void Appear();
 
 public://getter
     int GetScrollX() const { return scrollX; }

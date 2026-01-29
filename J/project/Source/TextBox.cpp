@@ -4,6 +4,7 @@
 #include "Fader.h"
 #include "Enemy.h"
 #include "Common.h"
+#include "MainMap.h"
 #include <assert.h>
 #include <vector>
 
@@ -20,7 +21,7 @@ TextBox::TextBox()
 	MainState = TextBox_State::STATE_PRO;
 	TalkState = TextBox_State::STATE_STRING_1;
 	proEnd = false;
-	False = false;
+	ExFalse = false;
 
 	//FindGameObject
 	common = FindGameObject<Common>();
@@ -43,7 +44,7 @@ TextBox::~TextBox()
 
 void TextBox::Update()
 {
-
+	MainMap* mainmap = FindGameObject<MainMap>();
 	Player* player = FindGameObject<Player>();
 	//mainStateがEND以外だったらプレイヤーの動きを止める
 	if (MainState != TextBox_State::STATE_END)//trueとfalseの衝突を防ぐ
@@ -325,6 +326,7 @@ void TextBox::Update()
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
 			{
+				mainmap->Appear();
 				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
@@ -928,16 +930,14 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			False = true;
-			common->PlayHellMusic();
+			ExFalse = true;
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_2))//不正解
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			False = true;
-			common->PlayHellMusic();
+			ExFalse = true;
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_3))//正解
@@ -950,8 +950,7 @@ void TextBox::QuestionExtra()
 		{
 			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
-			False = true;
-			common->PlayHellMusic();
+			ExFalse = true;
 			common->SetLagIn_T();
 		}
 	}

@@ -148,13 +148,12 @@ public://setter
 	void SetEscapeText() { MainState = TextBox_State::STATE_ESCAPE_TIME; }
 
 public:
-	bool GetFalse() const { return False; }
-
+	bool GetExFalse() const { return ExFalse; }
 
 private://•Ï”
 	int BoxImage;//map‚Ì•`‰æ•Ï”
 	bool proEnd;
-	bool False;
+	bool ExFalse;
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");

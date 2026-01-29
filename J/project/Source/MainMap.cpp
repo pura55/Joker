@@ -591,11 +591,12 @@ void MainMap::Update()
 
 	TextBox* textBox = FindGameObject<TextBox>();
 
-	if (textBox->GetFalse())
+	if (textBox->GetExFalse())
 	{
 		Spawntimer++;
 		if (Spawntimer == 20)
 		{
+			common->PlayHellMusic();
 			Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
 			enemies.push_back(e1);
 			Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
@@ -3738,4 +3739,32 @@ void MainMap::ResetEnemyState()
 	Intervaltimer = 0;
 	OfficeEnemytimer = 0;
 	Principaltimer = 0;
+}
+
+void MainMap::Appear()
+{
+	Common* common = FindGameObject<Common>();
+	switch(StageNum)
+	{
+	case 2:
+		new Enemy(19 * BgSize, 18 * BgSize);
+		currentState = EnemyState::Chase;
+		common->PlayHeavenMusic();
+		break;
+	case 5:
+		new Enemy(5 * BgSize, 18 * BgSize);
+		currentState = EnemyState::Chase;
+		common->PlayHeavenMusic();
+		break;
+	case 102:
+		new Enemy(20 * BgSize, 3 * BgSize + 16);
+		currentState = EnemyState::Chase;
+		common->PlayHeavenMusic();
+		break;
+	case 201:
+		new Enemy(5 * BgSize, 3 * BgSize + 16);
+		currentState = EnemyState::Chase;
+		common->PlayHeavenMusic();
+		break;
+	}
 }
