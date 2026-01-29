@@ -30,7 +30,6 @@ void GameOverScene::Update()
 void GameOverScene::Draw()
 {
 	DrawGraph(0, 0, GameOverBg, TRUE);
-	DrawString(0, 0, "GAME OVER SCENE", GetColor(255, 255, 255));
 	if (Blinkcount < 60)
 	{
 		SetFontSize(60);

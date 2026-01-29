@@ -77,7 +77,6 @@ void ClearScene::Draw()
 		break;
 	case STATE::CLEAR:
 		DrawGraph(0, 0, ClearBg, TRUE);
-		DrawString(0, 0, "CLEAR SCENE", GetColor(255, 255, 255));
 		if (Blinkcount < 60)
 		{
 			SetFontSize(60);
