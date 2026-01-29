@@ -79,7 +79,7 @@ public:
 	int warpOutX = 0;
 	int warpOutY = 0;
 	bool appear;
-	int SpawnRate = 0;//敵の出現確率　今のところ40
+	int SpawnRate = 70;//敵の出現確率　今のところ70
 
 public://！用の変数
 	int MarkX_Q = 0;
