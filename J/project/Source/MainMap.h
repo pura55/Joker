@@ -35,32 +35,33 @@ public://getter
 
 
 private://画像
-	int GoldBoss;//像
-	int FloorImage;//相沢お手製の床壁諸々
-	int ArtImage;//アート系
-	int BodyModelImage;//人体模型
-	int ChoiceImage;//文字出るところ
-	int MusicImage;//音楽系
-	int PianoImage;//ピアノ
-	int Pierrot2;//ピアノの椅子とか
-	int ChairImage;//よさげな椅子
-	int SofaImage;//よさげなソファ
-	int STImage1;//教室系
-	int STImage2;//教室系
-	int STImage3;//教室系
-	int STImage4;//教室系
-	int STImage5;//教室系
-	int STImage6;//教室系
-	int STImage7;//教室系
-	int STImage8;//教室系
+	int GoldBoss;           //像
+	int FloorImage;         //相沢お手製の床壁諸々
+	int ArtImage;           //アート系
+	int BodyModelImage;     //人体模型
+	int ChoiceImage;        //文字出るところ
+	int MusicImage;         //音楽系
+	int PianoImage;         //ピアノ
+	int Pierrot2;           //ピアノの椅子とか
+	int ChairImage;         //よさげな椅子
+	int SofaImage;           //よさげなソファ
+	int STImage1;           //教室系
+	int STImage2;           //教室系
+	int STImage3;           //教室系
+	int STImage4;           //教室系
+	int STImage5;           //教室系
+	int STImage6;           //教室系
+	int STImage7;           //教室系
+	int STImage8;           //教室系
 	int ScienceChairImage;
-	int LockerImage;//ロッカー
+	int LockerImage;         //ロッカー
 	int ScienceTableImage;
-	int STChairImage;//机椅子
+	int STChairImage;        //机椅子
 	int StaffChairImage;
-	int ExtentionImage;//！マーク
-	int NapoImage;//ナポリタンの画像
-	int DoorImage;//屋上ドア
+	int ExtentionImage;      //！マーク
+	int NapoImage;           //ナポリタンの画像
+	int DoorImage;           //屋上ドア
+	int trashImage;          //ゴミ箱
 
 private://sound
 	const int NEXT_TEXT_SOUND = LoadSoundMem("data/sound/Nexttext.mp3");

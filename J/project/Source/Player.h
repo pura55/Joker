@@ -18,7 +18,7 @@ public:
 	void SetPlay(bool flag = true) { onPlay = flag; }
 	//敵との当たり判定
 	bool IsHit(float ex, float ey);
-	bool BossIsHit(float ex, float ey);
+	bool BossIsHit(float ex1, float ey1, float ex2, float ey2);
 
 public://getter
 	//座標を取得
@@ -37,6 +37,7 @@ private:
 	float PlayerX; //プレイヤーのX座標
 	float PlayerY; //プレイヤーのY座標
 	bool onPlay; //プレイ中のフラッグ
+	bool isHit;
 
 private://sound
 	//歩く効果音

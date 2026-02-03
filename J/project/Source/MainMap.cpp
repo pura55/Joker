@@ -409,6 +409,7 @@ MainMap::~MainMap()
 	DeleteGraph(StaffChairImage);
 	DeleteGraph(ExtentionImage);
 	DeleteGraph(NapoImage);
+	DeleteGraph(DoorImage);
 	DeleteGraph(trashImage);
 	//âπê∫
 	DeleteSoundMem(NEXT_TEXT_SOUND);
@@ -416,6 +417,7 @@ MainMap::~MainMap()
 	DeleteSoundMem(KEY_UNROCK_SOUND);
 	DeleteSoundMem(DOOR_OPEN_ONE_SOUND);
 	DeleteSoundMem(DOOR_OPEN_TWO_SOUND);
+	DeleteSoundMem(BOOK_OPEN_SOUND);
 }
 
 void MainMap::Update()

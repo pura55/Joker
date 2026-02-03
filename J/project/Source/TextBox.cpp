@@ -1070,13 +1070,13 @@ void TextBox::QuestionExtra_2()
 		}
 		if (CheckHitKey(KEY_INPUT_2))//³‰ð
 		{
-			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
 		}
 		if (CheckHitKey(KEY_INPUT_3))//•s³‰ð
 		{
-			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
+			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_FALSE;
 			common->SetLagIn_T();
 			ExFalse = true;

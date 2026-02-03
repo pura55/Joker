@@ -64,7 +64,7 @@ void Principal::Update()
 		return;
 	}
 
-	if (player->BossIsHit(BossX + 192/2, BossY + 256/2))
+	if (player->BossIsHit(BossX + 32, BossY + 32, BossX + 192 - 32, BossY + 256 - 32))
 	{
 		gameManager->SetGameOver();
 		fader->FadeOut(1.0f);
@@ -76,8 +76,8 @@ void Principal::Update()
 	VECTOR3 pPos = player->GetPosition();
 	MainMap* ObjectHit = FindGameObject<MainMap>();
 
-	float dx = pPos.x - BossX + 192/2;
-	float dy = pPos.y - BossY + 256/2;
+	float dx = pPos.x - (BossX + 192/2);
+	float dy = pPos.y - (BossY + 256/2);
 
 	float moveX = 0.0f;
 	float moveY = 0.0f;
