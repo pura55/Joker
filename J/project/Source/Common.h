@@ -25,6 +25,7 @@ public:
 	void StopWalkSound();    //プレイヤーwalk用ジングルを停止
 	void PlayOpenDoorSound();//ドアを開けるジングルを再生
 	void PlayStartSound();//スタートジングルを再生
+	void PlayAppearJingle();
 	//void StopOpenDoorSound();//ドアを開けるジングルを停止
 	void PlayClearMusic(); //クリアBGMを再生
 	void StopClearMusic(); //クリアBGMを停止
@@ -86,6 +87,8 @@ private:
 	const int CLEAR_MUSIC = LoadSoundMem("data/sound/clearmusic.mp3");
 	//ProJingle
 	const int PRO_JINGLE = LoadSoundMem("data/sound/chime.mp3");
+	//Appear
+	const int APPEAR_JINGLE = LoadSoundMem("data/sound/appearboss.mp3");
 public:
 	void SetWarpOut(int x, int y) {
 		warpOutX = x; warpOutY = y;

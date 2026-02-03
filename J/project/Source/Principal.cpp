@@ -42,10 +42,10 @@ void Principal::Update()
 	if (common->GetFirstMove())
 	{
 		player->SetPlay(false);
-		if (BossY >= 300.0f)//中心まで行ったら静止
+		if (BossY <= 350.0f)//中心まで行ったら静止
 		{
-			BossY -= speed;
-			DirChara = 2;
+			BossY += speed;
+			DirChara = 0;
 			Xdir = 0;
 
 			MovementsCount += 1; //キャラクターの動作の処理

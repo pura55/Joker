@@ -91,6 +91,7 @@ MainMap::MainMap(int stage)
 	ExtentionImage = LoadGraph("data/image/ExBg.png");
 	NapoImage = LoadGraph("data/image/napo2.png");//ÉiÉ|
 	DoorImage = LoadGraph("data/image/door2.png");//âÆè„ÉhÉA
+	trashImage = LoadGraph("data/image/trash.png");//ÉSÉ~î†
 	//new Enemy();
 
 	Common* common = FindGameObject<Common>();
@@ -408,6 +409,7 @@ MainMap::~MainMap()
 	DeleteGraph(StaffChairImage);
 	DeleteGraph(ExtentionImage);
 	DeleteGraph(NapoImage);
+	DeleteGraph(trashImage);
 	//âπê∫
 	DeleteSoundMem(NEXT_TEXT_SOUND);
 	DeleteSoundMem(KEY_ROCK_SOUND);
@@ -457,7 +459,7 @@ void MainMap::Update()
 	float px = player->GetPlayerPositionX();
 	float py = player->GetPlayerPositionY();
 
-	if (keyManager->GetExKey())
+	if (keyManager->GetAboveKey())
 	{
 		if (common->GetFirstSpawn())
 		{
@@ -596,12 +598,24 @@ void MainMap::Update()
 		Spawntimer++;
 		if (Spawntimer == 20)
 		{
-			common->PlayHellMusic();
-			Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
-			enemies.push_back(e1);
-			Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
-			enemies.push_back(e2);
-			Spawntimer = 0;
+			if (StageNum = 2)
+			{
+				common->PlayHellMusic();
+				Enemy* e1 = new Enemy(13 * 64, 3 * 64 + 16);
+				enemies.push_back(e1);
+				Enemy* e2 = new Enemy(14 * 64, 3 * 64 + 16);
+				enemies.push_back(e2);
+				Spawntimer = 0;
+			}
+			else if (StageNum = 4)
+			{
+				common->PlayHellMusic();
+				Enemy* e1 = new Enemy(8 * 64, 3 * 64 + 16);
+				enemies.push_back(e1);
+				Enemy* e2 = new Enemy(9 * 64, 3 * 64 + 16);
+				enemies.push_back(e2);
+				Spawntimer = 0;
+			}
 		}
 	}
 
@@ -667,7 +681,33 @@ void MainMap::Update()
 			}
 		}
 		break;
-
+	case 4://çZí∑é∫
+		MarkX_Q = 64 * 9 + 20;
+		MarkY_Q = 64 * 13 + 16;
+		if (keyManager->GetAboveKey())
+		{
+			ExFlag_Q = false;
+		}
+		else if(keyManager->GetExKey() && !keyManager->GetAboveKey())
+		{
+			ExFlag_Q = true;
+			if (fabs((px + 32) - (MarkX_Q + 12)) < 80 && fabs((py + 48) - (MarkY_Q + 12)) < 80)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							PlaySoundMem(BOOK_OPEN_SOUND, DX_PLAYTYPE_BACK);
+							textBox->SetAbove();//âÆè„ÇÃåÆ(ê^)
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~	
+						}
+					}
+				}
+			}
+		}
+		break;
 	case 5://âπäyé∫
 		MarkX_Q = 64 * 11 + 19;
 		MarkY_Q = 64 * 6;
@@ -837,15 +877,36 @@ void MainMap::Update()
 		break;
 
 	case 4://çZí∑é∫
-		MarkX_Another = 64 * 8 + 20;
-		MarkY_Another = 64 * 13 + 4;
-		if (keyManager->GetExKey())
+		if (keyManager->GetExKey() && keyManager->GetAboveKey())
 		{
 			ExFlag_Another = false;
+		}
+		else if (keyManager->GetExKey() && !keyManager->GetAboveKey())
+		{
+			ExFlag_Another = true;
+			MarkX_Another = 64 * 3 + 20;
+			MarkY_Another = 64 * 11 + 16;
+			if (fabs((px + 32) - (MarkX_Another + 12) < 128)&& fabs((py + 48) - (MarkY_Another +12) < 128))
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							textBox->SetKeyHint();//âΩÇ‡Ç»Ç¢
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
 		}
 		else
 		{
 			ExFlag_Another = true;
+			MarkX_Another = 64 * 8 + 20;
+			MarkY_Another = 64 * 13 + 4;
 			if (fabs((px + 32) - (MarkX_Another + 12)) < 80 && fabs((py + 48) - (MarkY_Another + 12)) < 80)
 			{
 				if (common->GetLagCheck())
@@ -856,6 +917,21 @@ void MainMap::Update()
 						{
 							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 							textBox->SetPri();//âΩÇ‡Ç»Ç¢
+							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
+						}
+					}
+				}
+			}
+			if (fabs((px + 32) - (MarkX_Another - (64 * 5) - 8)) < 128 && fabs((py + 48) - (MarkY_Another - (64 * 2) + 12)) < 128)
+			{
+				if (common->GetLagCheck())
+				{
+					if (player->GetPlay())
+					{
+						if (CheckHitKey(KEY_INPUT_SPACE))
+						{
+							PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+							textBox->SetKeyHint();//åÆÉqÉìÉg
 							common->SetLagIn_T();//òAë±âüÇµçûÇ›ñhé~
 						}
 					}
@@ -951,7 +1027,7 @@ void MainMap::Update()
 	case 3000:// âÆè„
 		MarkX_Another = 64 * 5 + 18;
 		MarkY_Another = 64 * 3;
-		if (keyManager->GetExKey())
+		if (keyManager->GetAboveKey())
 		{
 			ExFlag_Another = false;
 		}
@@ -982,7 +1058,7 @@ void MainMap::Update()
 		break;
 	}
 
-	if (keyManager->GetExKey())
+	if (keyManager->GetAboveKey())
 	{
 		if (StageNum == 3000)
 		{
@@ -1259,6 +1335,10 @@ void MainMap::Draw()
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 1, BgSize * 3, BgSize * 3, BgSize * 2, SofaImage, 1);
 			}
+			if (maps[y][x] == 530)//ÉSÉ~î†
+			{
+				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY - 24, BgSize * 0, BgSize * 0, BgSize * 1, BgSize * 1, trashImage, 1);
+			}
 			if (maps[y][x] == 2111)//çZí∑é∫ÉhÉAç∂è„
 			{
 				DrawRectGraph(BgSize * x - scrollX, BgSize * y - scrollY, BgSize * 1, BgSize * 4, BgSize, BgSize, FloorImage, 1);
@@ -1408,6 +1488,15 @@ void MainMap::Draw()
 		{
 			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExtentionImage, TRUE);
 		}
+		KeyManager* keyManager = FindGameObject<KeyManager>();
+
+		if (!keyManager->GetExKey() && !keyManager->GetAboveKey())
+		{
+			if (StageNum == 4)
+			{
+				DrawRectGraph(MarkX_Another - (64 * 5) - 20 - scrollX + 18, MarkY_Another - (64 * 2) - scrollY + 15, 0, 0, 24, 24, ExtentionImage, TRUE);
+			}
+		}
 		/*if (StageNum == 6)
 		{
 			DrawRectGraph(MarkX_Another - scrollX + (64 * 21) + 18, MarkY_Another - scrollY + (64 * 4) + 15, 0, 0, 24, 24, ExtentionImage, TRUE);
@@ -1430,7 +1519,7 @@ int MainMap::HitCheckRight(int Px, int Py) //âEÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
-		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
+		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39 || maps[y][x] == 530
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98||maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
@@ -1466,7 +1555,7 @@ int MainMap::HitCheckLeft(int Px, int Py)//âEÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
-		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
+		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39 || maps[y][x] == 530
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
@@ -1502,7 +1591,7 @@ int MainMap::HitCheckUp(int Px, int Py) //è„ÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */ || maps[y][x] == 54 || maps[y][x] == 55
-		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
+		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39 || maps[y][x] == 530
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
@@ -1538,7 +1627,7 @@ int MainMap::HitCheckDown(int Px, int Py) //â∫ÇÃìñÇΩÇËîªíË
 		|| maps[y][x] == 45 || maps[y][x] == 46 || maps[y][x] == 47 || maps[y][x] == 48 || maps[y][x] == 49
 		|| maps[y][x] == 61 //|| maps[y][x] == 65 || maps[y][x] == 66
 		|| maps[y][x] == 51 /* || maps[y][x] == 53 */|| maps[y][x] == 54 || maps[y][x] == 55
-		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39
+		|| maps[y][x] == 34 || maps[y][x] == 35 || maps[y][x] == 37 || maps[y][x] == 38 || maps[y][x] == 39 || maps[y][x] == 530
 		|| maps[y][x] == 85 || maps[y][x] == 87 || maps[y][x] == 89
 		|| maps[y][x] == 91 || maps[y][x] == 94 || maps[y][x] == 95 || maps[y][x] == 96 || maps[y][x] == 97 || maps[y][x] == 98 || maps[y][x] == 99
 		|| maps[y][x] == 5 || maps[y][x] == 6
@@ -3720,7 +3809,8 @@ void MainMap::AppearBoss(int Px, int Py)
 
 	if (maps[y][x] == 114514)
 	{
-		new Principal(320, 576);
+		common->PlayAppearJingle();
+		new Principal(5*64, 3*64);
 		common->SetFirstSpawn();
 		PriState = PrincipalCheck::True;
 		//common->PlayHeavenMusic();

@@ -18,6 +18,7 @@ enum class TextBox_State
 	STATE_SCIENCE,     //理科
 	STATE_SOCIETY,     //社会
 	STATE_EXTRA,       //特別問題
+	STATE_EXTRA_2,
 
 	//選択
 	STATE_DICIDE,      //はい・いいえ
@@ -27,6 +28,7 @@ enum class TextBox_State
 	STATE_MT_HINT,     //算数のヒント
 	STATE_SCI_HINT,    //理科のヒント
 	STATE_SOC_HINT,    //社会のヒント
+	STATE_KEY_HINT,    //屋上の鍵問題のヒント
 
 	//鍵
 	STATE_JP_KEY,      //国語の鍵
@@ -34,6 +36,7 @@ enum class TextBox_State
 	STATE_SCI_KEY,     //理科の鍵
 	STATE_SOC_KEY,     //社会の鍵
 	STATE_EX_KEY,      //特別問題の鍵
+	STATE_ABOVE_KEY,   //屋上の鍵(上)
 
 	//場所
 	STATE_CLASS_ROOM,   //教室
@@ -47,6 +50,7 @@ enum class TextBox_State
 	//案内
 	STATE_EX_GUIDE,    //特別問題の場所を示唆
 	STATE_ESCAPE_GUIDE,//屋上からの脱出を示唆
+	STATE_ESCAPE_GUIDE_TRUE,//屋上からの脱出を示唆(真実)
 
 	//脱出を止める
 	STATE_ESCAPE_WAIT,
@@ -83,6 +87,7 @@ public:
 	void QuestionScience();     //理科の問題判定
 	void QuestionSociety();     //社会の問題判定
 	void QuestionExtra();       //特別問題の正誤判定
+	void QuestionExtra_2();
 
 public://setter
 
@@ -119,12 +124,18 @@ public://setter
 		MainState = TextBox_State::STATE_DICIDE;
 		Q_AND_A = TextBox_State::STATE_EXTRA;
 	}
+	void SetAbove()
+	{
+		MainState = TextBox_State::STATE_DICIDE;
+		Q_AND_A = TextBox_State::STATE_EXTRA_2;
+	}
 
 	//ヒント
 	void SetJapaneseHint() { MainState = TextBox_State::STATE_JP_HINT; }//国語のヒントをセット
-	void SetMathHint() { MainState = TextBox_State::STATE_MT_HINT; }//算数のヒントをセット
-	void SetScienceHint() { MainState = TextBox_State::STATE_SCI_HINT; }//理科の問題をセット
-	void SetSocietyHint() { MainState = TextBox_State::STATE_SOC_HINT; }//社会の問題をセット
+	void SetMathHint() { MainState = TextBox_State::STATE_MT_HINT; }    //算数のヒントをセット
+	void SetScienceHint() { MainState = TextBox_State::STATE_SCI_HINT; }//理科のヒントセット
+	void SetSocietyHint() { MainState = TextBox_State::STATE_SOC_HINT; }//社会のヒントセット
+	void SetKeyHint() { MainState = TextBox_State::STATE_KEY_HINT; }    //屋上の鍵問題のヒント
 
 	//透かし
 	void SetArt() { MainState = TextBox_State::STATE_ART_ROOM; }//美術室
@@ -136,7 +147,11 @@ public://setter
 	}//校長室
 
 	//脱出口
-	void SetEscapeWait() { MainState = TextBox_State::STATE_ESCAPE_WAIT; }//屋上
+	void SetEscapeWait()
+	{
+		MainState = TextBox_State::STATE_ESCAPE_WAIT; 
+		TalkState = TextBox_State::STATE_STRING_1;
+	}//屋上
 
 	//校長発見時
 	void SetFindPri()

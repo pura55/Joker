@@ -11,6 +11,7 @@ KeyManager::KeyManager()
 	sciKey = false;
 	socKey = false;
 	exKey = false;
+	aboveKey = false;
 	subjectKey = false;
 
 	//ウィンドウの初期化
@@ -39,7 +40,6 @@ void KeyManager::Update()
 	if (showWindow)
 	{
 		player->SetPlay(false);
-
 	}
 	//4教科の回答を手に入れたとき
 	if (jpKey && mtKey && sciKey && socKey)
@@ -90,7 +90,7 @@ void KeyManager::Update()
 			{
 				SetFontSize(16);
 				//	showWindow = false;
-				if (exKey)
+				if (exKey && aboveKey)
 				{
 					state = WINDOW::STATE_TASK_FINISH;
 				}
@@ -130,7 +130,7 @@ void KeyManager::Draw()
 			{
 				DrawString(taskPosX, taskPosY + taskSpaceY * 4, "・屋上の鍵を盗む", RGB_EX, TRUE);
 			}
-			if (exKey)
+			if (exKey && aboveKey)
 			{
 				DrawString(taskPosX, taskPosY + taskSpaceY * 5, "・屋上から脱出する", RGB_ESC, TRUE);
 			}
@@ -168,13 +168,7 @@ void KeyManager::ChangeColor()
 	}
 
 	//屋上の鍵を回収済みの場合タスクを緑にする
-	if (exKey)
-	{
-		RGB_EX = GetColor(0, 255, 0);
-	}
-
-	//屋上の鍵を回収済みの場合タスクを緑にする
-	if (exKey)
+	if (exKey && aboveKey)
 	{
 		RGB_EX = GetColor(0, 255, 0);
 	}

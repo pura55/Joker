@@ -36,7 +36,7 @@ void GameOverScene::Draw()
 	if (Blinkcount < 60)
 	{
 		SetFontSize(60);
-		DrawString(600, 500, "Push [SPACE]Key To Title", GetColor(255, 255, 255));
+		DrawString(600, 500, "Push [SPACE] To Title", GetColor(255, 255, 255));
 	}
 	SetFontSize(16);
 }

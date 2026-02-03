@@ -25,11 +25,12 @@ public:
 	void Line();
 
 public://setter
-	void SetJpKey() { jpKey = true; }   //国語の回答が正解
-	void SetMtKey() { mtKey = true; }	//算数の回答が正解
-	void SetSciKey() { sciKey = true; }	//理科の回答が正解
-	void SetSocKey() { socKey = true; }	//社会の回答が正解
-	void SetExKey() { exKey = true; }	//特別問題の回答が正解
+	void SetJpKey() { jpKey = true; }        //国語の回答が正解
+	void SetMtKey() { mtKey = true; }	     //算数の回答が正解
+	void SetSciKey() { sciKey = true; }	     //理科の回答が正解
+	void SetSocKey() { socKey = true; }	     //社会の回答が正解
+	void SetExKey() { exKey = true; }	     //特別問題の回答が正解
+	void SetAboveKey() { aboveKey = true; }  //屋上の鍵(上)用の問題が正解
 
 public://getter
 	bool GetJpKey() const{ return jpKey; }
@@ -37,6 +38,7 @@ public://getter
 	bool GetSciKey() const{ return sciKey; }
 	bool GetSocKey() const{ return socKey; }
 	bool GetExKey() const { return exKey; }
+	bool GetAboveKey() const { return aboveKey; }
 	bool GetSbjectKey() const { return subjectKey; }
 
 private:
@@ -46,6 +48,7 @@ private:
 	bool sciKey;     //理科の鍵
 	bool socKey;     //社会の鍵
 	bool exKey;	     //特別問題の鍵
+	bool aboveKey;   //屋上の鍵(上)
 	bool subjectKey; //4教科の鍵
 
 	bool showWindow; //ウィンドウを表示する

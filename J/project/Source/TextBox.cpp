@@ -20,6 +20,7 @@ TextBox::TextBox()
 	//変数初期化
 	MainState = TextBox_State::STATE_PRO;
 	TalkState = TextBox_State::STATE_STRING_1;
+	Q_AND_A = TextBox_State::STATE_END;
 	proEnd = false;
 	ExFalse = false;
 
@@ -138,6 +139,12 @@ void TextBox::Update()
 			QuestionExtra();
 		}
 		break;
+	case TextBox_State::STATE_EXTRA_2:
+		if (common->GetLagCheck())
+		{
+			QuestionExtra_2();
+		}
+		break;
 	case TextBox_State::STATE_DICIDE://yes,no
 		if (common->GetLagCheck())
 		{
@@ -166,6 +173,9 @@ void TextBox::Update()
 					MainState = TextBox_State::STATE_EXTRA;
 					common->SetLagIn_T();
 					break;
+				case TextBox_State::STATE_EXTRA_2:
+					MainState = TextBox_State::STATE_EXTRA_2;
+					common->SetLagIn_T();
 				}
 			}
 			else if (CheckHitKey(KEY_INPUT_2))
@@ -221,6 +231,17 @@ void TextBox::Update()
 			}
 		}
 		break;
+	case TextBox_State::STATE_KEY_HINT://鍵ヒント
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
+			}
+		}
+		break;
 	case TextBox_State::STATE_CLASS_ROOM://すかし
 		if (common->GetLagCheck())
 		{
@@ -244,13 +265,45 @@ void TextBox::Update()
 		}
 		break;
 	case TextBox_State::STATE_ESCAPE_WAIT://屋上の扉
-		if (common->GetLagCheck())
+		if (keyManager->GetExKey())
 		{
-			if (CheckHitKey(KEY_INPUT_SPACE))
+			switch (TalkState)
 			{
-				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
-				MainState = TextBox_State::STATE_END;
-				common->SetLagIn_T();
+			case TextBox_State::STATE_STRING_1:
+				if (common->GetLagCheck())
+				{
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+						TalkState = TextBox_State::STATE_STRING_2;
+						common->SetLagIn_T();
+					}
+				}
+				break;
+			case TextBox_State::STATE_STRING_2:
+				if (common->GetLagCheck())
+				{
+					if (CheckHitKey(KEY_INPUT_SPACE))
+					{
+						PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+						MainState = TextBox_State::STATE_END;
+						TalkState = TextBox_State::STATE_END;
+						common->SetLagIn_T();
+					}
+				}
+				break;
+			}
+		}
+		else
+		{
+			if (common->GetLagCheck())
+			{
+				if (CheckHitKey(KEY_INPUT_SPACE))
+				{
+					PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+					MainState = TextBox_State::STATE_END;
+					common->SetLagIn_T();
+				}
 			}
 		}
 		break;
@@ -300,6 +353,11 @@ void TextBox::Update()
 					MainState = TextBox_State::STATE_EX_KEY;
 					common->SetLagIn_T();
 					break;
+				case TextBox_State::STATE_EXTRA_2:
+					keyManager->SetAboveKey();
+					MainState = TextBox_State::STATE_ABOVE_KEY;
+					common->SetLagIn_T();
+					break;
 				}
 			}
 		}
@@ -313,8 +371,6 @@ void TextBox::Update()
 				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
 				MainState = TextBox_State::STATE_END;
 				common->SetLagIn_T();
-				/*GameManager* GM = FindGameObject<GameManager>();
-				GM->SetGameOver();*/
 			}
 		}
 		break;
@@ -409,6 +465,17 @@ void TextBox::Update()
 			}
 		}
 		break;
+	case TextBox_State::STATE_ABOVE_KEY://屋上の鍵をゲット(真実）
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+				MainState = TextBox_State::STATE_ESCAPE_GUIDE_TRUE;
+				common->SetLagIn_T();
+			}
+		}
+		break;
 	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
 		switch (TalkState)
 		{
@@ -442,6 +509,17 @@ void TextBox::Update()
 		}
 		break;
 	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
+		if (common->GetLagCheck())
+		{
+			if (CheckHitKey(KEY_INPUT_SPACE))
+			{
+				PlaySoundMem(NEXT_TEXT_SOUND, DX_PLAYTYPE_BACK);
+				MainState = TextBox_State::STATE_END;
+				common->SetLagIn_T();
+			}
+		}
+		break;
+	case TextBox_State::STATE_ESCAPE_GUIDE_TRUE://屋上からの脱出を示唆(真実)
 		if (common->GetLagCheck())
 		{
 			if (CheckHitKey(KEY_INPUT_SPACE))
@@ -550,6 +628,13 @@ void TextBox::Update()
 
 void TextBox::Draw()
 {
+	Fader* fader = FindGameObject<Fader>();
+	if (!fader->GetRigor())
+	{
+		return;
+	}
+
+	KeyManager* keyManager = FindGameObject<KeyManager>();
 	//問題の出力判定
 	switch (MainState)
 	{
@@ -617,6 +702,14 @@ void TextBox::Draw()
 		DrawString(550, 570 + 16 * 3, "３．ナポリタン", GetColor(255, 255, 255), 1);
 		DrawString(550, 570 + 16 * 4, "４．赤飯", GetColor(255, 255, 255), 1);
 		break;
+	case TextBox_State::STATE_EXTRA_2:
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(500, 570, "校長先生の嫌いな食べ物は", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 1, "１．パセリ", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 2, "２．冷やし中華", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 3, "３．たらこ", GetColor(255, 255, 255), 1);
+		DrawString(550, 570 + 16 * 4, "４．コーヒー", GetColor(255, 255, 255), 1);
+		break;
 	case TextBox_State::STATE_DICIDE://はい・いいえ
 		switch (Q_AND_A)
 		{
@@ -650,6 +743,12 @@ void TextBox::Draw()
 			DrawString(600, 570 + 16 * 1, "１．はい", GetColor(255, 255, 255), 1);
 			DrawString(600, 570 + 16 * 2, "２．いいえ", GetColor(255, 255, 255), 1);
 			break;
+		case TextBox_State::STATE_EXTRA_2:
+			DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+			DrawString(550, 570, "最終問題に挑戦しますか？", GetColor(255, 255, 255), 1);
+			DrawString(600, 570 + 16 * 1, "１．はい", GetColor(255, 255, 255), 1);
+			DrawString(600, 570 + 16 * 2, "２．いいえ", GetColor(255, 255, 255), 1);
+			break;
 		}
 		break;
 	case TextBox_State::STATE_JP_HINT://国語のヒント
@@ -678,13 +777,34 @@ void TextBox::Draw()
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(450, 580, "「机を探した...　しかしなにもなかった」", GetColor(255, 255, 255), 1);
 		break;
-	case TextBox_State::STATE_ESCAPE_WAIT:
-		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
-		DrawString(450, 580, "「屋上の扉は固く閉ざされている」", GetColor(255, 255, 255), 1);
+	case TextBox_State::STATE_ESCAPE_WAIT://扉がしまってる
+		if (keyManager->GetExKey())
+		{
+			switch (TalkState)
+			{
+			case TextBox_State::STATE_STRING_1:
+				DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+				DrawString(450, 580, "「鍵が鍵穴に合わない...」", GetColor(255, 255, 255), 1);
+				break;
+			case TextBox_State::STATE_STRING_2 :
+				DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+				DrawString(450, 580, "「まさか！？　校長が隠して,,,？」", GetColor(255, 255, 255), 1);
+				break;
+			}
+		}
+		else
+		{
+			DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+			DrawString(450, 580, "「屋上の扉は固く閉ざされている」", GetColor(255, 255, 255), 1);
+		}
 		break;
 	case TextBox_State::STATE_PRINCIPAL_OFFICE://ナポ
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(450, HintY, "「ナポリタンが...  ナポい気分になってきた...」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_KEY_HINT://鍵ヒント
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(450, HintY, "「ゴミ箱の中に冷やし中華が...」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_TRUE://正解
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -710,10 +830,15 @@ void TextBox::Draw()
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(490, HintY, "「社会の回答を手に入れた！」", GetColor(255, 255, 255), 1);
 		break;
-	case TextBox_State::STATE_EX_KEY://屋上の鍵をゲット
+	case TextBox_State::STATE_EX_KEY://屋上の鍵(下)をゲット
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(490, HintY, "「屋上の鍵？を手に入れた！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_ABOVE_KEY://屋上の鍵(上)をゲット
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(490, HintY, "「屋上の鍵を手に入れた！」", GetColor(255, 255, 255), 1);
 		break;
+
 	case TextBox_State::STATE_EX_GUIDE://特別問題の場所を示唆
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		switch (TalkState)
@@ -731,6 +856,10 @@ void TextBox::Draw()
 	case TextBox_State::STATE_ESCAPE_GUIDE://屋上からの脱出を示唆
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
 		DrawString(480, HintY, "「屋上へ向かって脱出しよう！」", GetColor(255, 255, 255), 1);
+		break;
+	case TextBox_State::STATE_ESCAPE_GUIDE_TRUE://屋上からの脱出を示唆(真実)
+		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
+		DrawString(480, HintY, "「今度こそ屋上から脱出できるだろう!」", GetColor(255, 255, 255), 1);
 		break;
 	case TextBox_State::STATE_FIND_PRINCIPAL://校長発見時
 		DrawRectGraph(BoxPosX, BoxPosY, 0, 0, 599, 180, BoxImage, 1);
@@ -917,6 +1046,40 @@ void TextBox::QuestionExtra()
 			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
 			MainState = TextBox_State::STATE_TRUE;
 			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_4))//不正解
+		{
+			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
+			MainState = TextBox_State::STATE_FALSE;
+			ExFalse = true;
+			common->SetLagIn_T();
+		}
+	}
+}
+
+void TextBox::QuestionExtra_2()
+{
+	if (common->GetLagCheck())
+	{
+		if (CheckHitKey(KEY_INPUT_1))//不正解
+		{
+			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
+			MainState = TextBox_State::STATE_FALSE;
+			ExFalse = true;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_2))//正解
+		{
+			PlaySoundMem(QUESTION_WRONG_SOUND, DX_PLAYTYPE_BACK);
+			MainState = TextBox_State::STATE_TRUE;
+			common->SetLagIn_T();
+		}
+		if (CheckHitKey(KEY_INPUT_3))//不正解
+		{
+			PlaySoundMem(QUESTION_CORRECT_SOUND, DX_PLAYTYPE_BACK);
+			MainState = TextBox_State::STATE_FALSE;
+			common->SetLagIn_T();
+			ExFalse = true;
 		}
 		if (CheckHitKey(KEY_INPUT_4))//不正解
 		{
