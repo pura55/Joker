@@ -64,7 +64,7 @@ void Principal::Update()
 		return;
 	}
 
-	if (player->BossIsHit(BossX + 32, BossY + 32, BossX + 192 - 32, BossY + 256 - 32))
+	if (player->BossIsHit(BossX + 192 / 2, BossY + 256 / 2))
 	{
 		gameManager->SetGameOver();
 		fader->FadeOut(1.0f);

@@ -38,5 +38,5 @@ private:
 	float avoidTimer; //‰ñ”ğŠÔ
 
 private:
-	const float speed = 6.2f;
+	const float speed = 6.05f;
 };

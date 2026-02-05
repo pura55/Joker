@@ -53,7 +53,7 @@ void ClearScene::Update()
 		if (CheckHitKey(KEY_INPUT_O)) {
 			SceneManager::ChangeScene("TITLE");
 		}
-		if (CheckHitKey(KEY_INPUT_SPACE)) {
+		if (CheckHitKey(KEY_INPUT_T)) {
 			SceneManager::ChangeScene("TITLE");
 		}
 		break;
@@ -84,7 +84,7 @@ void ClearScene::Draw()
 		if (Blinkcount < 60)
 		{
 			SetFontSize(60);
-			DrawString(600, 500, "Push [SPACE] To Title", GetColor(255, 255, 255));
+			DrawString(600, 500, "Push [T] To Title", GetColor(255, 255, 255));
 			SetFontSize(16);
 		}
 		break;

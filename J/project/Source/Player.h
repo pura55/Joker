@@ -18,7 +18,7 @@ public:
 	void SetPlay(bool flag = true) { onPlay = flag; }
 	//“G‚Æ‚Ì“–‚½‚è”»’è
 	bool IsHit(float ex, float ey);
-	bool BossIsHit(float ex1, float ey1, float ex2, float ey2);
+	bool BossIsHit(float ex, float ey);
 
 public://getter
 	//À•W‚ğæ“¾

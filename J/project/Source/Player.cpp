@@ -254,18 +254,11 @@ bool Player::IsHit(float ex, float ey)
 	return false;
 }
 
-bool Player::BossIsHit(float ex1, float ey1, float ex2, float ey2)
+bool Player::BossIsHit(float ex, float ey)
 {
-	bool hitX = false;
-	bool hitY = false;
-
-	if (ex1 <= PlayerX && ex2 >= PlayerX )
-		hitX = true;
-	if (ey1 <= PlayerY && ey2 >= PlayerY)
-		hitY = true;
-	if (hitX && hitY)
-		isHit = true;
-	if (isHit)
+	float dx = (PlayerX + 64 / 2) - ex;
+	float dy = (PlayerY + 96 / 2) - ey;
+	if (fabs(dx) < 64 && fabs(dy) < 128)
 	{
 		return true;
 	}
