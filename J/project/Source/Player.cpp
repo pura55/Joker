@@ -12,16 +12,19 @@ Player::Player(int PX, int PY)//PX：プレイヤーのX座標　PY：プレイヤーのY座標
 	CharacterImage = LoadGraph("data/image/playerAt.png");
 	PlayerX = PX;
 	PlayerY = PY;
-	MovementsPattern = 0;
+	MovementsPattern = 1;
 	MovementsCount = 0;
 	DirChara = 2;
+	beforeDir = 2;
+	turnTimer = 0.0f;
+	turn = false;
 	onPlay = true;
 }
 
 Player::~Player() 
 {
 	DeleteGraph(CharacterImage);
-	DeleteGraph(PLAYER_WALK_SOUND);
+	//DeleteGraph(PLAYER_WALK_SOUND);
 }
 
 void Player::Update()
@@ -85,6 +88,8 @@ void Player::Update()
 	}
 	else
 	{
+		//歩いてないときは静止のモーション
+		MovementsPattern = 1;
 		//歩いてないときは効果音を止める
 		common->StopWalkSound();
 	}
@@ -151,7 +156,33 @@ void Player::MoveRight()
 	{
 		common->PlayWalkSound();
 	}
-	DirChara = 0;
+	if (beforeDir == 1)
+	{
+		//ターンをオンにする
+		turn = true;
+	}
+	
+	if (turn)
+	{
+		//ターンがオンになっているときは手前を向く
+		DirChara = 2;
+		//ターンタイマーを進める
+		turnTimer += Time::DeltaTime();
+	}
+	else
+	{
+		//ターンがないときは通常
+		DirChara = 0;
+	}
+	//ターンする時間が0.05秒過ぎたら
+	if (turnTimer >= 0.05f)
+	{
+		turn = false;
+		turnTimer = 0.0f;
+	}
+	//一つ前の動きを設定
+	beforeDir = 0;
+
 	PlayerX += speed; //座標を変数分ずらして移動する
 
 	MovementsCount += 1; //キャラクターの動作の処理
@@ -175,7 +206,30 @@ void Player::MoveLeft()
 	{
 		common->PlayWalkSound();
 	}
-	DirChara = 1;
+	
+	if (beforeDir == 0)
+	{
+		turn = true;
+	}
+	if (turn)
+	{
+		//ターンがオンになっているときは手前を向く
+		DirChara = 2;
+		//ターンタイマーを進める
+		turnTimer += Time::DeltaTime();
+	}
+	else
+	{
+		//ターンがないときは通常
+		DirChara = 1;
+	}
+	//ターンする時間が0.05秒過ぎたら
+	if (turnTimer >= 0.05f)
+	{
+		turn = false;
+		turnTimer = 0.0f;
+	}
+	beforeDir = 1;
 	PlayerX -= speed;
 
 	MovementsCount += 1;
@@ -201,6 +255,7 @@ void Player::MoveUp()
 		common->PlayWalkSound();
 	}
 	DirChara = 3;
+	beforeDir = 3;
 	PlayerY -= speed;
 
 	MovementsCount += 1;
@@ -225,6 +280,7 @@ void Player::MoveDown()
 		common->PlayWalkSound();
 	}
 	DirChara = 2;
+	beforeDir = 2;
 	PlayerY += speed; //座標を変数分ずらして移動する
 
 	MovementsCount += 1;

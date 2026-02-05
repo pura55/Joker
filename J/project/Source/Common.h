@@ -58,7 +58,7 @@ public:
 	float walkTime;//効果音を止める時間
 	float openTime;//効果音を止める時間
 	bool lagCheck;//spaceを連続でおさない
-	bool noDead;
+	//bool noDead;
 	bool playWalkFlag; //歩くサウンドの判定
 	bool playOpenFlag; //ドアを開けるサウンドの判定
 
